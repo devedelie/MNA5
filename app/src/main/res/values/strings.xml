@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyNews App</string>
+    <string name="app_name">My News</string>
     <!--Tab name-->
     <string name="tab_name_1">TOP STORIES</string>
     <string name="tab_name_2">MOST POPULAR</string>
