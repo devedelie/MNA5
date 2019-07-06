@@ -4,7 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1;
+import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment2;
+import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment3;
+import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment4;
 
 /**
  * Created by Eliran Elbaz on 06-Jul-19.
@@ -25,13 +28,13 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return Tab1Fragment.newInstance();
+                return TabFragment1.newInstance();
             case 1:
-                return Tab2Fragment.newInstance();
+                return TabFragment2.newInstance();
             case 2:
-                return Tab3Fragment.newInstance();
+                return TabFragment3.newInstance();
             case 3:
-                return Tab4Fragment.newInstance();
+                return TabFragment4.newInstance();
             default:
                 return null;
         }
