@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.elbaz.eliran.mynewsapp.R;
+
 /**
  * Created by Eliran Elbaz on 06-Jul-19.
  */

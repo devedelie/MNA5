@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyNews App</string>
+    <!--Tab name-->
+    <string name="tab_name_1">TOP STORIES</string>
+    <string name="tab_name_2">MOST POPULAR</string>
+    <string name="tab_name_3">TECH</string>
+    <string name="tab_name_4">SPORT</string>
 </resources>
