@@ -1,5 +1,6 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private Context mContext;
 
     // NYT API key
     protected static final String API_KEY = "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA";
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Context for the fragments
+        mContext = this;
 
         //1 - Configuring Toolbar
         this.configureToolbar();
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Navigation menu items declaration
+     * (Drawer)
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -55,10 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.activity_main_drawer_news :
+
                 break;
-            case R.id.activity_main_drawer_profile:
+            case R.id.activity_main_drawer_1:
+                Toast.makeText(this, "Top Stories", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.activity_main_drawer_settings:
+            case R.id.activity_main_drawer_2:
+                Toast.makeText(this, "News", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
@@ -87,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get ViewPager from layout
         ViewPager pager = (ViewPager)findViewById(R.id.activity_main_viewpager);
         //Set Adapter PageAdapter and glue it together
-        pager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+        pager.setAdapter(new PageAdapter(mContext, getSupportFragmentManager()));
 
         //Get TabLayout from layout
         TabLayout tabs= (TabLayout)findViewById(R.id.activity_main_tabs);
@@ -127,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Configure Drawer Layout
+     * (Drawer)
      */
     private void configureDrawerLayout(){
         this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
@@ -137,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * Configure NavigationView
+     * (Drawer)
      */
     private void configureNavigationView(){
         this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);

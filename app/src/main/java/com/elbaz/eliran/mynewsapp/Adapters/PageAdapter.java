@@ -1,5 +1,6 @@
 package com.elbaz.eliran.mynewsapp.Adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,15 +9,18 @@ import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1;
 import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment2;
 import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment3;
 import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment4;
+import com.elbaz.eliran.mynewsapp.R;
 
 /**
  * Created by Eliran Elbaz on 06-Jul-19.
  */
 public class PageAdapter extends FragmentPagerAdapter {
+    private Context mContext;
 
     //Default Constructor
-    public PageAdapter(FragmentManager mgr) {
+    public PageAdapter(Context context, FragmentManager mgr) {
         super(mgr);
+        mContext = context;
     }
 
     @Override
@@ -44,13 +48,13 @@ public class PageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "TOP STORIES";
+                return mContext.getString(R.string.tab_name_1);
             case 1:
-                return "MOST POPULAR";
+                return mContext.getString(R.string.tab_name_2);
             case 2:
-                return "TECH";
+                return mContext.getString(R.string.tab_name_3);
             case 3:
-                return "SPORT";
+                return mContext.getString(R.string.tab_name_4);
             default:
                 return null;
         }

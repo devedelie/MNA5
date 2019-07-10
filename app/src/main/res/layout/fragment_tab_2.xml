@@ -1,5 +1,5 @@
 <LinearLayout
-    android:id="@+id/fragment_page_param_rootview"
+    android:id="@+id/fragment_page_2_rootview"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
     android:background="#ADCEB7">
 
     <TextView
-        android:id="@+id/fragment_page_param_title"
+        android:id="@+id/fragment_page_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
