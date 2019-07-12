@@ -1,5 +1,7 @@
 <resources>
+    <!--App title-->
     <string name="app_name">My News</string>
+
     <!--Tab name-->
     <string name="tab_name_1">TOP STORIES</string>
     <string name="tab_name_2">MOST POPULAR</string>
@@ -9,4 +11,10 @@
     <!--Used in navigation drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Overflow menu items-->
+    <string name="itme_1">Notifications</string>
+    <string name="item_2">Help</string>
+    <string name="item_3">About</string>
+
 </resources>
