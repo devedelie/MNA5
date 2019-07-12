@@ -16,14 +16,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--Toolbar declaration-->
+        <!--Toolbar declaration + defined theme (for white icons)-->
         <android.support.v7.widget.Toolbar
             android:id="@+id/activity_main_toolbar"
             android:minHeight="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleTextColor="@android:color/white"
-            android:background="?attr/colorPrimary"/>
+            android:background="?attr/colorPrimary"
+            app:theme="@style/AppTheme.Toolbar"/>
 
         <!-- 1 | Add TabLayout to handle tabs -->
         <android.support.design.widget.TabLayout
