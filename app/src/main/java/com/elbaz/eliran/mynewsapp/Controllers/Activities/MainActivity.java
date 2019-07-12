@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private Context mContext;
 
-    // NYT API key
-    protected static final String API_KEY = "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.activity_main_drawer_news :
-
                 break;
             case R.id.activity_main_drawer_1:
                 Toast.makeText(this, "Top Stories", Toast.LENGTH_LONG).show();
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 break;
         }
-
+        // Close the Drawer when item is selected
         this.drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
@@ -122,11 +118,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         //3 - Handle actions on menu items
         switch (item.getItemId()) {
-            case R.id.menu_activity_main_more:
+            case R.id.menu_activity_main_search:
+                Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.over_flow_item_1:
                 Toast.makeText(this, "action 1", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.menu_activity_main_search:
+            case R.id.over_flow_item_2:
                 Toast.makeText(this, "action 2", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.over_flow_item_3:
+                Toast.makeText(this, "action 3", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
