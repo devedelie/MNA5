@@ -45,7 +45,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
+    public String getPageTitle(int position) {
         switch (position){
             case 0:
                 return mContext.getString(R.string.tab_name_1);
