@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.elbaz.eliran.mynewsapp.R;
 
@@ -18,6 +19,9 @@ public class TabFragment1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tab_1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_1, container, false);
+        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.fragment_page_1_rootview);
+
+        return rootView;
     }
 }

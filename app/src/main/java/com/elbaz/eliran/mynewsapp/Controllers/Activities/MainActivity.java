@@ -47,8 +47,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Navigation menu items declaration
-     * (Drawer)
+     * 1 - Toolbar execution
+     */
+    private void configureToolbar(){
+        // Get the toolbar view inside the activity layout
+        this.toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+        // Sets the Toolbar
+        setSupportActionBar(toolbar);
+    }
+
+    /**
+     * 2 - ViewPager configuration + Tab Layout
+     */
+    private void configureViewPagerAndTabs(){
+        //Get ViewPager from layout
+        ViewPager pager = (ViewPager)findViewById(R.id.activity_main_viewpager);
+        //Set Adapter PageAdapter and glue it together
+        pager.setAdapter(new PageAdapter(mContext, getSupportFragmentManager()));
+
+        //Get TabLayout from layout
+        TabLayout tabs= (TabLayout)findViewById(R.id.activity_main_tabs);
+        //Glue TabLayout and ViewPager together
+        tabs.setupWithViewPager(pager);
+        //Design purpose. Tabs have the same width
+        tabs.setTabMode(TabLayout.MODE_FIXED);
+    }
+
+    /**
+     * 3 - Configure Drawer-menu Layout (Drawer)
+     */
+    private void configureDrawerLayout(){
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    /**
+     * 4 - Configure NavigationView (Drawer)
+     */
+    private void configureNavigationView(){
+        this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    /**
+     * Navigation menu items declaration (Drawer)
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -73,36 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
     /**
-     * Toolbar execution
-     */
-    private void configureToolbar(){
-        // Get the toolbar view inside the activity layout
-        this.toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
-        // Sets the Toolbar
-        setSupportActionBar(toolbar);
-    }
-
-    /**
-     * ViewPager configuration + Subject Tabs
-     */
-    private void configureViewPagerAndTabs(){
-        //Get ViewPager from layout
-        ViewPager pager = (ViewPager)findViewById(R.id.activity_main_viewpager);
-        //Set Adapter PageAdapter and glue it together
-        pager.setAdapter(new PageAdapter(mContext, getSupportFragmentManager()));
-
-        //Get TabLayout from layout
-        TabLayout tabs= (TabLayout)findViewById(R.id.activity_main_tabs);
-        //Glue TabLayout and ViewPager together
-        tabs.setupWithViewPager(pager);
-        //Design purpose. Tabs have the same width
-        tabs.setTabMode(TabLayout.MODE_FIXED);
-    }
-
-    /**
-     * Inflate the menu with the icons (search and more)
+     * Inflate the menu with the icons (search and parameters)
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,27 +151,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    /**
-     * Configure Drawer Layout
-     * (Drawer)
-     */
-    private void configureDrawerLayout(){
-        this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-    }
-
-    /**
-     * Configure NavigationView
-     * (Drawer)
-     */
-    private void configureNavigationView(){
-        this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
 
 }
 

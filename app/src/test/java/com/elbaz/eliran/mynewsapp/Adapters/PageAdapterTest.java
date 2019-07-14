@@ -24,7 +24,7 @@ public class PageAdapterTest {
             // Create a new PageAdapter instance
             PageAdapter pageAdapter = new PageAdapter(mContext, mFragmentManager );
             // Check that the method returns 4 as the number of tabs to show
-            assertEquals(4, pageAdapter.getCount(), 0.001);
+            assertEquals(4, pageAdapter.getCount());
         }
 
     // Testing the titles, based on their position on the tab-menu
