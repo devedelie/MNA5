@@ -3,7 +3,7 @@ package com.elbaz.eliran.mynewsapp.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NYTTopStories {
+public class NYTNews {
 
     @SerializedName("section")
     @Expose
@@ -37,7 +37,7 @@ public class NYTTopStories {
     @Expose
     private String copyright;
 
-    public NYTTopStories(String section, String subsection, String title, String _abstract, String pageUrl, String publishedDate, String shortUrl, String imageUrl, String caption, String copyright) {
+    public NYTNews(String section, String subsection, String title, String _abstract, String pageUrl, String publishedDate, String shortUrl, String imageUrl, String caption, String copyright) {
         this.section = section;
         this.subsection = subsection;
         this.title = title;
@@ -79,7 +79,11 @@ public class NYTTopStories {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        if (imageUrl.equals("") || imageUrl.isEmpty()){
+            return imageUrl = null;
+        }else {
+            return imageUrl;
+        }
     }
 
     public String getCaption() {

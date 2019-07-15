@@ -26,12 +26,19 @@
         android:layout_marginStart="15dp">
 
         <TextView
-            android:id="@+id/item_continent_country"
+            android:id="@+id/item_continent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:text="Continent > Country" />
+            android:text="Continent >" />
+        <TextView
+            android:id="@+id/item_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:text="Country" />
 
         <TextView
             android:id="@+id/item_date"

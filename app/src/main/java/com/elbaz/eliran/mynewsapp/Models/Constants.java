@@ -6,7 +6,7 @@ package com.elbaz.eliran.mynewsapp.Models;
 public class Constants {
 
     // NYT API key
-    protected static final String API_KEY = "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA";
+    public static final String API_KEY = "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA";
 
-    protected static final String BASE_URL = "https://api.nytimes.com/svc/topstories/v2/";
+    public static final String BASE_URL = "https://api.nytimes.com/svc/topstories/v2";
 }
