@@ -9,7 +9,6 @@ import com.elbaz.eliran.mynewsapp.R;
 
 public class SearchAndNotificationsActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +17,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
         this.configureToolbar();
     }
 
+    /**
+     * 1 - Toolbar execution
+     */
     private void configureToolbar(){
         //Get the toolbar (Serialise)
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
