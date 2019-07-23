@@ -1,6 +1,7 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void configureToolbar(){
         // Get the toolbar view inside the activity layout
-        this.toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar
         setSupportActionBar(toolbar);
     }
@@ -137,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.menu_activity_main_search:
                 Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, SearchAndNotificationsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.over_flow_item_1:
                 Toast.makeText(this, "action 1", Toast.LENGTH_LONG).show();
