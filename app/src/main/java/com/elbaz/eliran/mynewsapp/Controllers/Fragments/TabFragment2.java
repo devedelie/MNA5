@@ -2,6 +2,7 @@ package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class TabFragment2 extends Fragment {
 
     // try
     @BindView(R.id.fragment_2_recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.teb_fragment2_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     public static TabFragment2 newInstance() {
@@ -54,6 +56,7 @@ public class TabFragment2 extends Fragment {
 
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
+        this.configureSwipeRefreshLayout();
 
         return view;
     }
@@ -72,6 +75,18 @@ public class TabFragment2 extends Fragment {
         mNYTAdapterMostPopular = new NYTAdapterMostPopular(this.mResultMostPopulars, getContext(), Glide.with(this));
         mRecyclerView.setAdapter(this.mNYTAdapterMostPopular);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    //-----------------
+    // Swipe configuration (reload news)
+    //-----------------
+    private void configureSwipeRefreshLayout(){
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                executeHttpRequestWithRetrofit();
+            }
+        });
     }
 
     //-----------------
@@ -115,6 +130,10 @@ public class TabFragment2 extends Fragment {
     // 3 - Update UI showing only titles
     private void updateUI(List<ResultMostPopular> titles){
         Log.d(TAG, "updateUI: ");
+        // Stops the SwipeRefreshLayout animation once our network query has finished correctly
+        mSwipeRefreshLayout.setRefreshing(false);
+        // completely erase the previous list of results each time
+        // in order to avoid duplicating it due to  .addAll()
         mResultMostPopulars.clear();
         mResultMostPopulars.addAll(titles);
         mNYTAdapterMostPopular.notifyDataSetChanged();

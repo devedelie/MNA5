@@ -2,6 +2,7 @@ package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,8 +38,8 @@ public class TabFragment4 extends Fragment {
     TabFragment1 mTabFragment1 = new TabFragment1();
 
     // try
-    @BindView(R.id.fragment_4_recyclerView)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_4_recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.teb_fragment4_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     public static TabFragment4 newInstance() {
@@ -56,6 +57,7 @@ public class TabFragment4 extends Fragment {
 
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
+        this.configureSwipeRefreshLayout();
 
         return view;
     }
@@ -76,6 +78,17 @@ public class TabFragment4 extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
+    //-----------------
+    // Swipe configuration (reload news)
+    //-----------------
+    private void configureSwipeRefreshLayout(){
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                executeHttpRequestWithRetrofit();
+            }
+        });
+    }
 
     //-----------------
     // HTTP (RxJAVA)
@@ -117,6 +130,10 @@ public class TabFragment4 extends Fragment {
 
     // 3 - Update UI showing only titles
     private void updateUI(List<Result> titles){
+        // Stops the SwipeRefreshLayout animation once our network query has finished correctly
+        mSwipeRefreshLayout.setRefreshing(false);
+        // completely erase the previous list of results each time
+        // in order to avoid duplicating it due to  .addAll()
         mResults.clear();
         mResults.addAll(titles);
         mNYTAdapter.notifyDataSetChanged();
