@@ -11,6 +11,11 @@ import com.elbaz.eliran.mynewsapp.R;
 
 public class WebPageActivity extends AppCompatActivity {
     WebView mWebView;
+    String webUrl;
+
+    public WebPageActivity(String webUrl) {
+        this.webUrl = webUrl;
+    }
 
     private class WebViewClient extends android.webkit.WebViewClient{
         @Override
