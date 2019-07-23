@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.Utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.Views.NYTAdapter;
 
@@ -57,6 +59,7 @@ public class TabFragment1 extends Fragment {
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
+        this.configureOnClickRecyclerView();
 
         return view;
     }
@@ -121,6 +124,25 @@ public class TabFragment1 extends Fragment {
     // This method will be called onDestroy to avoid any risk of memory leaks.
     private void disposeWhenDestroy(){
         if (this.mDisposable != null && !this.mDisposable.isDisposed()) this.mDisposable.dispose();
+    }
+
+    // -----------------
+    // ACTION RecyclerView onClick
+    // -----------------
+
+    // 1 - Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.recyclerview_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+                        // 1 - Get user from adapter
+                        Result mResults = mNYTAdapter.getURLInPosition(position);
+                        // 2 - Show result in a Toast
+                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     //-----------------
