@@ -2,6 +2,7 @@ package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,8 +36,9 @@ public class TabFragment1 extends Fragment {
     private List<Result> mResults;
     private NYTAdapter mNYTAdapter;
 
-    // try
+    // ButterKnife
     @BindView(R.id.fragment_1_recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.teb_fragment1_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     public static TabFragment1 newInstance() {
@@ -49,11 +51,12 @@ public class TabFragment1 extends Fragment {
         // Call during UI creation
         ButterKnife.bind(this, view);
 
-        // Set the recyclerView to fix size in order to increase performances
+        // Set the recyclerView to fixed size in order to increase performances
         mRecyclerView.setHasFixedSize(true);
 
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
+        this.configureSwipeRefreshLayout();
 
         return view;
     }
@@ -72,6 +75,18 @@ public class TabFragment1 extends Fragment {
         mNYTAdapter = new NYTAdapter(this.mResults, getContext(), Glide.with(this));
         mRecyclerView.setAdapter(this.mNYTAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    //-----------------
+    // Swipe configuration (reload news)
+    //-----------------
+    private void configureSwipeRefreshLayout(){
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                executeHttpRequestWithRetrofit();
+            }
+        });
     }
 
     //-----------------
@@ -114,6 +129,10 @@ public class TabFragment1 extends Fragment {
 
     // 3 - Update UI showing news titles
     private void updateUI(List<Result> titles){
+        // Stops the SwipeRefreshLayout animation once our network query has finished correctly
+        mSwipeRefreshLayout.setRefreshing(false);
+        // completely erase the previous list of results each time
+        // in order to avoid duplicating it due to  .addAll()
         mResults.clear();
         mResults.addAll(titles);
         mNYTAdapter.notifyDataSetChanged();
