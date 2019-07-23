@@ -30,6 +30,13 @@ public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
         this.glide = glide;
     }
 
+    /**
+     *  A method which will return, based on a position, the corresponding title URL from the list.
+     */
+    public Result getURLInPosition(int position){
+        return this.mResults.get(position);
+    }
+
     @NonNull
     @Override
     public NYTViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
