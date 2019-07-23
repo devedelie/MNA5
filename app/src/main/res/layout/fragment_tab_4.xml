@@ -7,13 +7,22 @@
     android:gravity="center"
     android:background="@color/recyclerViewBackground">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_4_recyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/teb_fragment4_swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:padding="3dp">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_4_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:padding="3dp">
+
+        </android.support.v7.widget.RecyclerView>
+        
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
 </LinearLayout>
