@@ -8,5 +8,5 @@ public class Constants {
     // NYT API key
     public static final String API_KEY = "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA";
 
-    public static final String BASE_URL = "https://api.nytimes.com/svc/topstories/v2";
+    public static final String BASE_URL = "https://api.nytimes.com/";
 }
