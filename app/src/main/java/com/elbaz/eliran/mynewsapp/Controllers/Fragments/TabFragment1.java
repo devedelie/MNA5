@@ -1,5 +1,6 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,9 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
@@ -33,6 +34,9 @@ import static android.content.ContentValues.TAG;
  * Created by Eliran Elbaz on 06-Jul-19.
  */
 public class TabFragment1 extends Fragment {
+
+    public static final String BUNDLE_URL= "BUNDLE_URL";
+
 
     private Disposable mDisposable;
     private List<Result> mResults;
@@ -137,10 +141,18 @@ public class TabFragment1 extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
-                        // 1 - Get user from adapter
-                        Result mResults = mNYTAdapter.getURLInPosition(position);
-                        // 2 - Show result in a Toast
-                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
+//                        // 1 - Get user from adapter
+//                        Result mResults = mNYTAdapter.getURLInPosition(position);
+//                        // 2 - Show result in a Toast
+//                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
+
+                        // Get title URL from adapter into variable
+                        String url = mNYTAdapter.getUrl(position);
+                        // Instantiate the WebView Activity
+                        Intent intent = new Intent(getActivity(), WebPageActivity.class);
+                        // Send variable data to the activity
+                        intent.putExtra(BUNDLE_URL,url);
+                        startActivity(intent);
                     }
                 });
     }
