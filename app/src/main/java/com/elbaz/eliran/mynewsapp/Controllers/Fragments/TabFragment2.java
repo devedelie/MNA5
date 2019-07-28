@@ -1,5 +1,6 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.NYTMostPopular;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.ResultMostPopular;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.Utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.Views.NYTAdapterMostPopular;
 
@@ -26,6 +29,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
 import static android.content.ContentValues.TAG;
+import static com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1.BUNDLE_URL;
 
 /**
  * Created by Eliran Elbaz on 06-Jul-19.
@@ -57,6 +61,7 @@ public class TabFragment2 extends Fragment {
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
+        this.configureOnClickRecyclerView();
 
         return view;
     }
@@ -75,6 +80,33 @@ public class TabFragment2 extends Fragment {
         mNYTAdapterMostPopular = new NYTAdapterMostPopular(this.mResultMostPopulars, getContext(), Glide.with(this));
         mRecyclerView.setAdapter(this.mNYTAdapterMostPopular);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    // -----------------
+    // ACTION RecyclerView onClick
+    // -----------------
+
+    // 1 - Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.recyclerview_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+//                        // 1 - Get user from adapter
+//                        Result mResults = mNYTAdapter.getURLInPosition(position);
+//                        // 2 - Show result in a Toast
+//                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
+
+                        // Get title URL from adapter into variable
+                        String url = mNYTAdapterMostPopular.getUrl(position);
+                        // Instantiate the WebView Activity
+                        Intent intent = new Intent(getActivity(), WebPageActivity.class);
+                        // Send variable data to the activity
+                        intent.putExtra(BUNDLE_URL,url);
+                        startActivity(intent);
+                    }
+                });
     }
 
     //-----------------

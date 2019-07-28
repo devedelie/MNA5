@@ -48,4 +48,8 @@ public class NYTAdapterMostPopular extends RecyclerView.Adapter<NYTViewHolder> {
     public int getItemCount() {
         return this.mResultMostPopulars.size();
     }
+
+    public String getUrl(int position) {
+        return mResultMostPopulars.get(position).getUrl();
+    }
 }
