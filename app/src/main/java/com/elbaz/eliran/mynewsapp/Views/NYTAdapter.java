@@ -48,7 +48,6 @@ public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NYTViewHolder nytViewHolder, int i) {
-        /// Add "if" condition to choose between 2 options
         nytViewHolder.updateTopStoriesWithTitles(this.mResults.get(i), this.glide);
 
     }
@@ -56,5 +55,11 @@ public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
     @Override
     public int getItemCount() {
         return this.mResults.size();
+    }
+
+
+
+    public String getUrl(int position) {
+        return mResults.get(position).getUrl();
     }
 }
