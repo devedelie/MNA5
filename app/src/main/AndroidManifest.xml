@@ -20,23 +20,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- The childes of MainActivity -->
+
+        <!-- child 1 of MainActivity -->
         <activity
             android:name=".Controllers.Activities.SearchAndNotificationsActivity"
             android:label="Search and notifications"
             android:parentActivityName=".Controllers.Activities.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".Controllers.Activities.WebPageActivity"
-            android:label="WebPage"
-            android:parentActivityName=".Controllers.Activities.MainActivity"
             android:screenOrientation="portrait">
-
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controllers.Activities.MainActivity" />
         </activity>
+        <!--End of Child 1-->
+
+        <!--Child 2 of MainActivity-->
+        <activity
+            android:name=".Controllers.Activities.WebPageActivity"
+            android:label="WebPage"
+            android:parentActivityName=".Controllers.Activities.MainActivity"
+            android:screenOrientation="portrait">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.Activities.MainActivity" />
+        </activity>
+        <!--End of child 2-->
+
+
+
     </application>
 
 </manifest>
