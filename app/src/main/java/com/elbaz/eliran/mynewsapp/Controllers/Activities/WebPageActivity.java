@@ -31,18 +31,6 @@ public class WebPageActivity extends AppCompatActivity {
         this.configureToolbar();
         // Configure the webView
         this.configureWebView();
-
-
-
-//        // Create the webView
-//        mWebView= (WebView) findViewById(R.id.webView);
-//        mWebView.getSettings().setJavaScriptEnabled(true);
-//        mWebView.getSettings().setLoadWithOverviewMode(true);
-//        mWebView.getSettings().setUseWideViewPort(true);
-//        mWebView.getSettings().setBuiltInZoomControls(true);
-//        mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
-//        mWebView.setWebViewClient(new WebViewClient());
-//        mWebView.loadUrl("https://www.google.com");
     }
 
     /**
@@ -61,6 +49,7 @@ public class WebPageActivity extends AppCompatActivity {
 
     private void configureWebView(){
         // Get the data from the Fragment
+        // To Check.... (Fragment 1.BUNDLE_URL) works from all fragments
         String url = getIntent().getStringExtra(TabFragment1.BUNDLE_URL);
 
         // Page tools configurations
