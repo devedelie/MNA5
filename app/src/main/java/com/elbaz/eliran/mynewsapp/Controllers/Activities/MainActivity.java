@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Top-Menu icons action
+     * Top-Menu: icons action
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
