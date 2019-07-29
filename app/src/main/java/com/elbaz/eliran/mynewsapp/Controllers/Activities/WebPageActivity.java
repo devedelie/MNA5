@@ -16,8 +16,6 @@ import butterknife.ButterKnife;
 public class WebPageActivity extends AppCompatActivity {
     @BindView(R.id.webView)
     WebView mWebView;
-    String mUrl;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +57,5 @@ public class WebPageActivity extends AppCompatActivity {
         // Load page
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(url);
-
     }
 }
