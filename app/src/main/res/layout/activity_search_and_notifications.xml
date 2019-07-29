@@ -5,11 +5,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Controllers.Activities.SearchAndNotificationsActivity">
 
-    <include
-        layout="@layout/toolbar"
+    <LinearLayout
+        android:id="@+id/EntireSearchLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <include
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_centerHorizontal="true"
+                android:id="@+id/SearchField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="40sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Search query"/>
+
+
+
+            <!--CheckBoxes Main Layout-->
+            <LinearLayout
+                android:id="@+id/checkboxesMainLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/SearchField"
+                android:orientation="horizontal">
+
+                <!--Left Checkboxes Layout-->
+                <LinearLayout
+                    android:layout_below="@+id/SearchField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+                <!--Right Checkboxes Layout-->
+                <LinearLayout
+                    android:layout_below="@+id/SearchField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/checkboxesMainLayout"
+                android:textSize="20sp"
+                android:background="@color/design_default_color_primary"
+                android:textColor="@color/GeneralText"
+                android:width="250dp"
+                android:text="Search"/>
+
+            
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>
+
+<!--<CheckBox
+                android:id="@+id/checkbox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:text="Blablabla"
+                android:layout_below="@+id/SearchField"/>
+            <CheckBox
+                android:id="@+id/checkbox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="blabkaba"
+                android:layout_below="@+id/checkbox1"/>
+            <CheckBox
+                android:id="@+id/checkbox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="asdasdasd"
+                android:layout_below="@+id/checkbox2"/>
+            <CheckBox
+                android:id="@+id/checkbox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sdfsdfsdf"
+                android:layout_below="@+id/SearchField"
+                android:layout_toEndOf="@+id/checkbox1"/>
+            <CheckBox
+                android:id="@+id/checkbox5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sdfsdfsf"
+                android:layout_below="@+id/checkbox4"
+                android:layout_toEndOf="@+id/checkbox2"/>
+            <CheckBox
+                android:id="@+id/checkbox6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sfsdfsfsdf"
+                android:layout_below="@+id/checkbox5"
+                android:layout_toEndOf="@id/checkbox3"/>-->
