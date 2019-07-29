@@ -58,7 +58,9 @@ public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
     }
 
 
-
+    /**
+     * A method to receive the correct title URL from its current position on the list
+     */
     public String getUrl(int position) {
         return mResults.get(position).getUrl();
     }
