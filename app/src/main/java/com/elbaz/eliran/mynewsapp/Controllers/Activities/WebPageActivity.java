@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -48,18 +47,17 @@ public class WebPageActivity extends AppCompatActivity {
     }
 
     private void configureWebView(){
-        // Get the data from the Fragment
-        // To Check.... (Fragment 1.BUNDLE_URL) works from all fragments
+        // Get the data from the Fragment (URL String)
+        // the Bundle is located in the first Fragment "TabFragment1.java" and is in use by all other Fragments
         String url = getIntent().getStringExtra(TabFragment1.BUNDLE_URL);
 
-        // Page tools configurations
-//        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.getSettings().setUseWideViewPort(true);
+        // Page tools and configurations
+//      mWebView.getSettings().setJavaScriptEnabled(true);  // Disabled to avoid blocking pop-ups
+        mWebView.getSettings().setLoadWithOverviewMode(true); //Loads the WebView with the attributes and zooms out the content to fit on screen by width
+        mWebView.getSettings().setUseWideViewPort(false); // When the value is false, the layout width is always set to the width of the WebView control in device-independent (CSS) pixels.
         mWebView.getSettings().setBuiltInZoomControls(true);
-        mWebView.getSettings().setPluginState(WebSettings.PluginState.ON);
-        mWebView.setWebViewClient(new WebViewClient());
         // Load page
+        mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(url);
 
     }
