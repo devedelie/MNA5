@@ -9,17 +9,18 @@
     tools:context=".Controllers.Activities.SearchAndNotificationsActivity">
 
     <LinearLayout
-        android:id="@+id/EntireSearchLayout"
+        android:id="@+id/GlobalSearchLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+        <!--Toolbar setup-->
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <!--Search Layout-->
         <RelativeLayout
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
@@ -37,9 +38,7 @@
                 android:layout_marginEnd="10dp"
                 android:hint="Search query"/>
 
-
-
-            <!--CheckBoxes Main Layout-->
+            <!--Parameters Main Layout-->
             <LinearLayout
                 android:id="@+id/checkboxesMainLayout"
                 android:layout_width="wrap_content"
@@ -47,12 +46,20 @@
                 android:layout_below="@+id/SearchField"
                 android:orientation="horizontal">
 
-                <!--Left Checkboxes Layout-->
+                <!--Left Layout-->
                 <LinearLayout
                     android:layout_below="@+id/SearchField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15sp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:layout_marginBottom="30dp"
+                        android:text="Start Date"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -68,12 +75,20 @@
 
                 </LinearLayout>
 
-                <!--Right Checkboxes Layout-->
+                <!--Right Layout-->
                 <LinearLayout
                     android:layout_below="@+id/SearchField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="150dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:layout_marginBottom="30dp"
+                        android:text="End Date"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -104,7 +119,7 @@
                 android:width="250dp"
                 android:text="Search"/>
 
-            
+
         </RelativeLayout>
 
     </LinearLayout>
