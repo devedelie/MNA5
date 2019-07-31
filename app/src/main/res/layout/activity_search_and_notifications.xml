@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/GlobalSearchLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +10,7 @@
     tools:context=".Controllers.Activities.SearchAndNotificationsActivity">
 
     <LinearLayout
-        android:id="@+id/GlobalSearchLayout"
+        android:id="@+id/GlobalSearchLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -55,11 +56,15 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/search_startDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:layout_marginBottom="30dp"
-                        android:text="Start Date"/>
+                        android:textSize="15sp"
+                        android:hint="@string/start_date"
+
+                        android:onClick="searchDatePicker"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -81,14 +86,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginStart="150dp">
+                    android:layout_marginStart="30dp">
 
                     <TextView
+                        android:id="@+id/search_endDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="date"
+                        android:textSize="15sp"
                         android:layout_marginBottom="30dp"
-                        android:text="End Date"/>
+                        android:text="@string/end_date"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"

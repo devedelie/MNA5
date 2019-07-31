@@ -17,4 +17,8 @@
     <string name="item_2">Help</string>
     <string name="item_3">About</string>
 
+    <!--Search Activity-->
+    <string name="start_date"><u>Start Date: dd/mm/yyyy</u></string>
+    <string name="end_date"><u>End Date: dd/mm/yyyy</u></string>
+
 </resources>
