@@ -46,7 +46,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
                 month +=1;
                 mDate = dayOfMonth + "/" + month + "/" + year;
 
-                // condition for checking if start or end button was selected
+                // condition for checking if startDate or endDate button is selected
                 if (buttonSelectorFlag == 1){
                     mStartDate.setText(mDate);
                 }else if(buttonSelectorFlag == 2){
@@ -57,7 +57,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
             }
         };
         // end of dialog listener
-        
+
     }
 
     /**
