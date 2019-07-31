@@ -28,14 +28,17 @@ public interface NYTService {
     Observable<NYTMostPopular> getResultsMostPopular (@Path("platform") String platform,
                                                       @Query("api-key") String apiKey);
 
+
+    // API search examples
+    // https://api.nytimes.com/svc/search/v2/articlesearch.json?q=los+angeles&fq=sports&api-key=eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA
+    // OR   http://api.nytimes.com/svc/search/v2/articlesearch.json?q={query}&fq={filter1}&fq={filter2}&begin_date={begin_date}&end_date={end_date}&facet_filter=true&api-key={API-KEY}
+    // http://api.nytimes.com/svc/search/v2/articlesearch.json?q=peres&fq=artss&fq=politics&begin_date=20120505&end_date=20140505&facet_filter=true&api-key=eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA
     @GET ("svc/search/v2/articlesearch.json")
     Observable<NYTSearch> GetResultsForSearch(@Query("q") String searchQueryText,
                                               @Query("fq") String filterText1,
-                                              @Query("fq") String filterText2,
-                                              @Query("fq") String filterText3,
-                                              @Query("fq") String filterText4,
-                                              @Query("fq") String filterText5,
-                                              @Query("fq") String filterText6,
+                                              @Query("begin_date") String beginDate,
+                                              @Query("end_date") String endDate,
+                                              @Query("facet_filter") Boolean facetFilter,
                                               @Query("api-key") String apiKey);
 
         public static final Retrofit retrofit = new Retrofit.Builder()
