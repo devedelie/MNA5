@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,6 +22,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
     private TextView mEndDate;
     private TextView mSearchQuery;
     private Button mSearchButton;
+    private String mDate;
+    private int buttonSelectorFlag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +32,32 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
 
         this.configureToolbar();
 
+        mSearchButton = (Button) findViewById(R.id.searchButton);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
+        mEndDate = (TextView) findViewById(R.id.search_endDate);
 
-        // DatePicker listener
+
+
+        // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
         mOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // Increase month variable +1, as count starts from 0 (ex: April = 3)
                 month +=1;
-                String date = dayOfMonth + "/" + month + "/" + year;
-                SpannableString content = new SpannableString("Content");
-                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                mStartDate.setText(date);
+                mDate = dayOfMonth + "/" + month + "/" + year;
+
+                // condition for checking if start or end button was selected
+                if (buttonSelectorFlag == 1){
+                    mStartDate.setText(mDate);
+                }else if(buttonSelectorFlag == 2){
+                    mEndDate.setText(mDate);
+                }
+                // set flag back to zero
+                buttonSelectorFlag = 0;
             }
         };
-
-
-
+        // end of dialog listener
+        
     }
 
     /**
@@ -66,27 +75,29 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
     }
 
     /**
-     * Date picker for search filter
+     * Configure & Launch the DatePicker dialog  (for search filter)
      */
     public void searchDatePicker (View view){
-        // Crete an instance of Calendar and get date into variables
+        // Crete an instance of Calendar and setup date variables
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Create DatePicker dialog object
+        // Create DatePicker dialog object with the design and the variables
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 SearchAndNotificationsActivity.this,
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 mOnDateSetListener,
                 year,month,day);
+        // set the background to transparent
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         datePickerDialog.show();
-
-
-
+        if(view.equals(mStartDate)){
+            buttonSelectorFlag=1;
+        }else if(view.equals(mEndDate)){
+            buttonSelectorFlag=2;
+        }
     }
-
 
 }
