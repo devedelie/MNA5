@@ -23,7 +23,7 @@
 
         <!-- child 1 of MainActivity -->
         <activity
-            android:name=".Controllers.Activities.SearchAndNotificationsActivity"
+            android:name=".Controllers.Activities.SearchActivity"
             android:label="Search and notifications"
             android:parentActivityName=".Controllers.Activities.MainActivity"
             android:screenOrientation="portrait">

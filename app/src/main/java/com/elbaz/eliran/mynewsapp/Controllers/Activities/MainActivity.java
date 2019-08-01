@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.menu_activity_main_search:
                 Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, SearchAndNotificationsActivity.class);
+                Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.over_flow_item_1:

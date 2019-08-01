@@ -1,6 +1,7 @@
 package com.elbaz.eliran.mynewsapp.Utils;
 
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.NYTMostPopular;
+import com.elbaz.eliran.mynewsapp.Models.SearchModels.NYTSearch;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 
 import java.util.concurrent.TimeUnit;
@@ -27,6 +28,14 @@ public class NYTStreams {
     public static Observable<NYTMostPopular> streamFetchMostPopular(String platform){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getResultsMostPopular(platform, API_KEY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
+
+    public static Observable<NYTSearch> streamFetchSearchResults (String queryString){
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.GetResultsForSearch(queryString, API_KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
