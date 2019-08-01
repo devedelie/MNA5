@@ -147,7 +147,7 @@
                 android:width="250dp"
                 android:text="Search"
                 android:onClick="searchButtonOnClickAction"/>
-            
+
         </RelativeLayout>
 
     </LinearLayout>

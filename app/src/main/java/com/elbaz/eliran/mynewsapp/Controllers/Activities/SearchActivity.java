@@ -30,6 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     private String BeginDateStringForURL;
     private String EndDateStringForURL;
     private int buttonSelectorFlag=0;
+    private String finalSearchQueryString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
