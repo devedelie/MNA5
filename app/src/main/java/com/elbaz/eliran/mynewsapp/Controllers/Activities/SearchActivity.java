@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,13 +17,17 @@ import com.elbaz.eliran.mynewsapp.R;
 
 import java.util.Calendar;
 
-public class SearchAndNotificationsActivity extends AppCompatActivity {
+import static android.content.ContentValues.TAG;
+
+public class SearchActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private TextView mStartDate;
     private TextView mEndDate;
     private TextView mSearchQuery;
     private Button mSearchButton;
     private String mDate;
+    private String BeginDateStringForURL;
+    private String EndDateStringForURL;
     private int buttonSelectorFlag=0;
 
     @Override
@@ -49,8 +54,14 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
                 // condition for checking if startDate or endDate button is selected
                 if (buttonSelectorFlag == 1){
                     mStartDate.setText(mDate);
+                    // create a start_date string for search api
+                    BeginDateStringForURL = year+"0"+month+"0"+dayOfMonth;
+                    Log.d(TAG, "onDateSet: URL BeginDate filter is: " + BeginDateStringForURL);
                 }else if(buttonSelectorFlag == 2){
                     mEndDate.setText(mDate);
+                    // create an end_date string for search api
+                    EndDateStringForURL = year+"0"+month+"0"+dayOfMonth;
+                    Log.d(TAG, "onDateSet: URL BeginDate filter is: " + EndDateStringForURL);
                 }
                 // set flag back to zero
                 buttonSelectorFlag = 0;
@@ -86,7 +97,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
 
         // Create DatePicker dialog object with the design and the variables
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                SearchAndNotificationsActivity.this,
+                SearchActivity.this,
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 mOnDateSetListener,
                 year,month,day);
