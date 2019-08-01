@@ -145,19 +145,9 @@
                 android:background="@color/design_default_color_primary"
                 android:textColor="@color/GeneralText"
                 android:width="250dp"
-                android:text="Search"/>
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_below="@+id/searchButton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            </Spinner>
-
-
+                android:text="Search"
+                android:onClick="searchButtonOnClickAction"/>
+            
         </RelativeLayout>
 
     </LinearLayout>
