@@ -55,12 +55,12 @@ public class SearchActivity extends AppCompatActivity {
                 if (buttonSelectorFlag == 1){
                     mStartDate.setText(mDate);
                     // create a start_date string for search api
-                    BeginDateStringForURL = year+"0"+month+"0"+dayOfMonth;
+                    BeginDateStringForURL = year + "0" + month + "0" + dayOfMonth;
                     Log.d(TAG, "onDateSet: URL BeginDate filter is: " + BeginDateStringForURL);
                 }else if(buttonSelectorFlag == 2){
                     mEndDate.setText(mDate);
                     // create an end_date string for search api
-                    EndDateStringForURL = year+"0"+month+"0"+dayOfMonth;
+                    EndDateStringForURL = year + "0" + month + "0" + dayOfMonth;
                     Log.d(TAG, "onDateSet: URL BeginDate filter is: " + EndDateStringForURL);
                 }
                 // set flag back to zero
