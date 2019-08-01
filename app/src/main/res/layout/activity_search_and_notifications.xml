@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Controllers.Activities.SearchAndNotificationsActivity">
+    tools:context=".Controllers.Activities.SearchActivity">
 
     <LinearLayout
         android:id="@+id/GlobalSearchLinearLayout"
@@ -42,28 +42,38 @@
             <!--Parameters Main Layout-->
             <LinearLayout
                 android:id="@+id/checkboxesMainLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/SearchField"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="100">
 
                 <!--Left Layout-->
                 <LinearLayout
                     android:layout_below="@+id/SearchField"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15sp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="50">
+
+                    <TextView
+                        android:id="@+id/StartDateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="Start Date:"/>
 
                     <TextView
                         android:id="@+id/search_startDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="date"
-                        android:padding="10dp"
+                        android:padding="15dp"
                         android:layout_marginBottom="30dp"
                         android:textSize="15sp"
-                        android:hint="@string/start_date"
+                        android:hint="@string/hint_date"
+                        style="@android:style/Widget.Holo.Spinner"
 
                         android:onClick="searchDatePicker"/>
 
@@ -84,10 +94,17 @@
                 <!--Right Layout-->
                 <LinearLayout
                     android:layout_below="@+id/SearchField"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginStart="30dp">
+                    android:layout_weight="50">
+
+                    <TextView
+                        android:id="@+id/EndDateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="End Date"/>
 
                     <TextView
                         android:id="@+id/search_endDate"
@@ -95,10 +112,11 @@
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:textSize="15sp"
-                        android:padding="10dp"
+                        android:padding="15dp"
                         android:onClick="searchDatePicker"
                         android:layout_marginBottom="30dp"
-                        android:text="@string/end_date"/>
+                        android:text="@string/hint_date"
+                        style="@android:style/Widget.Holo.Spinner"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -129,6 +147,16 @@
                 android:textColor="@color/GeneralText"
                 android:width="250dp"
                 android:text="Search"/>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_below="@+id/searchButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </Spinner>
 
 
         </RelativeLayout>
