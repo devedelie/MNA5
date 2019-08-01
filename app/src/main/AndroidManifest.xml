@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controllers.Activities.SearchResultsActivity"></activity>
         <activity
             android:name=".Controllers.Activities.MainActivity"
             android:screenOrientation="portrait">
@@ -42,6 +41,19 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controllers.Activities.MainActivity" />
+        </activity>
+
+        <!-- Child of SearchActivity -->
+        <activity
+            android:name=".Controllers.Activities.SearchResultsActivity"
+            android:label="Search Results"
+            android:parentActivityName=".Controllers.Activities.SearchActivity"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.Activities.SearchActivity" />
         </activity>
     </application>
 
