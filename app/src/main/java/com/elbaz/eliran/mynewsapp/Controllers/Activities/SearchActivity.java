@@ -1,6 +1,7 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_and_notifications);
+        setContentView(R.layout.activity_search);
 
         this.configureToolbar();
 
@@ -109,6 +110,11 @@ public class SearchActivity extends AppCompatActivity {
         }else if(view.equals(mEndDate)){
             buttonSelectorFlag=2;
         }
+    }
+
+    public void searchButtonOnClickAction (View view){
+        Intent intent = new Intent(this, SearchResultsActivity.class);
+        startActivity(intent);
     }
 
 }
