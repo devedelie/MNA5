@@ -93,7 +93,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchSearchResults("trump&fq=arts&fq=politics&begin_date=20120505&end_date=20140505&facet_filter=true")
+        this.mDisposable = NYTStreams.streamFetchSearchResults("boris jhonson&fq=arts&fq=politics&begin_date=20120505&end_date=20140505&facet_filter=true")
                 .subscribeWith(new DisposableObserver<NYTSearch>(){
 
                     @Override
