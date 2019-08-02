@@ -90,16 +90,17 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
      * Update SearchResults titles views with text, date and image
      */
     public void updateSearchResultsWithTitles(Doc titles, RequestManager glide){
-
+                //Load the image of the title
+        this.setImageForSearchResults(titles, glide);
         // get news title
         this.item_content_title.setText(titles.getSnippet());
-        // get news continent of origin
+        // get news_Desk category
         if(titles.getNewsDesk() == "" || titles.getSectionName() == null) {
             this.item_continent.setText(titles.getNewsDesk()+ "" );
         }else{
             this.item_continent.setText(titles.getNewsDesk()+ " > " );
         }
-        // get news country of origin
+        // get Section_name
         this.item_country.setText(titles.getSectionName());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPubDate();
@@ -129,6 +130,29 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
 
             }
         }
+
+    /**
+     * Set image for the UI (SearchResults activity)
+     */
+    private void setImageForSearchResults(Doc doc, RequestManager glide){
+        // Check if there is data in Multimedia
+        if (doc.getMultimedia() != null && !doc.getMultimedia().isEmpty()){
+            // Check if multimedia size is bigger than 0
+            if(doc.getMultimedia().size() > 0) {
+                // Get 2nd image url from multimedia list result: 150X150 (possible between 0-4)
+                String imageUrl = doc.getMultimedia().get(0).getUrl();
+                // Check if link starts with native or short URL
+                if (imageUrl.startsWith("images")) {
+                    imageUrl = "https://www.nytimes.com/" + imageUrl;
+                }
+                // Glide - load the image from the fetched url
+                glide.load(imageUrl).apply(RequestOptions.centerCropTransform()).into(mImageView);
+            }else
+                // if "result.getMultimedia()" is empty || null, set an alternative logo
+                mImageView.setImageResource(R.drawable.nyt_logo);
+
+        }
+    }
 
     /**
      * Set image for the UI (MostPopular tab)
