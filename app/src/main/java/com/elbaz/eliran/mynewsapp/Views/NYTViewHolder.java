@@ -8,8 +8,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.ResultMostPopular;
+import com.elbaz.eliran.mynewsapp.Models.SearchModels.Doc;
+import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
 
 import java.text.DateFormat;
@@ -81,6 +82,27 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_country.setText(titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
+        String shortDate = convertDate(fullDate);
+        this.item_date.setText(shortDate);
+    }
+
+    /**
+     * Update SearchResults titles views with text, date and image
+     */
+    public void updateSearchResultsWithTitles(Doc titles, RequestManager glide){
+
+        // get news title
+        this.item_content_title.setText(titles.getSnippet());
+        // get news continent of origin
+        if(titles.getNewsDesk() == "" || titles.getSectionName() == null) {
+            this.item_continent.setText(titles.getNewsDesk()+ "" );
+        }else{
+            this.item_continent.setText(titles.getNewsDesk()+ " > " );
+        }
+        // get news country of origin
+        this.item_country.setText(titles.getSectionName());
+        // get published date from the title, then convert the format and setText
+        String fullDate = titles.getPubDate();
         String shortDate = convertDate(fullDate);
         this.item_date.setText(shortDate);
     }
