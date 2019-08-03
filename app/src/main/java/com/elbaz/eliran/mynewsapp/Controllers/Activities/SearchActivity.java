@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.elbaz.eliran.mynewsapp.R;
 
@@ -130,10 +131,14 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchButtonOnClickAction (View view){
         String queryValue = mSearchQuery.getText().toString();
-        Intent intent = new Intent(this, SearchResultsActivity.class);
-        intent.putExtra("Final_Date", finalDateForQuery);
-        intent.putExtra("Search_query", queryValue );
-        startActivity(intent);
+        if(queryValue==null || queryValue.equals("")){
+            Toast.makeText(this, "Your search field is empty", Toast.LENGTH_LONG).show();
+        }else{
+            Intent intent = new Intent(this, SearchResultsActivity.class);
+            intent.putExtra("Final_Date", finalDateForQuery);
+            intent.putExtra("Search_query", queryValue );
+            startActivity(intent);
+        }
     }
 
 }
