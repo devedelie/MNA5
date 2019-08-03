@@ -29,13 +29,14 @@ public interface NYTService {
                                                       @Query("api-key") String apiKey);
 
 
-    // API search examples
-    // https://api.nytimes.com/svc/search/v2/articlesearch.json?q=los+angeles&fq=sports&api-key=eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA
-    // OR   http://api.nytimes.com/svc/search/v2/articlesearch.json?q={query}&fq={filter1}&fq={filter2}&begin_date={begin_date}&end_date={end_date}&facet_filter=true&api-key={API-KEY}
-    // http://api.nytimes.com/svc/search/v2/articlesearch.json?q=peres&fq=arts&fq=politics&begin_date=20120505&end_date=20140505&facet_filter=true&api-key=eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA
+    // NYT search API from developers.nytimes.com simulator
+    // https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20110505&end_date=20140505&fq=arts&q=disney&sort=oldest&api-key=[YOUR_API_KEY]' \
     @GET ("svc/search/v2/articlesearch.json")
-    Observable<NYTSearch> GetResultsForSearch(@Query("q") String searchQueryText,
-                                              @Query("facet_filter") Boolean facetFilter,
+    Observable<NYTSearch> GetResultsForSearch(@Query("begin_date") String beginDate,
+                                              @Query("end_date") String endDate,
+                                              @Query("fq") String filterQuery,
+                                              @Query("q") String searchQueryText,
+                                              @Query("sort") String sort,
                                               @Query("api-key") String apiKey);
 
 
