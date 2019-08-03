@@ -36,8 +36,10 @@ public class SearchResultsActivity extends AppCompatActivity {
     private NYTAdapterSearchResults mNYTAdapterSearchResults;
     Context mContext;
     private String userQueryString;
-    private String userFilterDates;
-    private String finalQueryString;
+    private String userBeginDate;
+    private String userEndDate;
+    private String filterString;
+    private String sort;
 
     // ButterKnife
     @BindView(R.id.search_results_recyclerView) RecyclerView mRecyclerView;
@@ -49,16 +51,19 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         // Create a query String for the stream
         Intent intent = getIntent();
-        userQueryString = intent.getStringExtra("Search_query");
-        userFilterDates = intent.getStringExtra("Final_Date");
-        if(userFilterDates==null || userFilterDates.equals("")){
-            // normal search
-            finalQueryString = userQueryString;
-        }else{
-            // date filter search
-            finalQueryString = userQueryString + userFilterDates;
-        }
-
+        userBeginDate = intent.getStringExtra("begin_date");
+        userEndDate = intent.getStringExtra("end_date");
+        filterString = intent.getStringExtra("filter_query");
+        userQueryString = intent.getStringExtra("search_query");
+        sort = intent.getStringExtra("sort");
+        Log.d(TAG, "API string built:  "+ userBeginDate + " " + userEndDate + " "+ filterString + " "+ userQueryString + " " + sort);
+//        if((userBeginDate ==null || userBeginDate.equals(""))){
+//            // normal search
+//            finalQueryString = userQueryString;
+//        }else{
+//            // date filter search
+//            finalQueryString = userQueryString + userFilterDates;
+//        }
 
         ButterKnife.bind(this);
 
@@ -111,7 +116,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchSearchResults("trump&fq=arts&fq=politics&begin_date=20120505&end_date=20140506")
+        this.mDisposable = NYTStreams.streamFetchSearchResults(userBeginDate, userEndDate, filterString,userQueryString, sort)
                 .subscribeWith(new DisposableObserver<NYTSearch>(){
 
                     @Override
