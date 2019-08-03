@@ -35,6 +35,7 @@ public interface NYTService {
     // http://api.nytimes.com/svc/search/v2/articlesearch.json?q=peres&fq=arts&fq=politics&begin_date=20120505&end_date=20140505&facet_filter=true&api-key=eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA
     @GET ("svc/search/v2/articlesearch.json")
     Observable<NYTSearch> GetResultsForSearch(@Query("q") String searchQueryText,
+                                              @Query("facet_filter") Boolean facetFilter,
                                               @Query("api-key") String apiKey);
 
 

@@ -35,7 +35,7 @@ public class NYTStreams {
 
     public static Observable<NYTSearch> streamFetchSearchResults (String queryString){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.GetResultsForSearch(queryString, API_KEY)
+        return nytService.GetResultsForSearch(queryString, true, API_KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
