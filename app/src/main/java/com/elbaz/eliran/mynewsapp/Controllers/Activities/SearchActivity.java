@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.elbaz.eliran.mynewsapp.R;
@@ -24,13 +25,14 @@ public class SearchActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private TextView mStartDate;
     private TextView mEndDate;
-    private TextView mSearchQuery;
+    private EditText mSearchQuery;
     private Button mSearchButton;
     private String mDate;
-    private String BeginDateStringForURL;
-    private String EndDateStringForURL;
+    private String BeginDateStringForURL="";
+    private String EndDateStringForURL="";
+    private String finalDateForQuery;
     private int buttonSelectorFlag=0;
-    private String finalSearchQueryString;
+//    private String finalSearchQueryString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,10 @@ public class SearchActivity extends AppCompatActivity {
 
         this.configureToolbar();
 
-        mSearchButton = (Button) findViewById(R.id.searchButton);
+        mSearchQuery = (EditText) findViewById(R.id.SearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
         mEndDate = (TextView) findViewById(R.id.search_endDate);
-
+        mSearchButton = (Button) findViewById(R.id.searchButton);
 
 
         // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
@@ -67,6 +69,19 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 // set flag back to zero
                 buttonSelectorFlag = 0;
+
+                // Update filter with date string
+                if (BeginDateStringForURL == null || BeginDateStringForURL.equals("")){
+                    BeginDateStringForURL = "";
+                }else{
+                    BeginDateStringForURL = "&begin_date=" + BeginDateStringForURL;
+                }
+                if(EndDateStringForURL == null || EndDateStringForURL.equals("")){
+                    EndDateStringForURL = "";
+                }else{
+                    EndDateStringForURL = "&end_date=" + EndDateStringForURL;
+                }
+                finalDateForQuery = BeginDateStringForURL + EndDateStringForURL;
             }
         };
         // end of dialog listener
@@ -114,7 +129,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchButtonOnClickAction (View view){
+        String queryValue = mSearchQuery.getText().toString();
         Intent intent = new Intent(this, SearchResultsActivity.class);
+        intent.putExtra("Final_Date", finalDateForQuery);
+        intent.putExtra("Search_query", queryValue );
         startActivity(intent);
     }
 
