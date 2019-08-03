@@ -31,9 +31,9 @@ public class SearchActivity extends AppCompatActivity {
     private String mDate;
     private String BeginDateStringForURL="";
     private String EndDateStringForURL="";
-    private String finalDateForQuery;
     private int buttonSelectorFlag=0;
 //    private String finalSearchQueryString;
+    String mQueryValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,33 +56,33 @@ public class SearchActivity extends AppCompatActivity {
                 month +=1;
                 mDate = dayOfMonth + "/" + month + "/" + year;
 
+                // Set the selected date in a string and add zero(0) to numbers under 10
+                String setDate = year + "" + (month < 10 ? ("0" + (month)) : (month)) + "" + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth));
                 // condition for checking if startDate or endDate button is selected
                 if (buttonSelectorFlag == 1){
+                    // Set the text on the layout
                     mStartDate.setText(mDate);
                     // create a start_date string for search api
-                    BeginDateStringForURL = year + "0" + month + "0" + dayOfMonth;
+                    BeginDateStringForURL = setDate;
                     Log.d(TAG, "onDateSet: URL BeginDate filter is: " + BeginDateStringForURL);
                 }else if(buttonSelectorFlag == 2){
+                    // Set the text on the layout
                     mEndDate.setText(mDate);
                     // create an end_date string for search api
-                    EndDateStringForURL = year + "0" + month + "0" + dayOfMonth;
+                    EndDateStringForURL = setDate;
                     Log.d(TAG, "onDateSet: URL BeginDate filter is: " + EndDateStringForURL);
                 }
                 // set flag back to zero
                 buttonSelectorFlag = 0;
 
-                // Update filter with date string
-                if (BeginDateStringForURL == null || BeginDateStringForURL.equals("")){
-                    BeginDateStringForURL = "";
-                }else{
-                    BeginDateStringForURL = "&begin_date=" + BeginDateStringForURL;
-                }
-                if(EndDateStringForURL == null || EndDateStringForURL.equals("")){
-                    EndDateStringForURL = "";
-                }else{
-                    EndDateStringForURL = "&end_date=" + EndDateStringForURL;
-                }
-                finalDateForQuery = BeginDateStringForURL + EndDateStringForURL;
+//                // Update filter with default date whenever the user left it empty
+//                if (BeginDateStringForURL == null || BeginDateStringForURL.equals("")){
+//                    BeginDateStringForURL = "";
+//                }
+//                if(EndDateStringForURL == null || EndDateStringForURL.equals("")){
+//                    EndDateStringForURL = "";
+//                }
+//
             }
         };
         // end of dialog listener
@@ -130,13 +130,20 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void searchButtonOnClickAction (View view){
-        String queryValue = mSearchQuery.getText().toString();
-        if(queryValue==null || queryValue.equals("")){
+        // for test
+        String filter = "politics";
+        String sort = "newest";
+        /////////
+        mQueryValue = mSearchQuery.getText().toString();
+        if(mQueryValue==null || mQueryValue.equals("")){
             Toast.makeText(this, "Your search field is empty", Toast.LENGTH_LONG).show();
         }else{
             Intent intent = new Intent(this, SearchResultsActivity.class);
-            intent.putExtra("Final_Date", finalDateForQuery);
-            intent.putExtra("Search_query", queryValue );
+            intent.putExtra("begin_date", BeginDateStringForURL);
+            intent.putExtra("end_date", EndDateStringForURL );
+            intent.putExtra("filter_query", filter );
+            intent.putExtra("search_query", mQueryValue );
+            intent.putExtra("sort", sort );
             startActivity(intent);
         }
     }
