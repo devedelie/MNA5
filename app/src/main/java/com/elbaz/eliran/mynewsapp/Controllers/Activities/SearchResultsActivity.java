@@ -1,6 +1,7 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,9 @@ public class SearchResultsActivity extends AppCompatActivity {
     private List<Doc> mDocs;
     private NYTAdapterSearchResults mNYTAdapterSearchResults;
     Context mContext;
+    private String userQueryString;
+    private String userFilterDates;
+    private String finalQueryString;
 
     // ButterKnife
     @BindView(R.id.search_results_recyclerView) RecyclerView mRecyclerView;
@@ -43,6 +47,19 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
+        // Create a query String for the stream
+        Intent intent = getIntent();
+        userQueryString = intent.getStringExtra("Search_query");
+        userFilterDates = intent.getStringExtra("Final_Date");
+        if(userFilterDates==null || userFilterDates.equals("")){
+            // normal search
+            finalQueryString = userQueryString;
+        }else{
+            // date filter search
+            finalQueryString = userQueryString + userFilterDates;
+        }
+
+
         ButterKnife.bind(this);
 
         this.configureToolbar();
@@ -50,6 +67,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         this.executeHttpRequestWithRetrofit();
 
     }
+
 
     @Override
     public void onDestroy(){
@@ -93,7 +111,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchSearchResults("boris jhonson&fq=arts&fq=politics&begin_date=20120505&end_date=20140505&facet_filter=true")
+        this.mDisposable = NYTStreams.streamFetchSearchResults("trump&fq=arts&fq=politics&begin_date=20120505&end_date=20140506")
                 .subscribeWith(new DisposableObserver<NYTSearch>(){
 
                     @Override
