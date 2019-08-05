@@ -29,8 +29,8 @@ public interface NYTService {
                                                       @Query("api-key") String apiKey);
 
 
-    // NYT search API from developers.nytimes.com simulator
-    // https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20110505&end_date=20140505&fq=arts&q=disney&sort=oldest&api-key=[YOUR_API_KEY]' \
+    // NYT search API from developers.nytimes.com simulator (dates, filter, query, sort and API-KEY)
+    // https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20180805&end_date=20190805&fq=news_desk%3A(%22technology%22%20%22business%22)&q=microsoft&sort=newest&api-key=eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA
     @GET ("svc/search/v2/articlesearch.json")
     Observable<NYTSearch> GetResultsForSearch(@Query("begin_date") String beginDate,
                                               @Query("end_date") String endDate,
