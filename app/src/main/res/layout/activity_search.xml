@@ -78,14 +78,17 @@
 
                     <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_arts"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_business"/>
                     <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_entrepreneurs"/>
 
 
                 </LinearLayout>
@@ -119,14 +122,17 @@
 
                     <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_politics"/>
 
                     <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_sports"/>
                     <CheckBox
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_travel"/>
 
 
                 </LinearLayout>

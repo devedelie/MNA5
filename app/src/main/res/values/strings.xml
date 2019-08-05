@@ -19,6 +19,12 @@
 
     <!--Search Activity XML-->
     <string name="hint_date"><u>dd/mm/yyyy</u></string>
+    <string name="category_arts">Arts</string>
+    <string name="category_business">Business</string>
+    <string name="category_entrepreneurs">Entrepreneurs</string>
+    <string name="category_politics">Politics</string>
+    <string name="category_sports">Sports</string>
+    <string name="category_travel">Travel</string>
 
     <!--Search Activity class-->
     <string name="begin_date">begin_date</string>
