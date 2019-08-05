@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Models.SearchModels.Doc;
@@ -124,6 +125,11 @@ public class SearchResultsActivity extends AppCompatActivity {
                         // 1.3 - Update UI with list of titles
                         Log.e(TAG, "onNext" );
                         updateUI(nytSearch.getResponse().getDocs());
+                        // Display a message if returned 0 results
+                        int sizeOfList = nytSearch.getResponse().getDocs().size();
+                        if (sizeOfList == 0){
+                            Toast.makeText(getApplicationContext(), "Couldn't find results for your query", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
