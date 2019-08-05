@@ -17,7 +17,16 @@
     <string name="item_2">Help</string>
     <string name="item_3">About</string>
 
-    <!--Search Activity-->
+    <!--Search Activity XML-->
     <string name="hint_date"><u>dd/mm/yyyy</u></string>
+    
+    <!--Search Activity class-->
+    <string name="begin_date">begin_date</string>
+    <string name="end_date">end_date</string>
+    <string name="filter_query">filter_query</string>
+    <string name="search_query">search_query</string>
+    <string name="sort">sort</string>
+    <string name="sort_value">newest</string>
+    <string name="Your_search_field_is_empty">Your search field is empty</string>
 
 </resources>

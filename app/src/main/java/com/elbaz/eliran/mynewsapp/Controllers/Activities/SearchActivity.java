@@ -131,19 +131,20 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchButtonOnClickAction (View view){
         // for test
-        String filter = "politics";
-        String sort = "newest";
+        String filters = "technology";
+        // Sort of results (newest, oldest, relevance)
+        String sort = getString(R.string.sort_value);
         /////////
         mQueryValue = mSearchQuery.getText().toString();
         if(mQueryValue==null || mQueryValue.equals("")){
-            Toast.makeText(this, "Your search field is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.Your_search_field_is_empty), Toast.LENGTH_LONG).show();
         }else{
             Intent intent = new Intent(this, SearchResultsActivity.class);
-            intent.putExtra("begin_date", BeginDateStringForURL);
-            intent.putExtra("end_date", EndDateStringForURL );
-            intent.putExtra("filter_query", filter );
-            intent.putExtra("search_query", mQueryValue );
-            intent.putExtra("sort", sort );
+            intent.putExtra(getString(R.string.begin_date), BeginDateStringForURL);
+            intent.putExtra(getString(R.string.end_date), EndDateStringForURL );
+            intent.putExtra(getString(R.string.filter_query), filters );
+            intent.putExtra(getString(R.string.search_query), mQueryValue );
+            intent.putExtra(getString(R.string.sort), sort );
             startActivity(intent);
         }
     }
