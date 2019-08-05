@@ -154,18 +154,14 @@ public class SearchActivity extends AppCompatActivity {
             case R.id.checkbox_arts:
                 if (checked){
                     filtersQueryString.add(getString(R.string.category_arts_filter));
-                    Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 }
             else filtersQueryString.remove(getString(R.string.category_arts_filter));
-                Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 break;
             case R.id.checkbox_business:
                 if (checked){
                     filtersQueryString.add(getString(R.string.category_business_filter));
-                    Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 }
             else filtersQueryString.remove(getString(R.string.category_business_filter));
-                Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 break;
             case R.id.checkbox_entrepreneurs:
                 if (checked){
@@ -203,7 +199,8 @@ public class SearchActivity extends AppCompatActivity {
      */
     public void searchButtonOnClickAction (View view){
         // for test
-        String filters = "news_desk:(\"Technology\" \"Business\")";
+        String filters = "news_desk:(" + finalFilterString + ")";
+        Log.d(TAG, "onSearchClicked result: " + filters);
         // Sort of results (newest, oldest, relevance)
         String sort = getString(R.string.sort_value);
         /////////
