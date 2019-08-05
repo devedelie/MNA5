@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,9 @@ import android.widget.Toast;
 
 import com.elbaz.eliran.mynewsapp.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,11 +32,13 @@ public class SearchActivity extends AppCompatActivity {
     private TextView mEndDate;
     private EditText mSearchQuery;
     private Button mSearchButton;
+    private CheckBox artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportsCheckbox, travelCheckbox;
     private String mDate;
     private String BeginDateStringForURL="";
     private String EndDateStringForURL="";
     private int buttonSelectorFlag=0;
-//    private String finalSearchQueryString;
+    private List<String> filtersQueryString = new ArrayList<>(6);
+    private String finalFilterString;
     String mQueryValue;
 
     @Override
@@ -47,6 +52,12 @@ public class SearchActivity extends AppCompatActivity {
         mStartDate = (TextView) findViewById(R.id.search_startDate);
         mEndDate = (TextView) findViewById(R.id.search_endDate);
         mSearchButton = (Button) findViewById(R.id.searchButton);
+        artsCheckbox = (CheckBox) findViewById(R.id.checkbox_arts);
+        businessCheckbox = (CheckBox) findViewById(R.id.checkbox_business);
+        entrepreneursCheckbox = (CheckBox) findViewById(R.id.checkbox_entrepreneurs);
+        politicsCheckbox = (CheckBox) findViewById(R.id.checkbox_politics);
+        sportsCheckbox = (CheckBox) findViewById(R.id.checkbox_sports);
+        travelCheckbox = (CheckBox) findViewById(R.id.checkbox_travel);
 
 
         // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
@@ -136,45 +147,55 @@ public class SearchActivity extends AppCompatActivity {
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
+        // set the variable empty
 
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkbox_arts:
                 if (checked){
-                    // Add to string
+                    filtersQueryString.add(getString(R.string.category_arts_filter));
+                    Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 }
-            else
-                // Remove from string
+            else filtersQueryString.remove(getString(R.string.category_arts_filter));
+                Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 break;
             case R.id.checkbox_business:
                 if (checked){
+                    filtersQueryString.add(getString(R.string.category_business_filter));
+                    Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 }
-            else
+            else filtersQueryString.remove(getString(R.string.category_business_filter));
+                Log.d(TAG, "onCheckboxClicked: " + filtersQueryString);
                 break;
             case R.id.checkbox_entrepreneurs:
                 if (checked){
+                    filtersQueryString.add(getString(R.string.category_entrepreneurs_filter));
                 }
-                else
+                else filtersQueryString.remove(getString(R.string.category_entrepreneurs_filter));
                     break;
             case R.id.checkbox_politics:
                 if (checked){
-
+                    filtersQueryString.add(getString(R.string.category_politics_filter));
                 }
-                else
+                else filtersQueryString.remove(getString(R.string.category_politics_filter));
                     break;
             case R.id.checkbox_sports:
                 if (checked){
-
+                    filtersQueryString.add(getString(R.string.category_sports_filter));
                 }
-                else
+                else filtersQueryString.remove(getString(R.string.category_sports_filter));
                     break;
             case R.id.checkbox_travel:
                 if (checked){
-
+                    filtersQueryString.add(getString(R.string.category_travel_filter));
                 }
-                else
+                else filtersQueryString.remove(getString(R.string.category_travel_filter));
                     break;
         }
+        // Join all checked filters into one string
+        finalFilterString = (String) TextUtils.join( " " , filtersQueryString );
+        Log.d(TAG, "onCheckboxClicked result: " + finalFilterString);
+
     }
 
     /**

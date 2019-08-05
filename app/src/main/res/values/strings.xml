@@ -34,5 +34,11 @@
     <string name="sort">sort</string>
     <string name="sort_value">newest</string>
     <string name="Your_search_field_is_empty">Your search field is empty</string>
+    <string name="category_arts_filter">"Arts"</string>
+    <string name="category_business_filter">"Business"</string>
+    <string name="category_entrepreneurs_filter">"Entrepreneurs"</string>
+    <string name="category_politics_filter">"Politics"</string>
+    <string name="category_sports_filter">"Sports"</string>
+    <string name="category_travel_filter">"Travel"</string>
 
 </resources>
