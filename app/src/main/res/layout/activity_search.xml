@@ -77,18 +77,24 @@
                         android:onClick="searchDatePicker"/>
 
                     <CheckBox
+                        android:id="@+id/checkbox_arts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_arts"/>
+                        android:text="@string/category_arts"
+                        android:onClick="onCheckboxClicked"/>
 
                     <CheckBox
+                        android:id="@+id/checkbox_business"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_business"/>
+                        android:text="@string/category_business"
+                        android:onClick="onCheckboxClicked"/>
                     <CheckBox
+                        android:id="@+id/checkbox_entrepreneurs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_entrepreneurs"/>
+                        android:text="@string/category_entrepreneurs"
+                        android:onClick="onCheckboxClicked"/>
 
 
                 </LinearLayout>
@@ -121,18 +127,24 @@
                         style="@android:style/Widget.Holo.Spinner"/>
 
                     <CheckBox
+                        android:id="@+id/checkbox_politics"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_politics"/>
+                        android:text="@string/category_politics"
+                        android:onClick="onCheckboxClicked"/>
 
                     <CheckBox
+                        android:id="@+id/checkbox_sports"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_sports"/>
+                        android:text="@string/category_sports"
+                        android:onClick="onCheckboxClicked"/>
                     <CheckBox
+                        android:id="@+id/checkbox_travel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_travel"/>
+                        android:text="@string/category_travel"
+                        android:onClick="onCheckboxClicked"/>
 
 
                 </LinearLayout>

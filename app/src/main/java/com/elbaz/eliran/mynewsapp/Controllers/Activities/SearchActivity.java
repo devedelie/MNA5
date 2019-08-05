@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -129,9 +130,59 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onClick method for the checkboxes - to create a string for results filtering
+     */
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_arts:
+                if (checked){
+                    // Add to string
+                }
+            else
+                // Remove from string
+                break;
+            case R.id.checkbox_business:
+                if (checked){
+                }
+            else
+                break;
+            case R.id.checkbox_entrepreneurs:
+                if (checked){
+                }
+                else
+                    break;
+            case R.id.checkbox_politics:
+                if (checked){
+
+                }
+                else
+                    break;
+            case R.id.checkbox_sports:
+                if (checked){
+
+                }
+                else
+                    break;
+            case R.id.checkbox_travel:
+                if (checked){
+
+                }
+                else
+                    break;
+        }
+    }
+
+    /**
+     * Search button action - to invoke the search API with all filtered data
+     */
     public void searchButtonOnClickAction (View view){
         // for test
-        String filters = "technology";
+        String filters = "news_desk:(\"Technology\" \"Business\")";
         // Sort of results (newest, oldest, relevance)
         String sort = getString(R.string.sort_value);
         /////////
