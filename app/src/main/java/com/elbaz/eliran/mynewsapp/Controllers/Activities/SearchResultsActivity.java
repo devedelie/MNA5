@@ -51,11 +51,11 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         // Create a query String for the stream
         Intent intent = getIntent();
-        userBeginDate = intent.getStringExtra("begin_date");
-        userEndDate = intent.getStringExtra("end_date");
-        filterString = intent.getStringExtra("filter_query");
-        userQueryString = intent.getStringExtra("search_query");
-        sort = intent.getStringExtra("sort");
+        userBeginDate = intent.getStringExtra(getString(R.string.begin_date));
+        userEndDate = intent.getStringExtra(getString(R.string.end_date));
+        filterString = intent.getStringExtra(getString(R.string.filter_query));
+        userQueryString = intent.getStringExtra(getString(R.string.search_query));
+        sort = intent.getStringExtra(getString(R.string.sort));
         Log.d(TAG, "API string built:  "+ userBeginDate + " " + userEndDate + " "+ filterString + " "+ userQueryString + " " + sort);
 //        if((userBeginDate ==null || userBeginDate.equals(""))){
 //            // normal search

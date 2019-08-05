@@ -19,7 +19,7 @@
 
     <!--Search Activity XML-->
     <string name="hint_date"><u>dd/mm/yyyy</u></string>
-    
+
     <!--Search Activity class-->
     <string name="begin_date">begin_date</string>
     <string name="end_date">end_date</string>
