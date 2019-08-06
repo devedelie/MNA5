@@ -192,7 +192,7 @@ public class SearchActivity extends AppCompatActivity {
      * Search button action - to invoke the search API with all filtered data
      */
     public void searchButtonOnClickAction (View view){
-        if (finalFilterString != null){
+        if (finalFilterString != null && !finalFilterString.isEmpty()){
 
             String filters = "news_desk:(" + finalFilterString + ")";
             Log.d(TAG, "onSearchClicked result: " + filters);
