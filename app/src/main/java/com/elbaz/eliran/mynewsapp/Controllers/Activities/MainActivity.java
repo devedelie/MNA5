@@ -35,16 +35,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //1 - Configuring Toolbar
         this.configureToolbar();
-
         //2 - Configure ViewPager
         this.configureViewPagerAndTabs();
-
         //3 - Configure Drawer
         this.configureDrawerLayout();
-
         //4 - Configure NavigationView
         this.configureNavigationView();
-
     }
 
     /**
@@ -137,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //3 - Handle actions on menu items
         switch (item.getItemId()) {
             case R.id.menu_activity_main_search:
-                Toast.makeText(this, "Search", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 return true;
