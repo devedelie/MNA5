@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -57,5 +58,18 @@ public class WebPageActivity extends AppCompatActivity {
         // Load page
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(url);
+    }
+
+    // Detect the click on "back" button and finish the current activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if ( id == android.R.id.home ) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

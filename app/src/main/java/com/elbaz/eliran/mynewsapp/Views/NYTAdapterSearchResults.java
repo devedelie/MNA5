@@ -51,10 +51,10 @@ public class NYTAdapterSearchResults extends RecyclerView.Adapter<NYTViewHolder>
         return this.mDocs.size();
     }
 
-//    /**
-//     * A method to receive the correct title URL from its current position on the list
-//     */
-//    public String getUrl(int position) {
-//        return mDocs.get(position).getWebUrl();
-//    }
+    /**
+     * A method to receive the correct title URL from its current position on the list
+     */
+    public String getUrl(int position) {
+        return mDocs.get(position).getWebUrl();
+    }
 }

@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +18,7 @@ import com.elbaz.eliran.mynewsapp.Models.SearchModels.Doc;
 import com.elbaz.eliran.mynewsapp.Models.SearchModels.NYTSearch;
 import com.elbaz.eliran.mynewsapp.Models.SearchModels.Response;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.Utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.Views.NYTAdapterSearchResults;
 
@@ -45,6 +48,8 @@ public class SearchResultsActivity extends AppCompatActivity {
     // ButterKnife
     @BindView(R.id.search_results_recyclerView) RecyclerView mRecyclerView;
 
+    public static final String BUNDLE_URL= "BUNDLE_URL";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         this.configureToolbar();
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
+        this.configureOnClickRecyclerView();
 
     }
     
@@ -132,6 +138,42 @@ public class SearchResultsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete");
+                    }
+                });
+    }
+
+    // Detect the click on "back" button and finish the current activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if ( id == android.R.id.home ) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // -----------------
+    // ACTION RecyclerView onClick
+    // -----------------
+
+    // 1 - Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.recyclerview_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+
+                        // Get title URL from adapter into variable
+                        String url = mNYTAdapterSearchResults.getUrl(position);
+                        // Instantiate the WebView Activity
+                        Intent intent = new Intent(v.getContext(), WebPageActivity.class);
+                        // Send variable data to the activity
+                        intent.putExtra(BUNDLE_URL,url);
+                        startActivity(intent);
                     }
                 });
     }
