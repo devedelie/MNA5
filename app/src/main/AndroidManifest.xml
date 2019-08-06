@@ -47,7 +47,6 @@
         <activity
             android:name=".Controllers.Activities.SearchResultsActivity"
             android:label="Search Results"
-            android:parentActivityName=".Controllers.Activities.SearchActivity"
             android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
