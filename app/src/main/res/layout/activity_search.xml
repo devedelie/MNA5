@@ -170,6 +170,17 @@
                     android:width="250dp"
                     android:text="Search"
                     android:onClick="searchButtonOnClickAction"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/notifications_switchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_below="@+id/searchButton"
+                    android:layout_marginTop="50dp"
+                    android:text="Enable notifications (once per day)    "
+                    android:layout_centerHorizontal="true" />
+
             </RelativeLayout>
 
 

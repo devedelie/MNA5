@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -31,18 +32,14 @@ import static android.content.ContentValues.TAG;
 
 public class SearchActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
-    private TextView mStartDate;
-    private TextView mEndDate;
+    private TextView mStartDate, mEndDate, mStartDateText, mEndDateText;
     private EditText mSearchQuery;
     private Button mSearchButton;
+    private SwitchCompat mSwitchForNotifications;
     private CheckBox artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportsCheckbox, travelCheckbox;
-    private String mDate;
-    private String BeginDateStringForURL;
-    private String EndDateStringForURL;
+    private String mDate, BeginDateStringForURL, EndDateStringForURL, finalFilterString, mQueryValue;
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
-    private String finalFilterString;
-    String mQueryValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +58,27 @@ public class SearchActivity extends AppCompatActivity {
         politicsCheckbox = (CheckBox) findViewById(R.id.checkbox_politics);
         sportsCheckbox = (CheckBox) findViewById(R.id.checkbox_sports);
         travelCheckbox = (CheckBox) findViewById(R.id.checkbox_travel);
+        mStartDateText = (TextView) findViewById(R.id.StartDateText);
+        mEndDateText = (TextView) findViewById(R.id.EndDateText);
+        mSwitchForNotifications = (SwitchCompat) findViewById(R.id.notifications_switchButton);
 
 
+
+        // Set view elements visibility to "Gone" - depends on the selected operation of the activity (search OR notification)
+        Intent intent = getIntent();
+        Boolean search = intent.getBooleanExtra("search_activity", false);
+        Boolean notification = intent.getBooleanExtra("notification_activity", false);
+        if (search){
+            mSwitchForNotifications.setVisibility(View.GONE);
+
+        }else if (notification){
+            mStartDate.setVisibility(View.GONE);
+            mEndDate.setVisibility(View.GONE);
+            mSearchButton.setVisibility(View.GONE);
+            mStartDateText.setVisibility(View.GONE);
+            mEndDateText.setVisibility(View.GONE);
+        }
+        
         // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
         mOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -94,6 +110,7 @@ public class SearchActivity extends AppCompatActivity {
         // end of dialog listener
 
     }
+
 
     /**
      * 1 - Toolbar execution
