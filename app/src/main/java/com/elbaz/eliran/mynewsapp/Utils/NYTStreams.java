@@ -45,6 +45,5 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
 
     }
-
-    // .... can add more streams here 2, 3, 4...
+    
 }
