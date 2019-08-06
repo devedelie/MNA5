@@ -145,7 +145,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete");
-                        // Hide loading animation
+                        // Hide loading animation when finished HttpRequest
                         findViewById(R.id.loadingAnimation).setVisibility(View.GONE);
                     }
                 });
