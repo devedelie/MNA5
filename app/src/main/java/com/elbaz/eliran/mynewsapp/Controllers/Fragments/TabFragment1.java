@@ -141,10 +141,6 @@ public class TabFragment1 extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
-//                        // 1 - Get user from adapter
-//                        Result mResults = mNYTAdapter.getURLInPosition(position);
-//                        // 2 - Show result in a Toast
-//                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
 
                         // Get title URL from adapter into variable
                         String url = mNYTAdapter.getUrl(position);

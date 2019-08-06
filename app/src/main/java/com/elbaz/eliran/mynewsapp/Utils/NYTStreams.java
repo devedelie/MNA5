@@ -45,5 +45,5 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
 
     }
-    
+
 }
