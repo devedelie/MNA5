@@ -1,5 +1,6 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Models.SearchModels.Doc;
@@ -126,7 +126,14 @@ public class SearchResultsActivity extends AppCompatActivity {
                         // Display a message if returned 0 results
                         int sizeOfList = nytSearch.getResponse().getDocs().size();
                         if (sizeOfList == 0){
-                            Toast.makeText(getApplicationContext(), "Couldn't find results for your query", Toast.LENGTH_LONG).show();
+                            // If no matches - send result to previous activity to invoke a SnackBar pop-up, and finish the activity
+                            Intent back = new Intent();
+                            setResult(Activity.RESULT_CANCELED, back);
+                            finish();
+                        }else {
+                            // Inform the previous activity that results are OK
+                            Intent back = new Intent();
+                            setResult(Activity.RESULT_OK, back);
                         }
                     }
 

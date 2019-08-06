@@ -33,7 +33,7 @@
     <string name="search_query">search_query</string>
     <string name="sort">sort</string>
     <string name="sort_value">newest</string>
-    <string name="Your_search_field_is_empty">Your search field is empty</string>
+    <string name="no_results">Couldn\'t find results for your query</string>
     <string name="Your_filter_field_is_empty">Please select at least one category</string>
     <string name="category_arts_filter">\"Arts\"</string>
     <string name="category_business_filter">\"Business\"</string>

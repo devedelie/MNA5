@@ -1,10 +1,13 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -203,12 +206,21 @@ public class SearchActivity extends AppCompatActivity {
             intent.putExtra(getString(R.string.filter_query), filters );
             intent.putExtra(getString(R.string.search_query), mQueryValue );
             intent.putExtra(getString(R.string.sort), sort );
-            startActivity(intent);
+            startActivityForResult(intent,100);
 
         }else{
             Toast.makeText(this, getString(R.string.Your_filter_field_is_empty), Toast.LENGTH_LONG).show();
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Check if failed to find results, and show a SnackBar pop-up
+        if (resultCode == Activity.RESULT_CANCELED) {
+            Snackbar.make(getCurrentFocus(), R.string.no_results,
+                    Snackbar.LENGTH_LONG)
+                    .show();
+        }
     }
 
 }
