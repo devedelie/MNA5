@@ -34,8 +34,8 @@ public class SearchActivity extends AppCompatActivity {
     private Button mSearchButton;
     private CheckBox artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportsCheckbox, travelCheckbox;
     private String mDate;
-    private String BeginDateStringForURL="";
-    private String EndDateStringForURL="";
+    private String BeginDateStringForURL;
+    private String EndDateStringForURL;
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
     private String finalFilterString;
@@ -86,15 +86,6 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 // set flag back to zero
                 buttonSelectorFlag = 0;
-
-//                // Update filter with default date whenever the user left it empty
-//                if (BeginDateStringForURL == null || BeginDateStringForURL.equals("")){
-//                    BeginDateStringForURL = "";
-//                }
-//                if(EndDateStringForURL == null || EndDateStringForURL.equals("")){
-//                    EndDateStringForURL = "";
-//                }
-//
             }
         };
         // end of dialog listener
@@ -198,24 +189,30 @@ public class SearchActivity extends AppCompatActivity {
      * Search button action - to invoke the search API with all filtered data
      */
     public void searchButtonOnClickAction (View view){
-        // for test
-        String filters = "news_desk:(" + finalFilterString + ")";
-        Log.d(TAG, "onSearchClicked result: " + filters);
-        // Sort of results (newest, oldest, relevance)
-        String sort = getString(R.string.sort_value);
-        /////////
-        mQueryValue = mSearchQuery.getText().toString();
-        if(mQueryValue==null || mQueryValue.equals("")){
-            Toast.makeText(this, getString(R.string.Your_search_field_is_empty), Toast.LENGTH_LONG).show();
+        if (finalFilterString != null){
+
+            String filters = "news_desk:(" + finalFilterString + ")";
+            Log.d(TAG, "onSearchClicked result: " + filters);
+            // Sort the results (newest, oldest, relevance)
+            String sort = getString(R.string.sort_value);
+            /////////
+            mQueryValue = mSearchQuery.getText().toString();
+            if(mQueryValue==null || mQueryValue.equals("")){
+                Toast.makeText(this, getString(R.string.Your_search_field_is_empty), Toast.LENGTH_LONG).show();
+            }else{
+                Intent intent = new Intent(this, SearchResultsActivity.class);
+                intent.putExtra(getString(R.string.begin_date), BeginDateStringForURL);
+                intent.putExtra(getString(R.string.end_date), EndDateStringForURL );
+                intent.putExtra(getString(R.string.filter_query), filters );
+                intent.putExtra(getString(R.string.search_query), mQueryValue );
+                intent.putExtra(getString(R.string.sort), sort );
+                startActivity(intent);
+            }
+
         }else{
-            Intent intent = new Intent(this, SearchResultsActivity.class);
-            intent.putExtra(getString(R.string.begin_date), BeginDateStringForURL);
-            intent.putExtra(getString(R.string.end_date), EndDateStringForURL );
-            intent.putExtra(getString(R.string.filter_query), filters );
-            intent.putExtra(getString(R.string.search_query), mQueryValue );
-            intent.putExtra(getString(R.string.sort), sort );
-            startActivity(intent);
+            Toast.makeText(this, getString(R.string.Your_filter_field_is_empty), Toast.LENGTH_LONG).show();
         }
+
     }
 
 }
