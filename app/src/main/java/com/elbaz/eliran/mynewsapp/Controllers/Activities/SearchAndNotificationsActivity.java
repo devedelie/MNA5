@@ -30,7 +30,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchAndNotificationsActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private TextView mStartDate, mEndDate, mStartDateText, mEndDateText;
     private EditText mSearchQuery;
@@ -138,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
 
         // Create DatePicker dialog object with the design and the variables
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                SearchActivity.this,
+                SearchAndNotificationsActivity.this,
                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 mOnDateSetListener,
                 year,month,day);

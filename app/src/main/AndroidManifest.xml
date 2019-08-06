@@ -20,7 +20,7 @@
             </intent-filter>
         </activity> <!-- child 1 of MainActivity -->
         <activity
-            android:name=".Controllers.Activities.SearchActivity"
+            android:name=".Controllers.Activities.SearchAndNotificationsActivity"
             android:label="Search and notifications"
             android:parentActivityName=".Controllers.Activities.MainActivity"
             android:screenOrientation="portrait">
@@ -43,7 +43,7 @@
                 android:value=".Controllers.Activities.MainActivity" />
         </activity>
 
-        <!-- Child of SearchActivity -->
+        <!-- Child of SearchAndNotificationsActivity -->
         <activity
             android:name=".Controllers.Activities.SearchResultsActivity"
             android:label="Search Results"
@@ -52,7 +52,7 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controllers.Activities.SearchActivity" />
+                android:value=".Controllers.Activities.SearchAndNotificationsActivity" />
         </activity>
     </application>
 
