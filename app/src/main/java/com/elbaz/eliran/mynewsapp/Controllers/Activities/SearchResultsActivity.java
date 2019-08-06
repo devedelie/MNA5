@@ -58,13 +58,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         userQueryString = intent.getStringExtra(getString(R.string.search_query));
         sort = intent.getStringExtra(getString(R.string.sort));
         Log.d(TAG, "API string built:  "+ userBeginDate + " " + userEndDate + " "+ filterString + " "+ userQueryString + " " + sort);
-//        if((userBeginDate ==null || userBeginDate.equals(""))){
-//            // normal search
-//            finalQueryString = userQueryString;
-//        }else{
-//            // date filter search
-//            finalQueryString = userQueryString + userFilterDates;
-//        }
 
         ButterKnife.bind(this);
 
@@ -73,8 +66,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         this.executeHttpRequestWithRetrofit();
 
     }
-
-
+    
     @Override
     public void onDestroy(){
         super.onDestroy();
