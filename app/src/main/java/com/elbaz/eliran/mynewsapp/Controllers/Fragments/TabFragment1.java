@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
+import com.elbaz.eliran.mynewsapp.Models.Constants;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
@@ -45,11 +46,6 @@ public class TabFragment1 extends Fragment {
     // ButterKnife
     @BindView(R.id.fragment_1_recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.teb_fragment1_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
-
-
-    public static TabFragment1 newInstance() {
-        return (new TabFragment1());
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,7 +99,7 @@ public class TabFragment1 extends Fragment {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchTopStories("home")
+        this.mDisposable = NYTStreams.streamFetchTopStories(Constants.TAB1VALUE)
                 .subscribeWith(new DisposableObserver<NYTNews>(){
 
                     @Override
@@ -112,12 +108,10 @@ public class TabFragment1 extends Fragment {
                         Log.e(TAG, "onNext" );
                         updateUI(nytNews.getResults());
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: "+ e );
                     }
-
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete");
@@ -141,7 +135,6 @@ public class TabFragment1 extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
-
                         // Get title URL from adapter into variable
                         String url = mNYTAdapter.getUrl(position);
                         // Instantiate the WebView Activity

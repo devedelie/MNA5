@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
+import com.elbaz.eliran.mynewsapp.Models.Constants;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.NYTMostPopular;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.ResultMostPopular;
 import com.elbaz.eliran.mynewsapp.R;
@@ -44,10 +45,6 @@ public class TabFragment2 extends Fragment {
     @BindView(R.id.fragment_2_recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.teb_fragment2_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
 
-
-    public static TabFragment2 newInstance() {
-        return (new TabFragment2());
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,11 +90,6 @@ public class TabFragment2 extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
-//                        // 1 - Get user from adapter
-//                        Result mResults = mNYTAdapter.getURLInPosition(position);
-//                        // 2 - Show result in a Toast
-//                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
-
                         // Get title URL from adapter into variable
                         String url = mNYTAdapterMostPopular.getUrl(position);
                         // Instantiate the WebView Activity
@@ -128,7 +120,7 @@ public class TabFragment2 extends Fragment {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchMostPopular("facebook")
+        this.mDisposable = NYTStreams.streamFetchMostPopular(Constants.TAB2VALUE)
                 .subscribeWith(new DisposableObserver<NYTMostPopular>(){
 
                     @Override

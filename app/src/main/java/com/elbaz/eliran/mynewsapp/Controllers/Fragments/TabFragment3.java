@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
+import com.elbaz.eliran.mynewsapp.Models.Constants;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
@@ -42,11 +43,6 @@ public class TabFragment3 extends Fragment {
     // try
     @BindView(R.id.fragment_3_recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.teb_fragment3_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
-
-
-    public static TabFragment3 newInstance() {
-        return (new TabFragment3());
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,11 +88,6 @@ public class TabFragment3 extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
-//                        // 1 - Get user from adapter
-//                        Result mResults = mNYTAdapter.getURLInPosition(position);
-//                        // 2 - Show result in a Toast
-//                        Toast.makeText(getContext(), "the address is : "+mResults.getUrl(), Toast.LENGTH_LONG).show();
-
                         // Get title URL from adapter into variable
                         String url = mNYTAdapter.getUrl(position);
                         // Instantiate the WebView Activity
@@ -127,7 +118,7 @@ public class TabFragment3 extends Fragment {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchTopStories("technology")
+        this.mDisposable = NYTStreams.streamFetchTopStories(Constants.TAB3VALUE)
                 .subscribeWith(new DisposableObserver<NYTNews>(){
 
                     @Override

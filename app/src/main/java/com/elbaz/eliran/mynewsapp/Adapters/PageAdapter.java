@@ -32,13 +32,13 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return TabFragment1.newInstance();
+                return new TabFragment1();
             case 1:
-                return TabFragment2.newInstance();
+                return new TabFragment2();
             case 2:
-                return TabFragment3.newInstance();
+                return new TabFragment3();
             case 3:
-                return TabFragment4.newInstance();
+                return new TabFragment4();
             default:
                 return null;
         }
