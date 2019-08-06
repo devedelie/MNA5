@@ -49,6 +49,9 @@ public class NYTAdapterMostPopular extends RecyclerView.Adapter<NYTViewHolder> {
         return this.mResultMostPopulars.size();
     }
 
+    /**
+     * A method to receive the correct title URL from its current position on the list
+     */
     public String getUrl(int position) {
         return mResultMostPopulars.get(position).getUrl();
     }

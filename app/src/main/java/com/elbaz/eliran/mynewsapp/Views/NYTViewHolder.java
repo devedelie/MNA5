@@ -32,8 +32,9 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
     String space;
 
     @BindView(R.id.item_content_title) TextView item_content_title;
-    @BindView(R.id.item_continent) TextView item_continent;
-    @BindView(R.id.item_country) TextView item_country;
+    @BindView(R.id.item_section) TextView item_section;
+    @BindView(R.id.item_subsection) TextView item_subsection;
+    @BindView(R.id.item_section_subsection_separator) TextView item_section_subsection_separator;
     @BindView(R.id.item_date) TextView item_date;
     @BindView(R.id.image_placeholder) ImageView mImageView;
 
@@ -50,14 +51,14 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.setImageForTopStories(titles, glide);
         // get news title
         this.item_content_title.setText(titles.getTitle());
-        // get news continent of origin
-        if(titles.getSubsection() == "" || titles.getSubsection()== null) {
-            this.item_continent.setText(titles.getSection()+ "" );
-        }else{
-            this.item_continent.setText(titles.getSection()+ " > " );
+        // get news section of origin
+        this.item_section.setText(titles.getSection());
+        // get news sub-section
+        if(!titles.getSubsection().isEmpty() && titles.getSubsection()!= null) {
+            this.item_section_subsection_separator.setVisibility(View.VISIBLE);
+            this.item_subsection.setText(titles.getSubsection());
+            this.item_subsection.setVisibility(View.VISIBLE);
         }
-        // get news country of origin
-        this.item_country.setText(titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);
@@ -72,14 +73,14 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.setImageForMostPopular(titles, glide);
         // get news title
         this.item_content_title.setText(titles.getTitle());
-        // get news continent of origin
-        if(titles.getSubsection() == "" || titles.getSubsection()== null) {
-            this.item_continent.setText(titles.getSection()+ "" );
-        }else{
-            this.item_continent.setText(titles.getSection()+ " > " );
+        // get news section of origin
+        this.item_section.setText(titles.getSection());
+        // get news sub-section
+        if(!titles.getSubsection().isEmpty() && titles.getSubsection()!= null) {
+            this.item_section_subsection_separator.setVisibility(View.VISIBLE);
+            this.item_subsection.setText(titles.getSubsection());
+            this.item_subsection.setVisibility(View.VISIBLE);
         }
-        // get news country of origin
-        this.item_country.setText(titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);
@@ -94,14 +95,14 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.setImageForSearchResults(titles, glide);
         // get news title
         this.item_content_title.setText(titles.getSnippet());
-        // get news_Desk category
-        if(titles.getNewsDesk() == "" || titles.getSectionName() == null) {
-            this.item_continent.setText(titles.getNewsDesk()+ "" );
-        }else{
-            this.item_continent.setText(titles.getNewsDesk()+ " > " );
+        // get news section of origin
+        this.item_section.setText(titles.getNewsDesk());
+        // get news sub-section
+        if(!titles.getSectionName().isEmpty() && titles.getSectionName()!= null) {
+            this.item_section_subsection_separator.setVisibility(View.VISIBLE);
+            this.item_subsection.setText(titles.getSectionName());
+            this.item_subsection.setVisibility(View.VISIBLE);
         }
-        // get Section_name
-        this.item_country.setText(titles.getSectionName());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPubDate();
         String shortDate = convertDate(fullDate);

@@ -36,17 +36,26 @@
         android:layout_marginStart="8dp">
 
         <TextView
-            android:id="@+id/item_continent"
+            android:id="@+id/item_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Continent" />
+            android:text="section" />
         <TextView
-            android:id="@+id/item_country"
+            android:id="@+id/item_section_subsection_separator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Country" />
+            android:text=" > "
+            android:visibility="invisible"
+            />
+        <TextView
+            android:id="@+id/item_subsection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="subsection"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:layout_width="match_parent"
