@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity {
             mStartDateText.setVisibility(View.GONE);
             mEndDateText.setVisibility(View.GONE);
         }
-        
+
         // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
         mOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
