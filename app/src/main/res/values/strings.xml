@@ -1,4 +1,6 @@
 <resources>
+    <!--Internet connection-->
+    <string name="internet_connectivity">Please check your Internet connection and refresh the page</string>
     <!--App title-->
     <string name="app_name">My News</string>
 

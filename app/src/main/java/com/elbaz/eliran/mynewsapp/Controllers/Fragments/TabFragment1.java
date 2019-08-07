@@ -82,9 +82,9 @@ public class TabFragment1 extends Fragment {
 
     // Connectivity failure message
     public void internetConnectivityMessage(){
-            Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
-                    Snackbar.LENGTH_LONG)
-                    .show();
+        Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
+                Snackbar.LENGTH_LONG)
+                .show();
     }
 
     //-----------------
