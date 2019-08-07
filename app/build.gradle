@@ -25,7 +25,6 @@ android {
 
 dependencies {
 
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -79,5 +78,8 @@ dependencies {
 
     //Robolectric
     testImplementation 'org.robolectric:robolectric:4.3'
+
+    //WorkManager
+    implementation "android.arch.work:work-runtime:1.0.1"
 
 }
