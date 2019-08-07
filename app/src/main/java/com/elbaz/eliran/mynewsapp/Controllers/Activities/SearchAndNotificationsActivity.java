@@ -21,13 +21,19 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.NotificationWorker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.ContentValues.TAG;
 
@@ -229,7 +235,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             startActivityForResult(intent,100);
 
         }else{
-            Toast.makeText(this, getString(R.string.Your_filter_field_is_empty), Toast.LENGTH_LONG).show();
+            SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
         }
     }
 
@@ -249,11 +255,25 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         if(isChecked){
             Log.i("switch_compat", isChecked + "");
             SnackBarMessages(getString(R.string.notifications_on));
+            // Initiate the Worker class to work daily
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiresBatteryNotLow(true)
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            PeriodicWorkRequest saveRequest =
+                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.MINUTES)
+                            .setConstraints(constraints)
+                            .build();
+
+            WorkManager.getInstance()
+                    .enqueue(saveRequest);
         }else{
             Log.i("switch_not_checked", isChecked + "");
             SnackBarMessages(getString(R.string.notifications_off));
-        }
+            // Stops the activity of the worker
 
+        }
     }
 
     // A method to show popup SnackBar messages
