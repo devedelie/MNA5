@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class SearchAndNotificationsActivity extends AppCompatActivity {
+public class SearchAndNotificationsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private TextView mStartDate, mEndDate, mStartDateText, mEndDateText;
     private EditText mSearchQuery;
@@ -77,6 +78,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
             mSearchButton.setVisibility(View.GONE);
             mStartDateText.setVisibility(View.GONE);
             mEndDateText.setVisibility(View.GONE);
+            // Set switch listener
+            mSwitchForNotifications.setOnCheckedChangeListener(this);
         }
 
         // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
@@ -234,10 +237,31 @@ public class SearchAndNotificationsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // Check if failed to find results, and show a SnackBar pop-up
         if (resultCode == Activity.RESULT_CANCELED) {
-            Snackbar.make(getCurrentFocus(), R.string.no_results,
-                    Snackbar.LENGTH_LONG)
-                    .show();
+            SnackBarMessages(getString(R.string.no_results));
         }
     }
+
+    /**
+     * A method to detect the state changes of Android SwitchCompat button
+     */
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked){
+            Log.i("switch_compat", isChecked + "");
+            SnackBarMessages(getString(R.string.notifications_on));
+        }else{
+            Log.i("switch_not_checked", isChecked + "");
+            SnackBarMessages(getString(R.string.notifications_off));
+        }
+
+    }
+
+    // A method to show popup SnackBar messages
+    protected void SnackBarMessages (String string){
+        Snackbar.make(getCurrentFocus(), string,
+                Snackbar.LENGTH_LONG)
+                .show();
+    }
+
 
 }
