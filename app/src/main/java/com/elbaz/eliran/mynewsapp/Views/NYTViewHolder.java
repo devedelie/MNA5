@@ -58,7 +58,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
             this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
         }else{
             this.item_subsection.setText(titles.getSubsection());
-            this.item_subsection.setVisibility(View.VISIBLE);
         }
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
@@ -81,7 +80,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
             this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
         }else{
             this.item_subsection.setText(titles.getSubsection());
-            this.item_subsection.setVisibility(View.VISIBLE);
         }
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
@@ -104,7 +102,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
             this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
         }else{
             this.item_subsection.setText(titles.getSectionName());
-            this.item_subsection.setVisibility(View.VISIBLE);
         }
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPubDate();
