@@ -3,6 +3,7 @@ package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,18 +24,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
 import com.elbaz.eliran.mynewsapp.R;
-import com.elbaz.eliran.mynewsapp.Utils.NotificationWorker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static android.content.ContentValues.TAG;
 
@@ -47,6 +42,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     private String mDate, BeginDateStringForURL, EndDateStringForURL, finalFilterString, mQueryValue;
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
+    SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +64,10 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         mStartDateText = (TextView) findViewById(R.id.StartDateText);
         mEndDateText = (TextView) findViewById(R.id.EndDateText);
         mSwitchForNotifications = (SwitchCompat) findViewById(R.id.notifications_switchButton);
-
-
+        
+        // Check and set switch state
+            mSharedPreferences = getSharedPreferences("save_switch_state", MODE_PRIVATE);
+            mSwitchForNotifications.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
 
         // Set view elements visibility to "Gone" - depends on the selected operation of the activity (search OR notification)
         Intent intent = getIntent();
@@ -161,6 +159,19 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         }
     }
 
+    // Detect the click on "back" button and finish the current activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if ( id == android.R.id.home ) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * onClick method for the checkboxes - to create a string for results filtering
      */
@@ -249,27 +260,37 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
 
     /**
      * A method to detect the state changes of Android SwitchCompat button
+     * to Start/Stop the Worker class
      */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        SharedPreferences.Editor editor = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
         if(isChecked){
-            Log.i("switch_compat", isChecked + "");
+            Log.i("switch_is_checked", isChecked + "");
+            // Save switch state
+            editor.putBoolean("current_switch_state", true);
+            editor.commit();
+            // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
             // Initiate the Worker class to work daily
-            Constraints constraints = new Constraints.Builder()
-                    .setRequiresBatteryNotLow(true)
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build();
-
-            PeriodicWorkRequest saveRequest =
-                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.MINUTES)
-                            .setConstraints(constraints)
-                            .build();
-
-            WorkManager.getInstance()
-                    .enqueue(saveRequest);
+//            Constraints constraints = new Constraints.Builder()
+//                    .setRequiresBatteryNotLow(true)
+//                    .setRequiredNetworkType(NetworkType.CONNECTED)
+//                    .build();
+//
+//            PeriodicWorkRequest saveRequest =
+//                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.MINUTES)
+//                            .setConstraints(constraints)
+//                            .build();
+//
+//            WorkManager.getInstance()
+//                    .enqueue(saveRequest);
         }else{
-            Log.i("switch_not_checked", isChecked + "");
+            Log.i("switch_is_checked", isChecked + "");
+            // Save switch state
+            editor.putBoolean("current_switch_state", false);
+            editor.commit();
+            // Show a message
             SnackBarMessages(getString(R.string.notifications_off));
             // Stops the activity of the worker
 
