@@ -53,12 +53,12 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_content_title.setText(titles.getTitle());
         // get news section of origin
         this.item_section.setText(titles.getSection());
-        // get news sub-section
+        // Set separator(>) if needed
         if(titles.getSubsection().isEmpty() || titles.getSubsection()== null) {
             this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-        }else{
-            this.item_subsection.setText(titles.getSubsection());
-        }
+       }
+        // get news sub-section
+        this.item_subsection.setText(titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);
@@ -75,12 +75,12 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_content_title.setText(titles.getTitle());
         // get news section of origin
         this.item_section.setText(titles.getSection());
-        // get news sub-section
+        // Set separator(>) if needed
         if(titles.getSubsection().isEmpty() || titles.getSubsection()== null) {
             this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-        }else{
-            this.item_subsection.setText(titles.getSubsection());
         }
+        // get news sub-section
+        this.item_subsection.setText(titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);
@@ -97,12 +97,12 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_content_title.setText(titles.getSnippet());
         // get news section of origin
         this.item_section.setText(titles.getNewsDesk());
-        // get news sub-section
+        // Set separator(>) if needed
         if(titles.getSectionName().isEmpty() || titles.getSectionName()== null) {
             this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-        }else{
-            this.item_subsection.setText(titles.getSectionName());
         }
+        // get news sub-section
+        this.item_subsection.setText(titles.getSectionName());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPubDate();
         String shortDate = convertDate(fullDate);
