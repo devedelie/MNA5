@@ -106,6 +106,7 @@ public class TabFragment1 extends Fragment {
             public void onRefresh() {
                 if(!networkState){
                     internetConnectivityMessage();
+                    // Stops the SwipeRefreshLayout animation
                     mSwipeRefreshLayout.setRefreshing(false);
                 }else{
                     executeHttpRequestWithRetrofit();
@@ -150,8 +151,7 @@ public class TabFragment1 extends Fragment {
     // -----------------
     // ACTION RecyclerView onClick
     // -----------------
-
-    // 1 - Configure item click on RecyclerView
+    //  Configure item click on RecyclerView
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(mRecyclerView, R.layout.recyclerview_item)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -172,8 +172,7 @@ public class TabFragment1 extends Fragment {
     //-----------------
     // Update UI
     //-----------------
-
-    // 3 - Update UI showing news titles
+    // Update UI showing news titles
     private void updateUI(List<Result> titles){
         // Stops the SwipeRefreshLayout animation once our network query has finished correctly
         mSwipeRefreshLayout.setRefreshing(false);
