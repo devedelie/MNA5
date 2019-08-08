@@ -24,18 +24,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.Utils.NotificationWorker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 
@@ -274,25 +274,35 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         SharedPreferences.Editor editor = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
         if(isChecked){
             Log.i("switch_is_checked", isChecked + "");
+            // Save today's date when switch was launched
+            String switchStartDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+            Log.d(TAG, "onCheckedChanged: stored date is "+ switchStartDate);
+            editor.putString("switch_start_date", switchStartDate);
             // Save switch state
             editor.putBoolean("current_switch_state", true);
             editor.commit();
             // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
-            // Initiate the Worker class to work daily
-            Constraints constraints = new Constraints.Builder()
-                    .setRequiresBatteryNotLow(true)
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build();
-
-            PeriodicWorkRequest saveRequest =
-                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                            .addTag("periodic_notifications")
-                            .setConstraints(constraints)
-                            .build();
-
-            WorkManager.getInstance()
-                    .enqueue(saveRequest);
+            // Test
+            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(NotificationWorker.class).build();
+            WorkManager.getInstance().enqueue(request);
+            // end Test
+            //////// Worker Setup ///////////
+//            // Initiate the Worker class to work daily
+//            Constraints constraints = new Constraints.Builder()
+//                    .setRequiresBatteryNotLow(true)
+//                    .setRequiredNetworkType(NetworkType.CONNECTED)
+//                    .build();
+//
+//            PeriodicWorkRequest saveRequest =
+//                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+//                            .addTag("periodic_notifications")
+//                            .setConstraints(constraints)
+//                            .build();
+//
+//            WorkManager.getInstance()
+//                    .enqueue(saveRequest);
+            ////////// End of Worker Setup /////////
         }else{
             Log.i("switch_is_checked", isChecked + "");
             // Save switch state
@@ -303,6 +313,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Stops the activity of the worker (by Tag)
             WorkManager.getInstance().cancelAllWorkByTag("periodic_notifications");
         }
+
     }
 
     // A method to show popup SnackBar messages
