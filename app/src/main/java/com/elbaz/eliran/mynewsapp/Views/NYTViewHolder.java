@@ -54,8 +54,9 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getSection());
         // get news sub-section
-        if(!titles.getSubsection().isEmpty() && titles.getSubsection()!= null) {
-            this.item_section_subsection_separator.setVisibility(View.VISIBLE);
+        if(titles.getSubsection().isEmpty() || titles.getSubsection()== null) {
+            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
+        }else{
             this.item_subsection.setText(titles.getSubsection());
             this.item_subsection.setVisibility(View.VISIBLE);
         }
@@ -76,8 +77,9 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getSection());
         // get news sub-section
-        if(!titles.getSubsection().isEmpty() && titles.getSubsection()!= null) {
-            this.item_section_subsection_separator.setVisibility(View.VISIBLE);
+        if(titles.getSubsection().isEmpty() || titles.getSubsection()== null) {
+            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
+        }else{
             this.item_subsection.setText(titles.getSubsection());
             this.item_subsection.setVisibility(View.VISIBLE);
         }
@@ -98,8 +100,9 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getNewsDesk());
         // get news sub-section
-        if(!titles.getSectionName().isEmpty() && titles.getSectionName()!= null) {
-            this.item_section_subsection_separator.setVisibility(View.VISIBLE);
+        if(titles.getSectionName().isEmpty() || titles.getSectionName()== null) {
+            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
+        }else{
             this.item_subsection.setText(titles.getSectionName());
             this.item_subsection.setVisibility(View.VISIBLE);
         }
@@ -114,30 +117,33 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
      */
     private void setImageForTopStories(Result result, RequestManager glide){
         // Check if there is data in Multimedia
-        if (result.getMultimedia() != null && !result.getMultimedia().isEmpty()){
+        if (result.getMultimedia() == null || result.getMultimedia().isEmpty()){
+            // if "result.getMultimedia()" is empty || null, set an alternative logo
+            mImageView.setImageResource(R.drawable.nyt_logo);
+            }else{
             // Check if multimedia size is bigger than 0
             if(result.getMultimedia().size() > 0) {
                 // Get 2nd image url from multimedia list result: 150X150 (possible between 0-4)
                 String imageUrl = result.getMultimedia().get(1).getImageUrl();
                 // Check if link starts with native or short URL
                 if (imageUrl.startsWith("images")) {
-                    imageUrl = "https://www.nytimes.com" + imageUrl;
+                    imageUrl = "https://www.nytimes.com/" + imageUrl;
                 }
                 // Glide - load the image from the fetched url
                 glide.load(imageUrl).apply(RequestOptions.centerCropTransform()).into(mImageView);
-            }else
-                // if "result.getMultimedia()" is empty || null, set an alternative logo
-                mImageView.setImageResource(R.drawable.nyt_logo);
-
             }
         }
+    }
 
     /**
      * Set image for the UI (SearchResults activity)
      */
     private void setImageForSearchResults(Doc doc, RequestManager glide){
         // Check if there is data in Multimedia
-        if (doc.getMultimedia() != null && !doc.getMultimedia().isEmpty()){
+        if (doc.getMultimedia() == null || doc.getMultimedia().isEmpty()){
+            // if "result.getMultimedia()" is empty || null, set an alternative logo
+            mImageView.setImageResource(R.drawable.nyt_logo);
+            }else{
             // Check if multimedia size is bigger than 0
             if(doc.getMultimedia().size() > 0) {
                 // Get 2nd image url from multimedia list result: 150X150 (possible between 0-4)
@@ -148,10 +154,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
                 }
                 // Glide - load the image from the fetched url
                 glide.load(imageUrl).apply(RequestOptions.centerCropTransform()).into(mImageView);
-            }else
-                // if "result.getMultimedia()" is empty || null, set an alternative logo
-                mImageView.setImageResource(R.drawable.nyt_logo);
-
+            }
         }
     }
 
@@ -160,21 +163,21 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
      */
     private void setImageForMostPopular (ResultMostPopular result, RequestManager glide){
         // Check if there is data in Multimedia
-        if (result.getMedia() != null && !result.getMedia().isEmpty()){
+        if (result.getMedia() == null || result.getMedia().isEmpty()){
+            // if "result.getMultimedia()" is empty || null, set an alternative logo
+            mImageView.setImageResource(R.drawable.nyt_logo);
+            }else{
             // Check if multimedia size is bigger than 0
             if(result.getMedia().size() > 0) {
                 // Get 2nd image url from multimedia list result: 150X150 (possible between 0-4)
                 String imageUrl = result.getMedia().get(0).getMediaMetadatumMostPopulars().get(1).getUrl();
                 // Check if link starts with native or short URL
                 if (imageUrl.startsWith("images")) {
-                    imageUrl = "https://www.nytimes.com" + imageUrl;
+                    imageUrl = "https://www.nytimes.com/" + imageUrl;
                 }
                 // Glide - load the image from the fetched url
                 glide.load(imageUrl).apply(RequestOptions.centerCropTransform()).into(mImageView);
-            }else
-                // if "result.getMultimedia()" is empty || null, set an alternative logo
-                mImageView.setImageResource(R.drawable.nyt_logo);
-
+            }
         }
     }
 
