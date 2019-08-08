@@ -91,11 +91,11 @@ public class NotificationWorker extends Worker {
                         int sizeOfList = nytSearch.getResponse().getDocs().size();
                         if (sizeOfList == 0){
                             // If no matches - *******
-                            displayNotification("New daily articles", "We have found " + sizeOfList + " new daily articles matching your search criteria");
+                            displayNotification("New daily articles", "We have found " + sizeOfList + " new articles matching your search criteria");
 
                         }else {
                             // ********
-                            displayNotification("New daily articles", "We have found " + sizeOfList + " new daily articles matching your search criteria");
+                            displayNotification("New daily articles", "We have found " + sizeOfList + " new articles matching your search criteria");
                         }
                     }
 
