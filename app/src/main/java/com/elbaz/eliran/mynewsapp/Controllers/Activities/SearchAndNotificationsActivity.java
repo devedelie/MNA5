@@ -24,11 +24,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.NotificationWorker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.ContentValues.TAG;
 
@@ -64,7 +71,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         mStartDateText = (TextView) findViewById(R.id.StartDateText);
         mEndDateText = (TextView) findViewById(R.id.EndDateText);
         mSwitchForNotifications = (SwitchCompat) findViewById(R.id.notifications_switchButton);
-        
+
         // Check and set switch state
             mSharedPreferences = getSharedPreferences("save_switch_state", MODE_PRIVATE);
             mSwitchForNotifications.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
@@ -273,18 +280,19 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
             // Initiate the Worker class to work daily
-//            Constraints constraints = new Constraints.Builder()
-//                    .setRequiresBatteryNotLow(true)
-//                    .setRequiredNetworkType(NetworkType.CONNECTED)
-//                    .build();
-//
-//            PeriodicWorkRequest saveRequest =
-//                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.MINUTES)
-//                            .setConstraints(constraints)
-//                            .build();
-//
-//            WorkManager.getInstance()
-//                    .enqueue(saveRequest);
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiresBatteryNotLow(true)
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            PeriodicWorkRequest saveRequest =
+                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                            .addTag("periodic_notifications")
+                            .setConstraints(constraints)
+                            .build();
+
+            WorkManager.getInstance()
+                    .enqueue(saveRequest);
         }else{
             Log.i("switch_is_checked", isChecked + "");
             // Save switch state
@@ -292,8 +300,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             editor.commit();
             // Show a message
             SnackBarMessages(getString(R.string.notifications_off));
-            // Stops the activity of the worker
-
+            // Stops the activity of the worker (by Tag)
+            WorkManager.getInstance().cancelAllWorkByTag("periodic_notifications");
         }
     }
 
