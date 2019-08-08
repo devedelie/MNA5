@@ -109,6 +109,7 @@ public class TabFragment1 extends Fragment {
                     mSwipeRefreshLayout.setRefreshing(false);
                 }else{
                     executeHttpRequestWithRetrofit();
+
                 }
             }
         });

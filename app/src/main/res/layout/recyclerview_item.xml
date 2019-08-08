@@ -47,15 +47,12 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text=" > "
-            android:visibility="invisible"
             />
         <TextView
             android:id="@+id/item_subsection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="subsection"
-            android:visibility="invisible"/>
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
