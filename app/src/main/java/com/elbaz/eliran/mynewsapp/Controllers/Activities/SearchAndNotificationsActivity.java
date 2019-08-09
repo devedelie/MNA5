@@ -2,11 +2,13 @@ package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -240,6 +242,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         // Check if at least one category is selected
         if (joinedFilterString == null || joinedFilterString.isEmpty()){
             SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
+            Vibration();
         }else{
             Log.d(TAG, "onSearchClicked result: " + finalFilterString);
             // Sort the results (newest, oldest, relevance)
@@ -273,6 +276,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         // Check if at least one category is selected
         if (joinedFilterString == null || joinedFilterString.isEmpty()){
             SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
+            Vibration();
             // set the switch back to off mode
             mSwitchForNotifications.setChecked(false);
         }else{
@@ -330,7 +334,12 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 Snackbar.LENGTH_LONG)
                 .show();
     }
-    
+
+    // Vibration method
+    protected void Vibration (){
+        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibe.vibrate(50);
+    }
 
 
 }
