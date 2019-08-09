@@ -4,7 +4,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -51,7 +50,8 @@ public class NotificationWorker extends Worker {
         query = mSharedPreferences.getString("query_string", "");
 
         // Execute Http request with the current data
-        executeHttpRequestWithRetrofit(searchStartDate, todaysDate, filters, query, Resources.getSystem().getString(R.string.sort));
+        executeHttpRequestWithRetrofit(searchStartDate, todaysDate, filters, query, "newest");
+        Log.d(TAG, "doWork received data: " + searchStartDate + todaysDate+ " "+ filters + " "+ query );
 
         // Set today's date as a search "startDate" for the next day in sharedPreferences
         SharedPreferences.Editor editor = mContext.getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
@@ -86,6 +86,7 @@ public class NotificationWorker extends Worker {
     //-----------------
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(String userBeginDate, String userEndDate, String filterString, String userQueryString, String sort){
+        Log.d(TAG, "Http received data: " + userBeginDate + userEndDate+ " "+ filterString + " "+ userQueryString + " "+ sort);
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
         this.mDisposable = NYTStreams.streamFetchSearchResults(userBeginDate, userEndDate, filterString,userQueryString, sort)
                 .subscribeWith(new DisposableObserver<NYTSearch>(){

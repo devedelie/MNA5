@@ -58,8 +58,6 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_and_notification);
 
-
-
         mSearchQuery = (EditText) findViewById(R.id.SearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
         mEndDate = (TextView) findViewById(R.id.search_endDate);
@@ -180,12 +178,10 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if ( id == android.R.id.home ) {
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -243,9 +239,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             Vibration();
         }else{
             Log.d(TAG, "onSearchClicked result: " + finalFilterString);
-            // Sort the results (newest, oldest, relevance)
+            // Set and transfer data into the invoked activity
             String sort = getString(R.string.sort_value);
-
             mQueryValue = mSearchQuery.getText().toString();
             Intent intent = new Intent(this, SearchResultsActivity.class);
             intent.putExtra(getString(R.string.begin_date), BeginDateStringForURL);
