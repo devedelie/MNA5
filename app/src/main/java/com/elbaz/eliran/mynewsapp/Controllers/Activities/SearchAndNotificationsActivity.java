@@ -52,11 +52,17 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
     SharedPreferences mSharedPreferences;
+    private Boolean searchActivuty, notificationActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_and_notification);
+
+        // Get boolean of which kind of activity will be shown to the user
+        Intent intent = getIntent();
+        searchActivuty = intent.getBooleanExtra("search_activity", false);
+        notificationActivity = intent.getBooleanExtra("notification_activity", false);
 
         mSearchQuery = (EditText) findViewById(R.id.SearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
@@ -98,13 +104,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         mSwitchForNotifications.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
 
         // Set view elements visibility to "Gone" - depends on the selected operation of the activity (search OR notification)
-        Intent intent = getIntent();
-        Boolean search = intent.getBooleanExtra("search_activity", false);
-        Boolean notification = intent.getBooleanExtra("notification_activity", false);
-        if (search){
+        if (searchActivuty){
             mSwitchForNotifications.setVisibility(View.GONE);
-
-        }else if (notification){
+        }else if (notificationActivity){
             mStartDate.setVisibility(View.GONE);
             mEndDate.setVisibility(View.GONE);
             mSearchButton.setVisibility(View.GONE);
@@ -193,17 +195,14 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         filtersQueryString.clear();
         mSharedPreferences = getSharedPreferences("checkbox_state", MODE_PRIVATE);
         // Check the type of activity (search OR notification) and load data properly
-        Intent intent = getIntent();
-        Boolean search = intent.getBooleanExtra("search_activity", false);
-        Boolean notification = intent.getBooleanExtra("notification_activity", false);
-        if (search){
+        if (searchActivuty){
             setCheckBoxes(artsCheckbox, getString(R.string.category_arts_filter) );
             setCheckBoxes(businessCheckbox, getString(R.string.category_business_filter) );
             setCheckBoxes(entrepreneursCheckbox, getString(R.string.category_entrepreneurs_filter) );
             setCheckBoxes(politicsCheckbox, getString(R.string.category_politics_filter) );
             setCheckBoxes(sportsCheckbox, getString(R.string.category_sports_filter) );
             setCheckBoxes(travelCheckbox, getString(R.string.category_travel_filter) );
-        }else if (notification){
+        }else if (notificationActivity){
             setCheckBoxes(artsCheckbox, getString(R.string.category_arts_filter) );
             artsCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_arts_filter), false));
             setCheckBoxes(businessCheckbox, getString(R.string.category_business_filter) );
@@ -229,9 +228,11 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 SharedPreferences.Editor editor = getSharedPreferences("checkbox_state", MODE_PRIVATE).edit();
                 if(isChecked){
                     filtersQueryString.add(category);
+                    if (notificationActivity)
                     editor.putBoolean(category, true);
                 }else{
                     filtersQueryString.remove(category);
+                    if(notificationActivity)
                     editor.putBoolean(category, false);
                 }
                 editor.commit();
@@ -242,57 +243,14 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
                 finalFilterString = "news_desk:(" + joinedFilterString + ")";
                 Log.d(TAG, "onCheckedChanged final string: " + finalFilterString);
-                // update finalFilterString in sharedPreferences
+
+                // update finalFilterString in sharedPreferences, in order to enable changes without stopping the worker
                 SharedPreferences.Editor editor2 = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
                 editor.putString("checkboxes_filter_string", finalFilterString);
                 editor.commit();
             }
         });
     }
-
-//    /**
-//     * onClick method for the checkboxes - to create a string for results filtering
-//     */
-//    public void onCheckboxClicked(View view) {
-//        // Is the view now checked?
-//        boolean checked = ((CheckBox) view).isChecked();
-//        // Check which checkbox was clicked
-//        switch(view.getId()) {
-//            case R.id.checkbox_arts:
-//                if (checked){ filtersQueryString.add(getString(R.string.category_arts_filter));
-//                } else filtersQueryString.remove(getString(R.string.category_arts_filter));
-//                break;
-//            case R.id.checkbox_business:
-//                if (checked){ filtersQueryString.add(getString(R.string.category_business_filter));
-//                } else filtersQueryString.remove(getString(R.string.category_business_filter));
-//                break;
-//            case R.id.checkbox_entrepreneurs:
-//                if (checked){ filtersQueryString.add(getString(R.string.category_entrepreneurs_filter));
-//                } else filtersQueryString.remove(getString(R.string.category_entrepreneurs_filter));
-//                    break;
-//            case R.id.checkbox_politics:
-//                if (checked){ filtersQueryString.add(getString(R.string.category_politics_filter));
-//                } else filtersQueryString.remove(getString(R.string.category_politics_filter));
-//                    break;
-//            case R.id.checkbox_sports:
-//                if (checked){ filtersQueryString.add(getString(R.string.category_sports_filter));
-//                } else filtersQueryString.remove(getString(R.string.category_sports_filter));
-//                    break;
-//            case R.id.checkbox_travel:
-//                if (checked){ filtersQueryString.add(getString(R.string.category_travel_filter));
-//                } else filtersQueryString.remove(getString(R.string.category_travel_filter));
-//                    break;
-//        }
-//        // Join all checked filters into one string
-//        joinedFilterString = (String) TextUtils.join( " " , filtersQueryString );
-//        Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
-//        finalFilterString = "news_desk:(" + joinedFilterString + ")";
-//
-//        // Condition to add/remove category from switch filters while Worker is Live
-//        if (mSwitchForNotifications.isChecked()){
-//            //////////////////////   //////////////////////////////
-//        }
-//    }
 
     /**
      * Search button action - to invoke the search API with all filtered data
