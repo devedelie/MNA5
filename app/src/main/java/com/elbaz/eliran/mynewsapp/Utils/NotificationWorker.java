@@ -53,32 +53,13 @@ public class NotificationWorker extends Worker {
         executeHttpRequestWithRetrofit(searchStartDate, todaysDate, filters, query, "newest");
         Log.d(TAG, "doWork received data: " + searchStartDate + todaysDate+ " "+ filters + " "+ query );
 
-        // Set today's date as a search "startDate" for the next day in sharedPreferences
+        // Next periodic task preparation: set the next day "startDate" as today's date, and save in sharedPreferences
         SharedPreferences.Editor editor = mContext.getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
         editor.putString("search_start_date", todaysDate);
         editor.commit();
 
         // Indicate whether the task finished successfully with the Result
         return Result.success();
-    }
-
-    // A method to display the news result with a daily notification
-    private void displayNotification(String task, String description){
-
-        // 1 - Create a notificationManager in order to create notification channel
-        NotificationManager manager = (NotificationManager) getApplicationContext()
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        // 2 - If the version is >= from version O, then we create a notification channel
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("dailyNotification", "notification", NotificationManager.IMPORTANCE_DEFAULT);
-            manager.createNotificationChannel(channel);
-        }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "dailyNotification")
-                .setContentTitle(task)
-                .setContentText(description)
-                .setSmallIcon(R.mipmap.ic_launcher);
-
-        manager.notify(1, builder.build());
     }
 
     //-----------------
@@ -99,7 +80,7 @@ public class NotificationWorker extends Worker {
                         // Check if there are new results between the new dates
                         int sizeOfList = nytSearch.getResponse().getDocs().size();
                         if (sizeOfList == 0){
-                            // If no matches - *******
+                            // If no matches - ******* For testing only *******
                             displayNotification("New daily articles", "We have found " + sizeOfList + " new articles matching your search criteria");
 
                         }else {
@@ -119,6 +100,25 @@ public class NotificationWorker extends Worker {
                     }
                 });
 
+    }
+
+    // A method to display the news result with a daily notification
+    private void displayNotification(String task, String description){
+
+        // 1 - Create a notificationManager in order to create notification channel
+        NotificationManager manager = (NotificationManager) getApplicationContext()
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        // 2 - If the version is >= from version O, then we create a notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("dailyNotification", "notification", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "dailyNotification")
+                .setContentTitle(task)
+                .setContentText(description)
+                .setSmallIcon(R.mipmap.ic_launcher);
+
+        manager.notify(1, builder.build());
     }
 
 }

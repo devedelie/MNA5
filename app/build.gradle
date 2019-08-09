@@ -71,8 +71,8 @@ dependencies {
     // TDD implementations
     //-------------------
     // Mockito
-//    testImplementation "org.mockito:mockito-core:2.+"
-//    androidTestImplementation 'androidx.test:runner:1.2.0'
+    testImplementation "org.mockito:mockito-core:2.+"
+    androidTestImplementation 'androidx.test:runner:1.2.0'
 
     // Espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -83,7 +83,16 @@ dependencies {
     //Robolectric
     testImplementation 'org.robolectric:robolectric:4.3'
 
-    //WorkManager
-    implementation "android.arch.work:work-runtime:1.0.1"
+    //-------------------
+    // WorkManager AndroidX implementations
+    //-------------------
+    def work_version = "2.1.0"
+    // Java
+    implementation "androidx.work:work-runtime:$work_version"
+    // RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_version"
+    // Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+
 
 }
