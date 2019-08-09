@@ -45,5 +45,6 @@
     <string name="category_travel_filter">\"Travel\"</string>
     <string name="notifications_off">Notifications are disabled</string>
     <string name="notifications_on">Notifications are enabled</string>
+    <string name="category_checkbox_limit">You cannot uncheck all categories while the notification switch is ON</string>
 
 </resources>
