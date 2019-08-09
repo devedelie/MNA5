@@ -151,7 +151,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                 });
     }
 
-    // Detect the click on "back" button and finish the current activity
+    // Detect the click on toolbars's "back" button and finish the current activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
