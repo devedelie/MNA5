@@ -1,7 +1,8 @@
 package com.elbaz.eliran.mynewsapp.Utils;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Eliran Elbaz on 23-Jul-19.

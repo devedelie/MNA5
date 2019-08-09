@@ -1,10 +1,11 @@
 package com.elbaz.eliran.mynewsapp.Views;
 
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.annotations.NonNull;
 
-import static android.support.constraint.Constraints.TAG;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Eliran Elbaz on 18-Jul-19.

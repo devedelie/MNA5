@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.support.constraint.Constraints.TAG;
+import static android.content.ContentValues.TAG;
 import static com.elbaz.eliran.mynewsapp.Models.Constants.API_KEY;
 
 /**

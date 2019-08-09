@@ -1,12 +1,13 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1;
 import com.elbaz.eliran.mynewsapp.R;

@@ -1,7 +1,7 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.navigation.NavigationView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.elbaz.eliran.mynewsapp.Adapters.PageAdapter;
 import com.elbaz.eliran.mynewsapp.R;

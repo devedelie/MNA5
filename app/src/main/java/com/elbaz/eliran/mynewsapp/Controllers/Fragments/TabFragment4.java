@@ -2,14 +2,15 @@ package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static android.support.constraint.Constraints.TAG;
+import static android.content.ContentValues.TAG;
 import static com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1.BUNDLE_URL;
 
 /**

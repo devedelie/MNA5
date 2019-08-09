@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import static android.support.constraint.Constraints.TAG;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Eliran Elbaz on 07-Aug-19.

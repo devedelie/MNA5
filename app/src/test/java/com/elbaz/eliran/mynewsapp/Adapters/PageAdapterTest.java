@@ -1,7 +1,7 @@
 package com.elbaz.eliran.mynewsapp.Adapters;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 
 import org.junit.Test;
 import org.mockito.Mockito;

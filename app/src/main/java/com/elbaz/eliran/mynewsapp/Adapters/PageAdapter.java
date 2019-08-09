@@ -1,9 +1,9 @@
 package com.elbaz.eliran.mynewsapp.Adapters;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1;
 import com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment2;
