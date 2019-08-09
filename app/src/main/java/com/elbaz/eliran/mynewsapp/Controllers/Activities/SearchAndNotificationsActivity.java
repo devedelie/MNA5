@@ -58,8 +58,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        this.configureToolbar();
-        this.searchDateListener();
+
 
         mSearchQuery = (EditText) findViewById(R.id.SearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
@@ -75,9 +74,29 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         mEndDateText = (TextView) findViewById(R.id.EndDateText);
         mSwitchForNotifications = (SwitchCompat) findViewById(R.id.notifications_switchButton);
 
+        this.configureToolbar();
+        this.searchDateListener();
+        this.configureLayoutVisibility();
+    }
+
+    /**
+     * 1 - Toolbar execution
+     */
+    private void configureToolbar(){
+        //Get the toolbar (Serialise)
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar
+        setSupportActionBar(toolbar);
+        //Get a support ActionBar corresponding to this toolbar
+        ActionBar actionBar = getSupportActionBar();
+        // Enable the upper button (back button)
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void configureLayoutVisibility (){
         // Check and set switch state
-            mSharedPreferences = getSharedPreferences("save_switch_state", MODE_PRIVATE);
-            mSwitchForNotifications.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
+        mSharedPreferences = getSharedPreferences("save_switch_state", MODE_PRIVATE);
+        mSwitchForNotifications.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
 
         // Set view elements visibility to "Gone" - depends on the selected operation of the activity (search OR notification)
         Intent intent = getIntent();
@@ -95,21 +114,6 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Set switch listener
             mSwitchForNotifications.setOnCheckedChangeListener(this);
         }
-    }
-
-
-    /**
-     * 1 - Toolbar execution
-     */
-    private void configureToolbar(){
-        //Get the toolbar (Serialise)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Sets the Toolbar
-        setSupportActionBar(toolbar);
-        //Get a support ActionBar corresponding to this toolbar
-        ActionBar actionBar = getSupportActionBar();
-        // Enable the upper button (back button)
-        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -191,45 +195,31 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        // set the variable empty
-
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.checkbox_arts:
-                if (checked){
-                    filtersQueryString.add(getString(R.string.category_arts_filter));
-                }
-            else filtersQueryString.remove(getString(R.string.category_arts_filter));
+                if (checked){ filtersQueryString.add(getString(R.string.category_arts_filter));
+                } else filtersQueryString.remove(getString(R.string.category_arts_filter));
                 break;
             case R.id.checkbox_business:
-                if (checked){
-                    filtersQueryString.add(getString(R.string.category_business_filter));
-                }
-            else filtersQueryString.remove(getString(R.string.category_business_filter));
+                if (checked){ filtersQueryString.add(getString(R.string.category_business_filter));
+                } else filtersQueryString.remove(getString(R.string.category_business_filter));
                 break;
             case R.id.checkbox_entrepreneurs:
-                if (checked){
-                    filtersQueryString.add(getString(R.string.category_entrepreneurs_filter));
-                }
-                else filtersQueryString.remove(getString(R.string.category_entrepreneurs_filter));
+                if (checked){ filtersQueryString.add(getString(R.string.category_entrepreneurs_filter));
+                } else filtersQueryString.remove(getString(R.string.category_entrepreneurs_filter));
                     break;
             case R.id.checkbox_politics:
-                if (checked){
-                    filtersQueryString.add(getString(R.string.category_politics_filter));
-                }
-                else filtersQueryString.remove(getString(R.string.category_politics_filter));
+                if (checked){ filtersQueryString.add(getString(R.string.category_politics_filter));
+                } else filtersQueryString.remove(getString(R.string.category_politics_filter));
                     break;
             case R.id.checkbox_sports:
-                if (checked){
-                    filtersQueryString.add(getString(R.string.category_sports_filter));
-                }
-                else filtersQueryString.remove(getString(R.string.category_sports_filter));
+                if (checked){ filtersQueryString.add(getString(R.string.category_sports_filter));
+                } else filtersQueryString.remove(getString(R.string.category_sports_filter));
                     break;
             case R.id.checkbox_travel:
-                if (checked){
-                    filtersQueryString.add(getString(R.string.category_travel_filter));
-                }
-                else filtersQueryString.remove(getString(R.string.category_travel_filter));
+                if (checked){ filtersQueryString.add(getString(R.string.category_travel_filter));
+                } else filtersQueryString.remove(getString(R.string.category_travel_filter));
                     break;
         }
         // Join all checked filters into one string
