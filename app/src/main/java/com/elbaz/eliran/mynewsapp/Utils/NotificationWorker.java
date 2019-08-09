@@ -56,6 +56,7 @@ public class NotificationWorker extends Worker {
         // Set today's date as a search "startDate" for the next day in sharedPreferences
         SharedPreferences.Editor editor = mContext.getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
         editor.putString("search_start_date", todaysDate);
+        editor.commit();
 
         // Indicate whether the task finished successfully with the Result
         return Result.success();
