@@ -86,7 +86,7 @@ public class NotificationWorker extends Worker {
     //-----------------
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(String userBeginDate, String userEndDate, String filterString, String userQueryString, String sort){
-        Log.d(TAG, "Http received data: " + userBeginDate + userEndDate+ " "+ filterString + " "+ userQueryString + " "+ sort);
+        Log.d(TAG, "Http received data: " + userBeginDate +" "+ userEndDate+ " "+ filterString + " "+ userQueryString + " "+ sort);
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
         this.mDisposable = NYTStreams.streamFetchSearchResults(userBeginDate, userEndDate, filterString,userQueryString, sort)
                 .subscribeWith(new DisposableObserver<NYTSearch>(){
