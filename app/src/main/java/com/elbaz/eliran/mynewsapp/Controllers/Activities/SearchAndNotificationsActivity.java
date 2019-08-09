@@ -44,7 +44,7 @@ import static android.content.ContentValues.TAG;
 public class SearchAndNotificationsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private TextView mStartDate, mEndDate, mStartDateText, mEndDateText;
-    private EditText mSearchQuery;
+    private EditText mSearchQueryEditText;
     private Button mSearchButton;
     private SwitchCompat mSwitchForNotifications;
     private CheckBox artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportsCheckbox, travelCheckbox;
@@ -64,7 +64,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         searchActivuty = intent.getBooleanExtra("search_activity", false);
         notificationActivity = intent.getBooleanExtra("notification_activity", false);
 
-        mSearchQuery = (EditText) findViewById(R.id.SearchField);
+        mSearchQueryEditText = (EditText) findViewById(R.id.SearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
         mEndDate = (TextView) findViewById(R.id.search_endDate);
         mSearchButton = (Button) findViewById(R.id.searchButton);
@@ -271,7 +271,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             Log.d(TAG, "onSearchClicked result: " + finalFilterString);
             // Set and transfer data into the invoked activity
             String sort = getString(R.string.sort_value);
-            mQueryValue = mSearchQuery.getText().toString();
+            mQueryValue = mSearchQueryEditText.getText().toString();
             Intent intent = new Intent(this, SearchResultsActivity.class);
             intent.putExtra(getString(R.string.begin_date), BeginDateStringForURL);
             intent.putExtra(getString(R.string.end_date), EndDateStringForURL );
@@ -304,12 +304,16 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             mSwitchForNotifications.setChecked(false);
         }else{
         SharedPreferences.Editor editor = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
+        ///// Start of isChecked condition
         if(isChecked){
             Log.i("switch_is_checked", isChecked + "");
+            // Disable the EditText field
+            mSearchQueryEditText.setEnabled(false);
             // Get today's date when switch was launched
             String switchStartDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
             Log.d(TAG, "onCheckedChanged: stored date is "+ switchStartDate);
             // Save all information into sharedPreferences
+            mQueryValue = mSearchQueryEditText.getText().toString();
             editor.putString("search_start_date", switchStartDate);
             editor.putString("checkboxes_filter_string", finalFilterString);
             editor.putString("query_string", mQueryValue);
@@ -342,13 +346,16 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Save switch state
             editor.putBoolean("current_switch_state", false);
             editor.commit();
+            // Enable EditText
+            // Disable the EditText field
+            mSearchQueryEditText.setEnabled(true);
             // Show a message
             SnackBarMessages(getString(R.string.notifications_off));
             // Stops the activity of the worker (by Tag)
             WorkManager.getInstance().cancelAllWorkByTag("periodic_notifications");
-        }  /// end of isChecked condition
+        }  //// end of isChecked condition
 
-        } // end of entire condition
+        } //// end of entire condition
     }
 
     // A method to show popup SnackBar messages
