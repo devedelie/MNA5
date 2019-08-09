@@ -46,7 +46,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     private Button mSearchButton;
     private SwitchCompat mSwitchForNotifications;
     private CheckBox artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportsCheckbox, travelCheckbox;
-    private String mDate, BeginDateStringForURL, EndDateStringForURL, finalFilterString, mQueryValue;
+    private String mDate, BeginDateStringForURL, EndDateStringForURL, joinedFilterString, mQueryValue, finalFilterString;
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
     SharedPreferences mSharedPreferences;
@@ -227,8 +227,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                     break;
         }
         // Join all checked filters into one string
-        finalFilterString = (String) TextUtils.join( " " , filtersQueryString );
-        Log.d(TAG, "onCheckboxClicked result: " + finalFilterString);
+        joinedFilterString = (String) TextUtils.join( " " , filtersQueryString );
+        Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
+        finalFilterString = "news_desk:(" + joinedFilterString + ")";
 
     }
 
@@ -236,10 +237,11 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
      * Search button action - to invoke the search API with all filtered data
      */
     public void searchButtonOnClickAction (View view){
-        if (finalFilterString != null && !finalFilterString.isEmpty()){
-
-            String filters = "news_desk:(" + finalFilterString + ")";
-            Log.d(TAG, "onSearchClicked result: " + filters);
+        // Check if at least one category is selected
+        if (joinedFilterString == null || joinedFilterString.isEmpty()){
+            SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
+        }else{
+            Log.d(TAG, "onSearchClicked result: " + finalFilterString);
             // Sort the results (newest, oldest, relevance)
             String sort = getString(R.string.sort_value);
 
@@ -247,13 +249,10 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             Intent intent = new Intent(this, SearchResultsActivity.class);
             intent.putExtra(getString(R.string.begin_date), BeginDateStringForURL);
             intent.putExtra(getString(R.string.end_date), EndDateStringForURL );
-            intent.putExtra(getString(R.string.filter_query), filters );
+            intent.putExtra(getString(R.string.filter_query), finalFilterString );
             intent.putExtra(getString(R.string.search_query), mQueryValue );
             intent.putExtra(getString(R.string.sort), sort );
             startActivityForResult(intent,100);
-
-        }else{
-            SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
         }
     }
 
@@ -271,14 +270,22 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
      */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        // Check if at least one category is selected
+        if (joinedFilterString == null || joinedFilterString.isEmpty()){
+            SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
+            // set the switch back to off mode
+            mSwitchForNotifications.setChecked(false);
+        }else{
         SharedPreferences.Editor editor = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
         if(isChecked){
             Log.i("switch_is_checked", isChecked + "");
-            // Save today's date when switch was launched
+            // Get today's date when switch was launched
             String switchStartDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
             Log.d(TAG, "onCheckedChanged: stored date is "+ switchStartDate);
-            editor.putString("switch_start_date", switchStartDate);
-            // Save switch state
+            // Save all information into sharedPreferences
+            editor.putString("search_start_date", switchStartDate);
+            editor.putString("checkboxes_filter_string", finalFilterString);
+            editor.putString("query_string", mQueryValue);
             editor.putBoolean("current_switch_state", true);
             editor.commit();
             // Show a message
@@ -312,8 +319,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             SnackBarMessages(getString(R.string.notifications_off));
             // Stops the activity of the worker (by Tag)
             WorkManager.getInstance().cancelAllWorkByTag("periodic_notifications");
-        }
+        }  /// end of isChecked condition
 
+        } // end of entire condition
     }
 
     // A method to show popup SnackBar messages
@@ -322,6 +330,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 Snackbar.LENGTH_LONG)
                 .show();
     }
+    
 
 
 }

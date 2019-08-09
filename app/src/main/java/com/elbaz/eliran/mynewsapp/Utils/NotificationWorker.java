@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -31,24 +32,30 @@ import static android.content.Context.MODE_PRIVATE;
 public class NotificationWorker extends Worker {
     private Disposable mDisposable;
     SharedPreferences mSharedPreferences;
-    String searchStartDate, searchEndDate, query;
+    String searchStartDate, filters , query;
+    Context mContext;
 
-    public NotificationWorker(
-            @NonNull Context context,
-            @NonNull WorkerParameters params) {
+    public NotificationWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
     }
 
     @Override
     public Result doWork() {
         // Do work
-        // Get Today's date
+        // Get Today's date (to set as EndDate limit for search + default value for startDate)
         String todaysDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
-        // Get start date from sharedPreferences
+        // Get search data from sharedPreferences
         mSharedPreferences = getApplicationContext().getSharedPreferences("save_switch_state", MODE_PRIVATE);
-        searchStartDate = mSharedPreferences.getString("switch_start_date", todaysDate);
+        searchStartDate = mSharedPreferences.getString("search_start_date", todaysDate);
+        filters = mSharedPreferences.getString("checkboxes_filter_string", "");
+        query = mSharedPreferences.getString("query_string", "");
 
-        executeHttpRequestWithRetrofit(searchStartDate, todaysDate, "news_desk:(\"politics\")", query, "newest" );
+        // Execute Http request with the current data
+        executeHttpRequestWithRetrofit(searchStartDate, todaysDate, filters, query, Resources.getSystem().getString(R.string.sort));
+
+        // Set today's date as a search "startDate" for the next day in sharedPreferences
+        SharedPreferences.Editor editor = mContext.getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
+        editor.putString("search_start_date", todaysDate);
 
         // Indicate whether the task finished successfully with the Result
         return Result.success();
