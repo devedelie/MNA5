@@ -75,6 +75,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         this.configureToolbar();
         this.searchDateListener();
         this.configureLayoutVisibility();
+        this.checkBoxesConfiguration();
     }
 
     /**
@@ -174,7 +175,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         // end of dialog listener
     }
 
-    // Detect the click on "back" button and finish the current activity
+    // Detect the click on toolbar's "back" button and finish the current activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -186,48 +187,108 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     }
 
     /**
-     * onClick method for the checkboxes - to create a string for results filtering
+     * CheckBoxes configuration
      */
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_arts:
-                if (checked){ filtersQueryString.add(getString(R.string.category_arts_filter));
-                } else filtersQueryString.remove(getString(R.string.category_arts_filter));
-                break;
-            case R.id.checkbox_business:
-                if (checked){ filtersQueryString.add(getString(R.string.category_business_filter));
-                } else filtersQueryString.remove(getString(R.string.category_business_filter));
-                break;
-            case R.id.checkbox_entrepreneurs:
-                if (checked){ filtersQueryString.add(getString(R.string.category_entrepreneurs_filter));
-                } else filtersQueryString.remove(getString(R.string.category_entrepreneurs_filter));
-                    break;
-            case R.id.checkbox_politics:
-                if (checked){ filtersQueryString.add(getString(R.string.category_politics_filter));
-                } else filtersQueryString.remove(getString(R.string.category_politics_filter));
-                    break;
-            case R.id.checkbox_sports:
-                if (checked){ filtersQueryString.add(getString(R.string.category_sports_filter));
-                } else filtersQueryString.remove(getString(R.string.category_sports_filter));
-                    break;
-            case R.id.checkbox_travel:
-                if (checked){ filtersQueryString.add(getString(R.string.category_travel_filter));
-                } else filtersQueryString.remove(getString(R.string.category_travel_filter));
-                    break;
-        }
-        // Join all checked filters into one string
-        joinedFilterString = (String) TextUtils.join( " " , filtersQueryString );
-        Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
-        finalFilterString = "news_desk:(" + joinedFilterString + ")";
-
-        // Condition to add/remove category from switch filters while Worker is Live
-        if (mSwitchForNotifications.isChecked()){
-
+    private void checkBoxesConfiguration (){
+        filtersQueryString.clear();
+        mSharedPreferences = getSharedPreferences("checkbox_state", MODE_PRIVATE);
+        // Check the type of activity (search OR notification) and load data properly
+        Intent intent = getIntent();
+        Boolean search = intent.getBooleanExtra("search_activity", false);
+        Boolean notification = intent.getBooleanExtra("notification_activity", false);
+        if (search){
+            setCheckBoxes(artsCheckbox, getString(R.string.category_arts_filter) );
+            setCheckBoxes(businessCheckbox, getString(R.string.category_business_filter) );
+            setCheckBoxes(entrepreneursCheckbox, getString(R.string.category_entrepreneurs_filter) );
+            setCheckBoxes(politicsCheckbox, getString(R.string.category_politics_filter) );
+            setCheckBoxes(sportsCheckbox, getString(R.string.category_sports_filter) );
+            setCheckBoxes(travelCheckbox, getString(R.string.category_travel_filter) );
+        }else if (notification){
+            setCheckBoxes(artsCheckbox, getString(R.string.category_arts_filter) );
+            artsCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_arts_filter), false));
+            setCheckBoxes(businessCheckbox, getString(R.string.category_business_filter) );
+            businessCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_business_filter), false));
+            setCheckBoxes(entrepreneursCheckbox, getString(R.string.category_entrepreneurs_filter) );
+            entrepreneursCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_entrepreneurs_filter), false));
+            setCheckBoxes(politicsCheckbox, getString(R.string.category_politics_filter) );
+            politicsCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_politics_filter), false));
+            setCheckBoxes(sportsCheckbox, getString(R.string.category_sports_filter) );
+            sportsCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_sports_filter), false));
+            setCheckBoxes(travelCheckbox, getString(R.string.category_travel_filter) );
+            travelCheckbox.setChecked(mSharedPreferences.getBoolean(getString(R.string.category_travel_filter), false));
         }
     }
+
+    /**
+     * Set checkBoxes state in sharedPreferences + build the filters String
+     */
+    private void setCheckBoxes(final CheckBox checkBox, final String category){
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = getSharedPreferences("checkbox_state", MODE_PRIVATE).edit();
+                if(isChecked){
+                    filtersQueryString.add(category);
+                    editor.putBoolean(category, true);
+                }else{
+                    filtersQueryString.remove(category);
+                    editor.putBoolean(category, false);
+                }
+                editor.commit();
+                Log.d(TAG, "onCheckedChanged: "+ filtersQueryString);
+
+                // Join all filters
+                joinedFilterString = (String) TextUtils.join( " " , filtersQueryString );
+                Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
+                finalFilterString = "news_desk:(" + joinedFilterString + ")";
+                Log.d(TAG, "onCheckedChanged final string: " + finalFilterString);
+            }
+        });
+    }
+
+//    /**
+//     * onClick method for the checkboxes - to create a string for results filtering
+//     */
+//    public void onCheckboxClicked(View view) {
+//        // Is the view now checked?
+//        boolean checked = ((CheckBox) view).isChecked();
+//        // Check which checkbox was clicked
+//        switch(view.getId()) {
+//            case R.id.checkbox_arts:
+//                if (checked){ filtersQueryString.add(getString(R.string.category_arts_filter));
+//                } else filtersQueryString.remove(getString(R.string.category_arts_filter));
+//                break;
+//            case R.id.checkbox_business:
+//                if (checked){ filtersQueryString.add(getString(R.string.category_business_filter));
+//                } else filtersQueryString.remove(getString(R.string.category_business_filter));
+//                break;
+//            case R.id.checkbox_entrepreneurs:
+//                if (checked){ filtersQueryString.add(getString(R.string.category_entrepreneurs_filter));
+//                } else filtersQueryString.remove(getString(R.string.category_entrepreneurs_filter));
+//                    break;
+//            case R.id.checkbox_politics:
+//                if (checked){ filtersQueryString.add(getString(R.string.category_politics_filter));
+//                } else filtersQueryString.remove(getString(R.string.category_politics_filter));
+//                    break;
+//            case R.id.checkbox_sports:
+//                if (checked){ filtersQueryString.add(getString(R.string.category_sports_filter));
+//                } else filtersQueryString.remove(getString(R.string.category_sports_filter));
+//                    break;
+//            case R.id.checkbox_travel:
+//                if (checked){ filtersQueryString.add(getString(R.string.category_travel_filter));
+//                } else filtersQueryString.remove(getString(R.string.category_travel_filter));
+//                    break;
+//        }
+//        // Join all checked filters into one string
+//        joinedFilterString = (String) TextUtils.join( " " , filtersQueryString );
+//        Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
+//        finalFilterString = "news_desk:(" + joinedFilterString + ")";
+//
+//        // Condition to add/remove category from switch filters while Worker is Live
+//        if (mSwitchForNotifications.isChecked()){
+//            //////////////////////   //////////////////////////////
+//        }
+//    }
 
     /**
      * Search button action - to invoke the search API with all filtered data

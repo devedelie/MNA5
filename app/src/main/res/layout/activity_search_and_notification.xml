@@ -82,20 +82,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_arts"
-                        android:onClick="onCheckboxClicked"/>
-
+                        android:checked="false"/>
                     <CheckBox
                         android:id="@+id/checkbox_business"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_business"
-                        android:onClick="onCheckboxClicked"/>
+                        android:checked="false"/>
                     <CheckBox
                         android:id="@+id/checkbox_entrepreneurs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_entrepreneurs"
-                        android:onClick="onCheckboxClicked"/>
+                        android:checked="false"/>
 
 
                 </LinearLayout>
@@ -132,20 +131,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_politics"
-                        android:onClick="onCheckboxClicked"/>
-
+                        android:checked="false"/>
                     <CheckBox
                         android:id="@+id/checkbox_sports"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_sports"
-                        android:onClick="onCheckboxClicked"/>
+                        android:checked="false"/>
                     <CheckBox
                         android:id="@+id/checkbox_travel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/category_travel"
-                        android:onClick="onCheckboxClicked"/>
+                        android:checked="false"/>
 
 
                 </LinearLayout>
