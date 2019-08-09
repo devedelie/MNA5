@@ -59,6 +59,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_search);
 
         this.configureToolbar();
+        this.searchDateListener();
 
         mSearchQuery = (EditText) findViewById(R.id.SearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
@@ -94,37 +95,6 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Set switch listener
             mSwitchForNotifications.setOnCheckedChangeListener(this);
         }
-
-        // OnDateSet listener (actions to be taken after selecting the date on the dialog and clicking "OK")
-        mOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Increase month variable +1, as count starts from 0 (ex: April = 3)
-                month +=1;
-                mDate = dayOfMonth + "/" + month + "/" + year;
-
-                // Set the selected date in a string and add zero(0) to numbers under 10
-                String setDate = year + "" + (month < 10 ? ("0" + (month)) : (month)) + "" + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth));
-                // condition for checking if startDate or endDate button is selected
-                if (buttonSelectorFlag == 1){
-                    // Set the text on the layout
-                    mStartDate.setText(mDate);
-                    // create a start_date string for search api
-                    BeginDateStringForURL = setDate;
-                    Log.d(TAG, "onDateSet: URL BeginDate filter is: " + BeginDateStringForURL);
-                }else if(buttonSelectorFlag == 2){
-                    // Set the text on the layout
-                    mEndDate.setText(mDate);
-                    // create an end_date string for search api
-                    EndDateStringForURL = setDate;
-                    Log.d(TAG, "onDateSet: URL BeginDate filter is: " + EndDateStringForURL);
-                }
-                // set flag back to zero
-                buttonSelectorFlag = 0;
-            }
-        };
-        // end of dialog listener
-
     }
 
 
@@ -166,6 +136,40 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         }else if(view.equals(mEndDate)){
             buttonSelectorFlag=2;
         }
+    }
+
+    /**
+     * OnDateSet Listener (actions to be taken after selecting the date on the dialog and clicking "OK")
+     */
+    public void searchDateListener(){
+        mOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Increase month variable +1, as count starts from 0 (ex: April = 3)
+                month +=1;
+                mDate = dayOfMonth + "/" + month + "/" + year;
+
+                // Set the selected date in a string and add zero(0) to numbers under 10
+                String setDate = year + "" + (month < 10 ? ("0" + (month)) : (month)) + "" + (dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth));
+                // condition for checking if startDate or endDate button is selected
+                if (buttonSelectorFlag == 1){
+                    // Set the text on the layout
+                    mStartDate.setText(mDate);
+                    // create a start_date string for search api
+                    BeginDateStringForURL = setDate;
+                    Log.d(TAG, "onDateSet: URL BeginDate filter is: " + BeginDateStringForURL);
+                }else if(buttonSelectorFlag == 2){
+                    // Set the text on the layout
+                    mEndDate.setText(mDate);
+                    // create an end_date string for search api
+                    EndDateStringForURL = setDate;
+                    Log.d(TAG, "onDateSet: URL BeginDate filter is: " + EndDateStringForURL);
+                }
+                // set flag back to zero
+                buttonSelectorFlag = 0;
+            }
+        };
+        // end of dialog listener
     }
 
     // Detect the click on "back" button and finish the current activity
@@ -233,6 +237,10 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
         finalFilterString = "news_desk:(" + joinedFilterString + ")";
 
+        // Condition to add/remove category from switch filters while Worker is Live
+        if (mSwitchForNotifications.isChecked()){
+
+        }
     }
 
     /**
