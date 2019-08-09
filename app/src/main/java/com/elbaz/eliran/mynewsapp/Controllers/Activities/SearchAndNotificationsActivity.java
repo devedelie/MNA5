@@ -187,7 +187,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     }
 
     /**
-     * CheckBoxes configuration
+     * CheckBoxes configuration (Search OR Notification)
      */
     private void checkBoxesConfiguration (){
         filtersQueryString.clear();
@@ -242,6 +242,10 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 Log.d(TAG, "onCheckboxClicked result: " + joinedFilterString);
                 finalFilterString = "news_desk:(" + joinedFilterString + ")";
                 Log.d(TAG, "onCheckedChanged final string: " + finalFilterString);
+                // update finalFilterString in sharedPreferences
+                SharedPreferences.Editor editor2 = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
+                editor.putString("checkboxes_filter_string", finalFilterString);
+                editor.commit();
             }
         });
     }
