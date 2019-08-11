@@ -80,12 +80,10 @@ public class NotificationWorker extends Worker {
                         // Check if there are new results between the new dates
                         int sizeOfList = nytSearch.getResponse().getDocs().size();
                         if (sizeOfList == 0){
-                            // If no matches - ******* For testing only *******
-                            displayNotification("New daily articles", "We have found " + sizeOfList + " new articles matching your search criteria");
-
+                            // If there are no matches
+                            displayNotification("No articles matching your criteria today!", "You can try expanding your search criteria to improve results");
                         }else {
-                            // ********
-                            displayNotification("New daily articles", "We have found " + sizeOfList + " new articles matching your search criteria");
+                            displayNotification("We have found new daily articles",  sizeOfList + " new articles matching your search criteria");
                         }
                     }
 
