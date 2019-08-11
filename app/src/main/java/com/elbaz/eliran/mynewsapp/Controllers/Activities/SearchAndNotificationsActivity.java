@@ -129,6 +129,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         if(mNotificationsSwitch.isChecked()){
             mNotificationsQueryEditText.setText(mSharedPreferences.getString(getString(R.string.query_string), ""));
             mNotificationsQueryEditText.setEnabled(false);
+            // Set new hint text
+            mNotificationsQueryEditText.setText(mSharedPreferences.getString(getString(R.string.query_string), "") + getString(R.string.switch_off_to_edit));
         }
     }
 

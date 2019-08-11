@@ -28,7 +28,7 @@
     <string name="category_sports">Sports</string>
     <string name="category_travel">Travel</string>
 
-    <!--Search Activity class-->
+    <!--Search and Notifications Activity class-->
     <string name="begin_date">begin_date</string>
     <string name="end_date">end_date</string>
     <string name="filter_query">filter_query</string>
@@ -48,6 +48,7 @@
     <string name="category_checkbox_limit">You cannot uncheck all categories while the notification switch is ON</string>
     <string name="search_actionBar_title">Search</string>
     <string name="notifications_actionBar_title">Notifications</string>
+    <string name="switch_off_to_edit"> (Switch off to edit)</string>
 
     <!--SharedPreferences CheckBoxes file and names-->
     <string name="checkbox_state">checkbox_state</string>
