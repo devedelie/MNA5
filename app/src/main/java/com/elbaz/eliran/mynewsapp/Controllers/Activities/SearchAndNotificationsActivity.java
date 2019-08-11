@@ -248,8 +248,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                     if (notificationActivity)
                     editor.putBoolean(category, true);
                 }else{
-                    // If all the categories were unchecked while the switch was live, block the action and indicate the user
-                    if (filtersQueryString.size() == 1 && mNotificationsSwitch.isChecked()){
+                    // If all the categories were unchecked (only on Notifications) while the switch was live, block the action and indicate the user
+                    if (notificationActivity && filtersQueryString.size() == 1 && mNotificationsSwitch.isChecked()){
                         buttonView.setChecked(true); // set back the checkbox
                         Vibration();
                         SnackBarMessages(getString(R.string.category_checkbox_limit));
