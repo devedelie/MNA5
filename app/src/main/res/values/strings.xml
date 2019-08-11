@@ -49,4 +49,14 @@
     <string name="search_actionBar_title">Search</string>
     <string name="notifications_actionBar_title">Notifications</string>
 
+    <!--SharedPreferences CheckBoxes file and names-->
+    <string name="checkbox_state">checkbox_state</string>
+
+    <!--SharedPreferences Switch file and names-->
+    <string name="switch_SP_file">save_switch_state</string>
+    <string name="search_start_date">search_start_date</string>
+    <string name="checkbox_filter_string">checkboxes_filter_string</string>
+    <string name="query_string">query_string</string>
+    <string name="current_switch_state">current_switch_state</string>
+
 </resources>

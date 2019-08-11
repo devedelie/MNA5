@@ -104,8 +104,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
 
     private void configureLayoutVisibility (){
         // Check and set switch state
-        mSharedPreferences = getSharedPreferences("save_switch_state", MODE_PRIVATE);
-        mNotificationsSwitch.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
+        mSharedPreferences = getSharedPreferences(getString(R.string.switch_SP_file), MODE_PRIVATE);
+        mNotificationsSwitch.setChecked(mSharedPreferences.getBoolean(getString(R.string.current_switch_state), false));
 
         // Set view elements visibility to "Gone" - depends on the selected operation of the activity (search OR notification)
         if (searchActivity){
@@ -127,7 +127,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         }
         // Check if the switch is ON, and set the EditText field enabled/disabled
         if(mNotificationsSwitch.isChecked()){
-            mNotificationsQueryEditText.setText(mSharedPreferences.getString("query_string", ""));
+            mNotificationsQueryEditText.setText(mSharedPreferences.getString(getString(R.string.query_string), ""));
             mNotificationsQueryEditText.setEnabled(false);
         }
     }
@@ -208,7 +208,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
      */
     private void checkBoxesConfiguration (){
         filtersQueryString.clear();
-        mSharedPreferences = getSharedPreferences("checkbox_state", MODE_PRIVATE);
+        mSharedPreferences = getSharedPreferences(getString(R.string.checkbox_state), MODE_PRIVATE);
         // Check the type of activity (search OR notification) and load data properly
         if (searchActivity){
             setCheckBoxes(artsCheckbox, getString(R.string.category_arts_filter) );
@@ -240,7 +240,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = getSharedPreferences("checkbox_state", MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.checkbox_state), MODE_PRIVATE).edit();
                 if(isChecked){
                     filtersQueryString.add(category);
                     if (notificationActivity)
@@ -267,9 +267,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 Log.d(TAG, "onCheckedChanged final string: " + finalFilterString);
 
                 // update finalFilterString in sharedPreferences, in order to enable changes without stopping the worker
-                SharedPreferences.Editor editor2 = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor2 = getSharedPreferences(getString(R.string.switch_SP_file), MODE_PRIVATE).edit();
                 editor.putString("checkboxes_filter_string", finalFilterString);
-                editor.commit();
+                editor2.commit();
             }
         });
     }
@@ -318,7 +318,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // set the switch back to off mode
             mNotificationsSwitch.setChecked(false);
         }else{
-        SharedPreferences.Editor editor = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.switch_SP_file), MODE_PRIVATE).edit();
         ///// Start of isChecked condition
         if(isChecked){
             Log.i("switch_is_checked", isChecked + "");
@@ -329,10 +329,10 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             Log.d(TAG, "onCheckedChanged: stored date is "+ switchStartDate);
             // Save all information into sharedPreferences
             mQueryValue = mNotificationsQueryEditText.getText().toString();
-            editor.putString("search_start_date", switchStartDate);
-            editor.putString("checkboxes_filter_string", finalFilterString);
-            editor.putString("query_string", mQueryValue);
-            editor.putBoolean("current_switch_state", true);
+            editor.putString(getString(R.string.search_start_date), switchStartDate);
+            editor.putString(getString(R.string.checkbox_filter_string), finalFilterString);
+            editor.putString(getString(R.string.query_string), mQueryValue);
+            editor.putBoolean(getString(R.string.current_switch_state), true);
             editor.commit();
             // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
@@ -359,7 +359,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         }else{
             Log.i("switch_is_checked", isChecked + "");
             // Save switch state
-            editor.putBoolean("current_switch_state", false);
+            editor.putBoolean(getString(R.string.current_switch_state), false);
             editor.commit();
             // Enable EditText field
             mNotificationsQueryEditText.setEnabled(true);
