@@ -6,13 +6,6 @@
         app:showAsAction="ifRoom"
         android:title="Search">
     </item>
-    
-    <!--<item-->
-        <!--android:id="@+id/menu_activity_main_more"-->
-        <!--android:icon="@drawable/baseline_more_vert_white_18dp"-->
-        <!--app:showAsAction="ifRoom"-->
-        <!--android:title="Plus">-->
-    <!--</item>-->
 
     <!--Overflow menu items-->
     <item

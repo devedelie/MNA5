@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
 
         switch (id){
-            case R.id.activity_main_drawer_news :
-                break;
             case R.id.activity_main_drawer_1:
                 Toast.makeText(this, "Top Stories", Toast.LENGTH_LONG).show();
                 break;
