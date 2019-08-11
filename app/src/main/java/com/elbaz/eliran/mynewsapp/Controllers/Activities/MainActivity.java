@@ -135,12 +135,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.menu_activity_main_search:
                 Intent searchIntent = new Intent(this, SearchAndNotificationsActivity.class);
-                searchIntent.putExtra("search_activity", true);
+                searchIntent.putExtra(getString(R.string.intent_search_activity_boolean), true);
                 startActivity(searchIntent);
                 return true;
             case R.id.over_flow_item_1:
                 Intent notificationIntent = new Intent(this, SearchAndNotificationsActivity.class);
-                notificationIntent.putExtra("notification_activity", true);
+                notificationIntent.putExtra(getString(R.string.intent_notification_activity_boolean), true);
                 startActivity(notificationIntent);
                 return true;
             case R.id.over_flow_item_2:

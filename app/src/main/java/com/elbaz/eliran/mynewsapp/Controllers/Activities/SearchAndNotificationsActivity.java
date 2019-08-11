@@ -64,8 +64,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
 
         // Get boolean of which kind of activity will be shown to the user
         Intent intent = getIntent();
-        searchActivity = intent.getBooleanExtra("search_activity", false);
-        notificationActivity = intent.getBooleanExtra("notification_activity", false);
+        searchActivity = intent.getBooleanExtra(getString(R.string.intent_search_activity_boolean), false);
+        notificationActivity = intent.getBooleanExtra(getString(R.string.intent_notification_activity_boolean), false);
 
         mSearchQueryEditText = (EditText) findViewById(R.id.SearchField);
         mNotificationsQueryEditText = (EditText) findViewById(R.id.NotificationsSearchField);
@@ -349,7 +349,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
 
             PeriodicWorkRequest saveRequest =
                     new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                            .addTag("periodic_notifications")
+                            .addTag(getString(R.string.WM_periodic_notifications_tag))
                             .setInitialDelay(1, TimeUnit.DAYS)
                             .setConstraints(constraints)
                             .build();
@@ -366,7 +366,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Show a message
             SnackBarMessages(getString(R.string.notifications_off));
             // Stops the activity of the worker (by Tag)
-            WorkManager.getInstance().cancelAllWorkByTag("periodic_notifications");
+            WorkManager.getInstance().cancelAllWorkByTag(getString(R.string.WM_periodic_notifications_tag));
         }  //// end of isChecked condition
 
         } //// end of entire condition

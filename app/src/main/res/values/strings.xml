@@ -59,4 +59,11 @@
     <string name="query_string">query_string</string>
     <string name="current_switch_state">current_switch_state</string>
 
+    <!--Search OR Notification intent Booleans-->
+    <string name="intent_search_activity_boolean">intent_search_activity_boolean</string>
+    <string name="intent_notification_activity_boolean">intent_notification_activity_boolean</string>
+
+    <!--WorkManager-->
+    <string name="WM_periodic_notifications_tag">periodic_notifications</string>
+
 </resources>
