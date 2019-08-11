@@ -47,15 +47,15 @@ import static android.content.ContentValues.TAG;
 public class SearchAndNotificationsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private TextView mStartDate, mEndDate, mStartDateText, mEndDateText;
-    private EditText mSearchQueryEditText;
+    private EditText mSearchQueryEditText, mNotificationsQueryEditText;
     private Button mSearchButton;
-    private SwitchCompat mSwitchForNotifications;
+    private SwitchCompat mNotificationsSwitch;
     private CheckBox artsCheckbox, businessCheckbox, entrepreneursCheckbox, politicsCheckbox, sportsCheckbox, travelCheckbox;
     private String mDate, BeginDateStringForURL, EndDateStringForURL, joinedFilterString, mQueryValue, finalFilterString;
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
     SharedPreferences mSharedPreferences;
-    private Boolean searchActivuty, notificationActivity;
+    private Boolean searchActivity, notificationActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +64,11 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
 
         // Get boolean of which kind of activity will be shown to the user
         Intent intent = getIntent();
-        searchActivuty = intent.getBooleanExtra("search_activity", false);
+        searchActivity = intent.getBooleanExtra("search_activity", false);
         notificationActivity = intent.getBooleanExtra("notification_activity", false);
 
         mSearchQueryEditText = (EditText) findViewById(R.id.SearchField);
+        mNotificationsQueryEditText = (EditText) findViewById(R.id.NotificationsSearchField);
         mStartDate = (TextView) findViewById(R.id.search_startDate);
         mEndDate = (TextView) findViewById(R.id.search_endDate);
         mSearchButton = (Button) findViewById(R.id.searchButton);
@@ -79,8 +80,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         travelCheckbox = (CheckBox) findViewById(R.id.checkbox_travel);
         mStartDateText = (TextView) findViewById(R.id.StartDateText);
         mEndDateText = (TextView) findViewById(R.id.EndDateText);
-        mSwitchForNotifications = (SwitchCompat) findViewById(R.id.notifications_switchButton);
-        
+        mNotificationsSwitch = (SwitchCompat) findViewById(R.id.notifications_switchButton);
+
         this.configureToolbar();
         this.searchDateListener();
         this.configureLayoutVisibility();
@@ -104,24 +105,30 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     private void configureLayoutVisibility (){
         // Check and set switch state
         mSharedPreferences = getSharedPreferences("save_switch_state", MODE_PRIVATE);
-        mSwitchForNotifications.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
+        mNotificationsSwitch.setChecked(mSharedPreferences.getBoolean("current_switch_state", false));
 
         // Set view elements visibility to "Gone" - depends on the selected operation of the activity (search OR notification)
-        if (searchActivuty){
-            mSwitchForNotifications.setVisibility(View.GONE);
+        if (searchActivity){
+            mNotificationsSwitch.setVisibility(View.GONE);
+            mNotificationsQueryEditText.setVisibility(View.GONE);
+            // Set ActionBar title
+            getSupportActionBar().setTitle(getString(R.string.search_actionBar_title));
         }else if (notificationActivity){
+            mSearchQueryEditText.setVisibility(View.GONE);
             mStartDate.setVisibility(View.GONE);
             mEndDate.setVisibility(View.GONE);
             mSearchButton.setVisibility(View.GONE);
             mStartDateText.setVisibility(View.GONE);
             mEndDateText.setVisibility(View.GONE);
             // Set switch listener
-            mSwitchForNotifications.setOnCheckedChangeListener(this);
+            mNotificationsSwitch.setOnCheckedChangeListener(this);
+            // Set ActionBar title
+            getSupportActionBar().setTitle(getString(R.string.notifications_actionBar_title));
         }
         // Check if the switch is ON, and set the EditText field enabled/disabled
-        if(mSwitchForNotifications.isChecked()){
-            mSearchQueryEditText.setText(mSharedPreferences.getString("query_string", ""));
-            mSearchQueryEditText.setEnabled(false);
+        if(mNotificationsSwitch.isChecked()){
+            mNotificationsQueryEditText.setText(mSharedPreferences.getString("query_string", ""));
+            mNotificationsQueryEditText.setEnabled(false);
         }
     }
 
@@ -203,7 +210,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         filtersQueryString.clear();
         mSharedPreferences = getSharedPreferences("checkbox_state", MODE_PRIVATE);
         // Check the type of activity (search OR notification) and load data properly
-        if (searchActivuty){
+        if (searchActivity){
             setCheckBoxes(artsCheckbox, getString(R.string.category_arts_filter) );
             setCheckBoxes(businessCheckbox, getString(R.string.category_business_filter) );
             setCheckBoxes(entrepreneursCheckbox, getString(R.string.category_entrepreneurs_filter) );
@@ -240,7 +247,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                     editor.putBoolean(category, true);
                 }else{
                     // If all the categories were unchecked while the switch was live, block the action and indicate the user
-                    if (filtersQueryString.size() == 1 && mSwitchForNotifications.isChecked()){
+                    if (filtersQueryString.size() == 1 && mNotificationsSwitch.isChecked()){
                         buttonView.setChecked(true); // set back the checkbox
                         Vibration();
                         SnackBarMessages(getString(R.string.category_checkbox_limit));
@@ -309,19 +316,19 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
             Vibration();
             // set the switch back to off mode
-            mSwitchForNotifications.setChecked(false);
+            mNotificationsSwitch.setChecked(false);
         }else{
         SharedPreferences.Editor editor = getSharedPreferences("save_switch_state", MODE_PRIVATE).edit();
         ///// Start of isChecked condition
         if(isChecked){
             Log.i("switch_is_checked", isChecked + "");
             // Disable the EditText field
-            mSearchQueryEditText.setEnabled(false);
+            mNotificationsQueryEditText.setEnabled(false);
             // Get today's date when switch was launched
             String switchStartDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
             Log.d(TAG, "onCheckedChanged: stored date is "+ switchStartDate);
             // Save all information into sharedPreferences
-            mQueryValue = mSearchQueryEditText.getText().toString();
+            mQueryValue = mNotificationsQueryEditText.getText().toString();
             editor.putString("search_start_date", switchStartDate);
             editor.putString("checkboxes_filter_string", finalFilterString);
             editor.putString("query_string", mQueryValue);
@@ -355,7 +362,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             editor.putBoolean("current_switch_state", false);
             editor.commit();
             // Enable EditText field
-            mSearchQueryEditText.setEnabled(true);
+            mNotificationsQueryEditText.setEnabled(true);
             // Show a message
             SnackBarMessages(getString(R.string.notifications_off));
             // Stops the activity of the worker (by Tag)

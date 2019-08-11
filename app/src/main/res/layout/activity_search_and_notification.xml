@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"/>
 
         <!--Search Layout-->
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,6 +38,16 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:hint="Search query" />
+            <EditText
+                android:layout_centerHorizontal="true"
+                android:id="@+id/NotificationsSearchField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="40sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Notifications query" />
 
 
             <!--Parameters Main Layout-->
@@ -45,7 +55,7 @@
                 android:id="@+id/checkboxesMainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/SearchField"
+                android:layout_below="@+id/NotificationsSearchField"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
@@ -181,7 +191,7 @@
 
             </RelativeLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
