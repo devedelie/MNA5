@@ -1,13 +1,14 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -40,8 +41,6 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
     private List<Result> mResults;
     private NYTAdapter mNYTAdapter;
     private Boolean networkState;
-    Context mContext;
-    private String drawerSelectedCategory;
 
     // ButterKnife
     @BindView(R.id.drawer_categories_recyclerView) RecyclerView mRecyclerView;
@@ -59,11 +58,10 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
         }
 
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        drawerSelectedCategory = intent.getStringExtra(getString(R.string.categoryPutExtraID));
 
         // Set the recyclerView to fixed size in order to increase performances
         mRecyclerView.setHasFixedSize(true);
+        this.configureToolbar();
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
@@ -88,14 +86,31 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 1 - Toolbar execution
+     */
+    private void configureToolbar(){
+        //Get the toolbar (Serialise)
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar
+        setSupportActionBar(toolbar);
+        //Get a support ActionBar corresponding to this toolbar
+        ActionBar actionBar = getSupportActionBar();
+        // Enable the upper button (back button)
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        //set Title
+        getSupportActionBar().setTitle(MainActivity.pageTitle);
+    }
+
+
     //-----------------
     // RecyclerView Config
     //-----------------
     protected void configureRecyclerView(){
         mResults = new ArrayList<>();
-        mNYTAdapter = new NYTAdapter(this.mResults, mContext, Glide.with(this));
+        mNYTAdapter = new NYTAdapter(this.mResults, getApplicationContext(), Glide.with(this));
         mRecyclerView.setAdapter(this.mNYTAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
     // Connectivity failure message
@@ -131,7 +146,7 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchTopStories(drawerSelectedCategory)
+        this.mDisposable = NYTStreams.streamFetchTopStories(MainActivity.category)
                 .subscribeWith(new DisposableObserver<NYTNews>(){
 
                     @Override
@@ -147,6 +162,7 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete");
+                        findViewById(R.id.drawer_activities_loadingAnimation).setVisibility(View.GONE);
                     }
                 });
     }

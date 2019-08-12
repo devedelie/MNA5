@@ -18,10 +18,10 @@
 
     <!--Drawer categories-->
     <string name="more_news">More News</string>
-    <string name="world_news">World News</string>
+    <string name="world_news">World</string>
     <string name="travel">Travel</string>
     <string name="arts">Arts</string>
-    <string name="automobile">Automobile</string>
+    <string name="automobiles">Automobiles</string>
     <string name="books">Books</string>
     <string name="business">Business</string>
     <string name="fashion">Fashion</string>
@@ -29,14 +29,13 @@
     <string name="health">Health</string>
     <string name="movies">Movies</string>
     <string name="politics">Politics</string>
-    <string name="realEstate">Real-Estate</string>
     <string name="science">Science</string>
     <!--category values for drawer URLs-->
     <string name="categoryPutExtraID">categoryPutExtraID</string>
     <string name="value_world">world</string>
     <string name="value_travel">travel</string>
     <string name="value_arts">arts</string>
-    <string name="value_automobile">automobile</string>
+    <string name="value_automobiles">automobiles</string>
     <string name="value_books">books</string>
     <string name="value_business">business</string>
     <string name="value_fashion">fashion</string>
@@ -44,7 +43,6 @@
     <string name="value_health">health</string>
     <string name="value_movies">movies</string>
     <string name="value_politics">politics</string>
-    <string name="value_realEstate">realestate</string>
     <string name="value_science">science</string>
 
 

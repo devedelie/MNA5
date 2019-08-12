@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private Toolbar toolbar;
     private Context mContext;
+    public static String category, pageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,56 +101,64 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.activity_main_drawer_1:
-                activityInstantiator(getString(R.string.value_world));
+                category=(getString(R.string.value_world));
+                pageTitle=(getString(R.string.world_news));
                 break;
             case R.id.activity_main_drawer_2:
-                activityInstantiator(getString(R.string.value_travel));
+                category=(getString(R.string.value_travel));
+                pageTitle=(getString(R.string.travel));
                 break;
             case R.id.activity_main_drawer_3:
-                activityInstantiator(getString(R.string.value_arts));
+                category=(getString(R.string.value_arts));
+                pageTitle=(getString(R.string.arts));
                 break;
             case R.id.activity_main_drawer_4:
-                activityInstantiator(getString(R.string.value_automobile));
+                category=(getString(R.string.value_automobiles));
+                pageTitle=(getString(R.string.automobiles));
                 break;
             case R.id.activity_main_drawer_5:
-                activityInstantiator(getString(R.string.value_books));
+                category=(getString(R.string.value_books));
+                pageTitle=(getString(R.string.books));
                 break;
             case R.id.activity_main_drawer_6:
-                activityInstantiator(getString(R.string.value_business));
+                category=(getString(R.string.value_business));
+                pageTitle=(getString(R.string.business));
                 break;
             case R.id.activity_main_drawer_7:
-                activityInstantiator(getString(R.string.value_fashion));
+                category=(getString(R.string.value_fashion));
+                pageTitle=(getString(R.string.fashion));
                 break;
             case R.id.activity_main_drawer_8:
-                activityInstantiator(getString(R.string.value_food));
+                category=(getString(R.string.value_food));
+                pageTitle=(getString(R.string.food));
                 break;
             case R.id.activity_main_drawer_9:
-                activityInstantiator(getString(R.string.value_health));
+                category=(getString(R.string.value_health));
+                pageTitle=(getString(R.string.health));
                 break;
             case R.id.activity_main_drawer_10:
-                activityInstantiator(getString(R.string.value_movies));
+                category=(getString(R.string.value_movies));
+                pageTitle=(getString(R.string.movies));
                 break;
             case R.id.activity_main_drawer_11:
-                activityInstantiator(getString(R.string.value_politics));
+                category=(getString(R.string.value_politics));
+                pageTitle=(getString(R.string.politics));
                 break;
             case R.id.activity_main_drawer_12:
-                activityInstantiator(getString(R.string.value_realEstate));
-                break;
-            case R.id.activity_main_drawer_13:
-                activityInstantiator(getString(R.string.value_science));
+                category=(getString(R.string.value_science));
+                pageTitle=(getString(R.string.science));
                 break;
             default:
                 break;
         }
         // Close the Drawer when item is selected
         this.drawerLayout.closeDrawer(GravityCompat.START);
-
+        activityInstantiator();
         return true;
     }
 
-    private void activityInstantiator (String category){
+    private void activityInstantiator (){
         Intent drawerCategory = new Intent(this, DrawerCategoriesActivity.class);
-        drawerCategory.putExtra(getString(R.string.categoryPutExtraID), category);
         startActivity(drawerCategory);
     }
 
