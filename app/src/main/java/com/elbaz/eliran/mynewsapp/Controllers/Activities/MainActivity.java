@@ -214,6 +214,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.dialog_view);
+            // Set dialog size to 97% of the screen
+            int width = (int)(getResources().getDisplayMetrics().widthPixels*0.97);
+            int height = (int)(getResources().getDisplayMetrics().heightPixels*0.97);
+            dialog.getWindow().setLayout(width, height);
 
             TextView dialogTitle = dialog.findViewById(R.id.topTitle);
             dialogTitle.setText(topTitle);
