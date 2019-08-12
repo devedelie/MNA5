@@ -152,6 +152,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                 year,month,day);
         // set the background to transparent
         datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
         datePickerDialog.show();
         if(view.equals(mStartDate)){
             buttonSelectorFlag=1;
