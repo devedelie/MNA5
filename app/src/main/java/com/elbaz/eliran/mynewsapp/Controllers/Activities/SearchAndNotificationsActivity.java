@@ -350,7 +350,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                     .build();
 
             PeriodicWorkRequest saveRequest =
-                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.HOURS)
                             .addTag(getString(R.string.WM_periodic_notifications_tag))
                             .setInitialDelay(1, TimeUnit.DAYS)
                             .setConstraints(constraints)
