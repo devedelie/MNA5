@@ -10,6 +10,43 @@
     <string name="tab_name_3">TECH</string>
     <string name="tab_name_4">SPORT</string>
 
+    <!--Fragments url category/section for httpExecute:  /{section}.json?q=...-->
+    <string name="home">home</string>
+    <string name="facebook">facebook</string>
+    <string name="technology">technology</string>
+    <string name="sports">sports</string>
+
+    <!--Drawer categories-->
+    <string name="more_news">More News</string>
+    <string name="world_news">World News</string>
+    <string name="travel">Travel</string>
+    <string name="arts">Arts</string>
+    <string name="automobile">Automobile</string>
+    <string name="books">Books</string>
+    <string name="business">Business</string>
+    <string name="fashion">Fashion</string>
+    <string name="food">Food</string>
+    <string name="health">Health</string>
+    <string name="movies">Movies</string>
+    <string name="politics">Politics</string>
+    <string name="realEstate">Real-Estate</string>
+    <string name="science">Science</string>
+    <!--category values for drawer URLs-->
+    <string name="value_world">world</string>
+    <string name="value_travel">travel</string>
+    <string name="value_arts">arts</string>
+    <string name="value_automobile">automobile</string>
+    <string name="value_books">books</string>
+    <string name="value_business">business</string>
+    <string name="value_fashion">fashion</string>
+    <string name="value_food">food</string>
+    <string name="value_health">health</string>
+    <string name="value_movies">movies</string>
+    <string name="value_politics">politics</string>
+    <string name="value_realEstate">realestate</string>
+    <string name="value_science">science</string>
+
+
     <!--Used in navigation drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -70,7 +107,6 @@
     <string name="positive_description_httpResult_SnackBar_message"> new articles matching your search criteria</string>
     <string name="negative_task_httpResult_SnackBar_message">No articles matching your criteria today!</string>
     <string name="negative_description_httpResult_SnackBar_message">You can try expanding the search criteria to improve results</string>
-
 
 
 </resources>

@@ -14,7 +14,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
-import com.elbaz.eliran.mynewsapp.Models.Constants;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.NYTMostPopular;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.ResultMostPopular;
 import com.elbaz.eliran.mynewsapp.R;
@@ -121,7 +120,7 @@ public class TabFragment2 extends Fragment {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchMostPopular(Constants.TAB2VALUE)
+        this.mDisposable = NYTStreams.streamFetchMostPopular(getString(R.string.facebook))
                 .subscribeWith(new DisposableObserver<NYTMostPopular>(){
 
                     @Override
