@@ -23,27 +23,27 @@
                 <item
                     android:id="@+id/activity_main_drawer_2"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/travel" />
+                    android:title="@string/politics" />
                 <item
                     android:id="@+id/activity_main_drawer_3"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/arts" />
+                    android:title="@string/business" />
                 <item
                     android:id="@+id/activity_main_drawer_4"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/automobiles" />
+                    android:title="@string/health" />
                 <item
                     android:id="@+id/activity_main_drawer_5"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/books" />
+                    android:title="@string/automobiles" />
                 <item
                     android:id="@+id/activity_main_drawer_6"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/business" />
+                    android:title="@string/science" />
                 <item
                     android:id="@+id/activity_main_drawer_7"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/fashion" />
+                    android:title="@string/books" />
                 <item
                     android:id="@+id/activity_main_drawer_8"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
@@ -51,19 +51,19 @@
                 <item
                     android:id="@+id/activity_main_drawer_9"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/health" />
+                    android:title="@string/movies" />
                 <item
                     android:id="@+id/activity_main_drawer_10"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/movies" />
+                    android:title="@string/arts" />
                 <item
                     android:id="@+id/activity_main_drawer_11"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/politics" />
+                    android:title="@string/fashion" />
                 <item
                     android:id="@+id/activity_main_drawer_12"
                     android:icon="@drawable/ic_settings_applications_white_24dp"
-                    android:title="@string/science" />
+                    android:title="@string/travel" />
             </group>
         </menu>
     </item>

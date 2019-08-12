@@ -105,48 +105,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 pageTitle=(getString(R.string.world_news));
                 break;
             case R.id.activity_main_drawer_2:
-                category=(getString(R.string.value_travel));
-                pageTitle=(getString(R.string.travel));
+                category=(getString(R.string.value_politics));
+                pageTitle=(getString(R.string.politics));
                 break;
             case R.id.activity_main_drawer_3:
-                category=(getString(R.string.value_arts));
-                pageTitle=(getString(R.string.arts));
-                break;
-            case R.id.activity_main_drawer_4:
-                category=(getString(R.string.value_automobiles));
-                pageTitle=(getString(R.string.automobiles));
-                break;
-            case R.id.activity_main_drawer_5:
-                category=(getString(R.string.value_books));
-                pageTitle=(getString(R.string.books));
-                break;
-            case R.id.activity_main_drawer_6:
                 category=(getString(R.string.value_business));
                 pageTitle=(getString(R.string.business));
                 break;
+            case R.id.activity_main_drawer_4:
+                category=(getString(R.string.value_health));
+                pageTitle=(getString(R.string.health));
+                break;
+            case R.id.activity_main_drawer_5:
+                category=(getString(R.string.value_automobiles));
+                pageTitle=(getString(R.string.automobiles));
+                break;
+            case R.id.activity_main_drawer_6:
+                category=(getString(R.string.value_science));
+                pageTitle=(getString(R.string.science));
+                break;
             case R.id.activity_main_drawer_7:
-                category=(getString(R.string.value_fashion));
-                pageTitle=(getString(R.string.fashion));
+                category=(getString(R.string.value_books));
+                pageTitle=(getString(R.string.books));
                 break;
             case R.id.activity_main_drawer_8:
                 category=(getString(R.string.value_food));
                 pageTitle=(getString(R.string.food));
                 break;
             case R.id.activity_main_drawer_9:
-                category=(getString(R.string.value_health));
-                pageTitle=(getString(R.string.health));
-                break;
-            case R.id.activity_main_drawer_10:
                 category=(getString(R.string.value_movies));
                 pageTitle=(getString(R.string.movies));
                 break;
+            case R.id.activity_main_drawer_10:
+                category=(getString(R.string.value_arts));
+                pageTitle=(getString(R.string.arts));
+                break;
             case R.id.activity_main_drawer_11:
-                category=(getString(R.string.value_politics));
-                pageTitle=(getString(R.string.politics));
+                category=(getString(R.string.value_fashion));
+                pageTitle=(getString(R.string.fashion));
                 break;
             case R.id.activity_main_drawer_12:
-                category=(getString(R.string.value_science));
-                pageTitle=(getString(R.string.science));
+                category=(getString(R.string.value_travel));
+                pageTitle=(getString(R.string.travel));
                 break;
             default:
                 break;
