@@ -67,6 +67,8 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        // Set the recyclerView to fixed size in order to increase performances
+        mRecyclerView.setHasFixedSize(true);
         this.configureToolbar();
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
@@ -147,7 +149,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                     public void onComplete() {
                         Log.d(TAG, "onComplete");
                         // Hide loading animation when finished HttpRequest
-                        findViewById(R.id.loadingAnimation).setVisibility(View.GONE);
+                        findViewById(R.id.searchResults_loadingAnimation).setVisibility(View.GONE);
                     }
                 });
     }
