@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/activity_main_drawer_news"
+            android:icon="@drawable/ic_dashboard_white_24dp"
+            android:title="@string/more_news" />
+    </group>
+
+    <item android:title="Home page">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/activity_main_drawer_1"
+                    android:icon="@drawable/ic_account_box_white_24dp"
+                    android:title="@string/world_news" />
+                <item
+                    android:id="@+id/activity_main_drawer_2"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/travel" />
+                <item
+                    android:id="@+id/activity_main_drawer_3"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/arts" />
+                <item
+                    android:id="@+id/activity_main_drawer_4"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/automobile" />
+                <item
+                    android:id="@+id/activity_main_drawer_5"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/books" />
+                <item
+                    android:id="@+id/activity_main_drawer_6"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/business" />
+                <item
+                    android:id="@+id/activity_main_drawer_7"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/fashion" />
+                <item
+                    android:id="@+id/activity_main_drawer_8"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/food" />
+                <item
+                    android:id="@+id/activity_main_drawer_9"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/health" />
+                <item
+                    android:id="@+id/activity_main_drawer_10"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/movies" />
+                <item
+                    android:id="@+id/activity_main_drawer_11"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/politics" />
+                <item
+                    android:id="@+id/activity_main_drawer_12"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/realEstate" />
+                <item
+                    android:id="@+id/activity_main_drawer_13"
+                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:title="@string/science" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

@@ -32,6 +32,7 @@
     <string name="realEstate">Real-Estate</string>
     <string name="science">Science</string>
     <!--category values for drawer URLs-->
+    <string name="categoryPutExtraID">categoryPutExtraID</string>
     <string name="value_world">world</string>
     <string name="value_travel">travel</string>
     <string name="value_arts">arts</string>

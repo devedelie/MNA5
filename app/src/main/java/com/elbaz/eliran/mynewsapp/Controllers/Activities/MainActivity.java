@@ -100,10 +100,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.activity_main_drawer_1:
-                Toast.makeText(this, "Top Stories", Toast.LENGTH_LONG).show();
+                activityInstantiator(getString(R.string.value_world));
                 break;
             case R.id.activity_main_drawer_2:
-                Toast.makeText(this, "News", Toast.LENGTH_LONG).show();
+                activityInstantiator(getString(R.string.value_travel));
+                break;
+            case R.id.activity_main_drawer_3:
+                activityInstantiator(getString(R.string.value_arts));
+                break;
+            case R.id.activity_main_drawer_4:
+                activityInstantiator(getString(R.string.value_automobile));
+                break;
+            case R.id.activity_main_drawer_5:
+                activityInstantiator(getString(R.string.value_books));
+                break;
+            case R.id.activity_main_drawer_6:
+                activityInstantiator(getString(R.string.value_business));
+                break;
+            case R.id.activity_main_drawer_7:
+                activityInstantiator(getString(R.string.value_fashion));
+                break;
+            case R.id.activity_main_drawer_8:
+                activityInstantiator(getString(R.string.value_food));
+                break;
+            case R.id.activity_main_drawer_9:
+                activityInstantiator(getString(R.string.value_health));
+                break;
+            case R.id.activity_main_drawer_10:
+                activityInstantiator(getString(R.string.value_movies));
+                break;
+            case R.id.activity_main_drawer_11:
+                activityInstantiator(getString(R.string.value_politics));
+                break;
+            case R.id.activity_main_drawer_12:
+                activityInstantiator(getString(R.string.value_realEstate));
+                break;
+            case R.id.activity_main_drawer_13:
+                activityInstantiator(getString(R.string.value_science));
                 break;
             default:
                 break;
@@ -112,6 +145,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void activityInstantiator (String category){
+        Intent drawerCategory = new Intent(this, DrawerCategoriesActivity.class);
+        drawerCategory.putExtra(getString(R.string.categoryPutExtraID), category);
+        startActivity(drawerCategory);
     }
 
     /**
