@@ -107,5 +107,10 @@
     <string name="negative_task_httpResult_SnackBar_message">No articles matching your criteria today!</string>
     <string name="negative_description_httpResult_SnackBar_message">You can try expanding the search criteria to improve results</string>
 
+    <!--Dialog Texts-->
+    <string name="about_title">About My News App</string>
+    <string name="about_upper_text">My-News App is a news desk application based on New-York-Times API. The application was developed as part of Android development course on OpenClassRooms</string>
+    <string name="about_developer">The application was developed by: Eliran Elbaz</string>
+    <string name="about_content">All the content in this application is being fetched from New York Times API </string>
 
 </resources>

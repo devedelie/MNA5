@@ -1,11 +1,16 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -190,13 +195,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(notificationIntent);
                 return true;
             case R.id.over_flow_item_2:
-                Toast.makeText(this, "action 2", Toast.LENGTH_LONG).show();
+                ViewDialog showHelpDialog = new ViewDialog();
+                showHelpDialog.showDialog(this, getString(R.string.about_title),getString(R.string.about_upper_text), getString(R.string.about_developer), getString(R.string.about_content));
                 return true;
             case R.id.over_flow_item_3:
-                Toast.makeText(this, "action 3", Toast.LENGTH_LONG).show();
+                ViewDialog showAboutDialog = new ViewDialog();
+                showAboutDialog.showDialog(this, getString(R.string.about_title),getString(R.string.about_upper_text), getString(R.string.about_developer), getString(R.string.about_content));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public class ViewDialog {
+
+        public void showDialog(Activity activity,String topTitle, String msg, String msg2, String msg3){
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_view);
+
+            TextView dialogTitle = dialog.findViewById(R.id.topTitle);
+            dialogTitle.setText(topTitle);
+            TextView text = dialog.findViewById(R.id.text_dialog);
+            text.setText(msg);
+            TextView text2 = dialog.findViewById(R.id.text_dialog_2);
+            text2.setText(msg2);
+            TextView text3 = dialog.findViewById(R.id.text_dialog_3);
+            text3.setText(msg3);
+            Button dialogButton = dialog.findViewById(R.id.btn_dialog);
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+
         }
     }
 
