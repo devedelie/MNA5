@@ -87,7 +87,7 @@ public class SearchResultsActivity extends AppCompatActivity {
      */
     private void configureToolbar(){
         //Get the toolbar (Serialise)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         // Sets the Toolbar
         setSupportActionBar(toolbar);
         //Get a support ActionBar corresponding to this toolbar

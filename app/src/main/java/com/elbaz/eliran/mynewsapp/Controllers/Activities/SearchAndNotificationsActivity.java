@@ -67,20 +67,20 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         searchActivity = intent.getBooleanExtra(getString(R.string.intent_search_activity_boolean), false);
         notificationActivity = intent.getBooleanExtra(getString(R.string.intent_notification_activity_boolean), false);
 
-        mSearchQueryEditText = (EditText) findViewById(R.id.SearchField);
-        mNotificationsQueryEditText = (EditText) findViewById(R.id.NotificationsSearchField);
-        mStartDate = (TextView) findViewById(R.id.search_startDate);
-        mEndDate = (TextView) findViewById(R.id.search_endDate);
-        mSearchButton = (Button) findViewById(R.id.searchButton);
-        artsCheckbox = (CheckBox) findViewById(R.id.checkbox_arts);
-        businessCheckbox = (CheckBox) findViewById(R.id.checkbox_business);
-        entrepreneursCheckbox = (CheckBox) findViewById(R.id.checkbox_entrepreneurs);
-        politicsCheckbox = (CheckBox) findViewById(R.id.checkbox_politics);
-        sportsCheckbox = (CheckBox) findViewById(R.id.checkbox_sports);
-        travelCheckbox = (CheckBox) findViewById(R.id.checkbox_travel);
-        mStartDateText = (TextView) findViewById(R.id.StartDateText);
-        mEndDateText = (TextView) findViewById(R.id.EndDateText);
-        mNotificationsSwitch = (SwitchCompat) findViewById(R.id.notifications_switchButton);
+        mSearchQueryEditText = findViewById(R.id.SearchField);
+        mNotificationsQueryEditText = findViewById(R.id.NotificationsSearchField);
+        mStartDate = findViewById(R.id.search_startDate);
+        mEndDate = findViewById(R.id.search_endDate);
+        mSearchButton = findViewById(R.id.searchButton);
+        artsCheckbox = findViewById(R.id.checkbox_arts);
+        businessCheckbox = findViewById(R.id.checkbox_business);
+        entrepreneursCheckbox = findViewById(R.id.checkbox_entrepreneurs);
+        politicsCheckbox = findViewById(R.id.checkbox_politics);
+        sportsCheckbox = findViewById(R.id.checkbox_sports);
+        travelCheckbox = findViewById(R.id.checkbox_travel);
+        mStartDateText = findViewById(R.id.StartDateText);
+        mEndDateText = findViewById(R.id.EndDateText);
+        mNotificationsSwitch = findViewById(R.id.notifications_switchButton);
 
         this.configureToolbar();
         this.searchDateListener();
@@ -93,7 +93,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
      */
     private void configureToolbar(){
         //Get the toolbar (Serialise)
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         // Sets the Toolbar
         setSupportActionBar(toolbar);
         //Get a support ActionBar corresponding to this toolbar
