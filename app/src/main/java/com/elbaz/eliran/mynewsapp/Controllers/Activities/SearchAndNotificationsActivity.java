@@ -338,10 +338,6 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             editor.commit();
             // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
-            // Test
-//            OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(NotificationWorker.class).build();
-//            WorkManager.getInstance().enqueue(request);
-            // end Test
             //////// Worker Setup ///////////
             // Initiate the Worker class to work daily
             Constraints constraints = new Constraints.Builder()
@@ -350,7 +346,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                     .build();
 
             PeriodicWorkRequest saveRequest =
-                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.HOURS)
+                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
                             .addTag(getString(R.string.WM_periodic_notifications_tag))
                             .setInitialDelay(1, TimeUnit.DAYS)
                             .setConstraints(constraints)
@@ -369,8 +365,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             SnackBarMessages(getString(R.string.notifications_off));
             // Stops the activity of the worker (by Tag)
             WorkManager.getInstance().cancelAllWorkByTag(getString(R.string.WM_periodic_notifications_tag));
-        }  //// end of isChecked condition
-
+           }  //// end of isChecked condition
         } //// end of entire condition
     }
 
