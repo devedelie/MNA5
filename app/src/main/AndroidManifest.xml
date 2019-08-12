@@ -17,7 +17,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- child 1 of MainActivity -->
@@ -35,7 +35,7 @@
         <!-- Child 2 of MainActivity -->
         <activity
             android:name=".Controllers.Activities.WebPageActivity"
-            android:label="WebPage"
+            android:label="The New York Times"
             android:parentActivityName=".Controllers.Activities.MainActivity"
             android:screenOrientation="portrait">
 
