@@ -1,22 +1,33 @@
 package com.elbaz.eliran.mynewsapp.Controllers.Fragments;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.CheckInternetConnection;
+import com.elbaz.eliran.mynewsapp.Utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.Utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.Views.NYTAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -25,7 +36,7 @@ import static android.content.ContentValues.TAG;
 /**
  * Created by Eliran Elbaz on 06-Jul-19.
  */
-public class TabFragment1 extends BaseFragment {
+public class TabFragment1 extends Fragment {
 
     public static final String BUNDLE_URL= "BUNDLE_URL";
 
@@ -40,38 +51,40 @@ public class TabFragment1 extends BaseFragment {
     @BindView(R.id.teb_fragment1_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
-    protected BaseFragment newInstance() {
-        return new TabFragment1();
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tab_1, container, false);
 
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.fragment_tab_1;
-    }
 
-    @Override
-    protected void configureDesign() {
+        // Check for Internet connection
+        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
+        if (!networkState){
+            internetConnectivityMessage();
+        }
+
+        // Call during UI creation
+        ButterKnife.bind(this, view);
+        // Set the recyclerView to fixed size in order to increase performances
+        mRecyclerView.setHasFixedSize(true);
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
+        this.configureOnClickRecyclerView();
+
+
+        return view;
     }
 
     @Override
-    protected void onDestroyCall() {
-
+    public void onDestroy() {
+        super.onDestroy();
+        this.disposeWhenDestroy();
     }
 
-    @Override
-    protected void disposeWhenDestroyCall() {
-    }
-
-    @Override
-    protected void internetConnectivityMessageCall() {
-    }
-
-    @Override
-    protected void internetConnectivityVerifierCall() {
-
+    // Connectivity failure message
+    public void internetConnectivityMessage(){
+        Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
+                Snackbar.LENGTH_LONG)
+                .show();
     }
 
     //-----------------
@@ -91,12 +104,13 @@ public class TabFragment1 extends BaseFragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!internetConnectivityVerifier()){
+                if(!networkState){
                     internetConnectivityMessage();
                     // Stops the SwipeRefreshLayout animation
                     mSwipeRefreshLayout.setRefreshing(false);
                 }else{
                     executeHttpRequestWithRetrofit();
+
                 }
             }
         });
@@ -129,7 +143,31 @@ public class TabFragment1 extends BaseFragment {
                 });
     }
 
+    // This method will be called onDestroy to avoid any risk of memory leaks.
+    private void disposeWhenDestroy(){
+        if (this.mDisposable != null && !this.mDisposable.isDisposed()) this.mDisposable.dispose();
+    }
 
+    // -----------------
+    // ACTION RecyclerView onClick
+    // -----------------
+    //  Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.recyclerview_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        // Get title URL from adapter into variable
+                        String url = mNYTAdapter.getUrl(position);
+                        // Instantiate the WebView Activity
+                        Intent intent = new Intent(getActivity(), WebPageActivity.class);
+                        // Send variable data to the activity
+                        intent.putExtra(BUNDLE_URL,url);
+                        Log.e("TAG", "Position + URL : "+position + " " + url);
+                        startActivity(intent);
+                    }
+                });
+    }
 
     //-----------------
     // Update UI

@@ -89,13 +89,13 @@ public class TabFragment4 extends Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Log.e("TAG", "Position : "+position);
                         // Get title URL from adapter into variable
                         String url = mNYTAdapter.getUrl(position);
                         // Instantiate the WebView Activity
                         Intent intent = new Intent(getActivity(), WebPageActivity.class);
                         // Send variable data to the activity
                         intent.putExtra(BUNDLE_URL,url);
+                        Log.e("TAG", "Position + URL : "+position + " " + url);
                         startActivity(intent);
                     }
                 });
