@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.elbaz.eliran.mynewsapp.Controllers.Fragments.TabFragment1.BUNDLE_URL;
 
 /**
@@ -37,23 +38,24 @@ public abstract class BaseFragment extends Fragment {
     protected abstract BaseFragment newInstance();
     protected abstract int getFragmentLayout();
     protected abstract void configureDesign();
+    protected abstract void onDestroyCall();
+    protected abstract void disposeWhenDestroyCall();
+    protected abstract void internetConnectivityMessageCall();
+    protected abstract void internetConnectivityVerifierCall();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //  Get layout identifier from abstract method
+        //  Get layout identifier from abstract method:   getFragmentLayout()
         View view = inflater.inflate(getFragmentLayout(), container, false);
+
+        this.internetConnectivityVerifier();
+
+        // Binding Views
+        ButterKnife.bind(this, view);
 
         // Configure Design (should call this method instead of override onCreateView())
         this.configureDesign();
-
-        // Check for Internet connection
-        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
-        if (!networkState){
-            internetConnectivityMessage();
-        }
-        // Binding Views
-        ButterKnife.bind(this, view);
 
         this.configureOnClickRecyclerView();
         return(view);
@@ -63,6 +65,17 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         this.disposeWhenDestroy();
+        this.onDestroyCall();
+    }
+
+    protected boolean internetConnectivityVerifier(){
+        // Check for Internet connection
+        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
+        if (!networkState){
+            internetConnectivityMessage();
+        }
+        this.internetConnectivityVerifierCall();
+        return networkState;
     }
 
     // Connectivity failure message
@@ -70,11 +83,13 @@ public abstract class BaseFragment extends Fragment {
         Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
                 Snackbar.LENGTH_LONG)
                 .show();
+        this.internetConnectivityMessageCall();
     }
 
     // This method will be called onDestroy to avoid any risk of memory leaks.
     protected void disposeWhenDestroy(){
         if (this.mDisposable != null && !this.mDisposable.isDisposed()) this.mDisposable.dispose();
+        this.disposeWhenDestroyCall();
     }
 
     // -----------------
@@ -89,11 +104,12 @@ public abstract class BaseFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
                         // Get title URL from adapter into variable
-                        String url="";
+                        String url=""; ////////////// get URL here
                         // Instantiate the WebView Activity
                         Intent intent = new Intent(getActivity(), WebPageActivity.class);
                         // Send variable data to the activity
                         intent.putExtra(BUNDLE_URL,url);
+                        Log.d(TAG, "onItemClicked: " + url + " 111 " + BUNDLE_URL);
                         startActivity(intent);
                     }
                 });
