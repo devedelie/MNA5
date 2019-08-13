@@ -17,9 +17,11 @@ import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.NYTMostPopular;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.ResultMostPopular;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.CheckInternetConnection;
 import com.elbaz.eliran.mynewsapp.Utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.Utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.Views.NYTAdapterMostPopular;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class TabFragment2 extends Fragment {
     private Disposable mDisposable;
     private List<ResultMostPopular> mResultMostPopulars;
     private NYTAdapterMostPopular mNYTAdapterMostPopular;
+    private Boolean networkState;
 
     // try
     @BindView(R.id.fragment_2_recyclerView) RecyclerView mRecyclerView;
@@ -49,12 +52,13 @@ public class TabFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_2, container, false);
+
+        this.internetConnectivityVerifier();
+
         // Call during UI creation
         ButterKnife.bind(this, view);
-
-        // Set the recyclerView to fix size in order to increase performances
+        // Set the recyclerView to fixed size in order to increase performances
         mRecyclerView.setHasFixedSize(true);
-
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
@@ -63,10 +67,19 @@ public class TabFragment2 extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.disposeWhenDestroy();
+    public boolean internetConnectivityVerifier(){
+        // Check for Internet connection
+        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
+        if (!networkState){
+            internetConnectivityMessage();
+        } return networkState;
+    }
+
+    // Connectivity failure message
+    public void internetConnectivityMessage(){
+        Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
+                Snackbar.LENGTH_LONG)
+                .show();
     }
 
     //-----------------
@@ -108,7 +121,13 @@ public class TabFragment2 extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                executeHttpRequestWithRetrofit();
+                internetConnectivityVerifier();
+                if(!networkState){
+                    // Stops the SwipeRefreshLayout animation
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }else{
+                    executeHttpRequestWithRetrofit();
+                }
             }
         });
     }

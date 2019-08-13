@@ -54,12 +54,7 @@ public class TabFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_1, container, false);
 
-
-        // Check for Internet connection
-        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
-        if (!networkState){
-            internetConnectivityMessage();
-        }
+        this.internetConnectivityVerifier();
 
         // Call during UI creation
         ButterKnife.bind(this, view);
@@ -70,7 +65,6 @@ public class TabFragment1 extends Fragment {
         this.configureSwipeRefreshLayout();
         this.configureOnClickRecyclerView();
 
-
         return view;
     }
 
@@ -78,6 +72,14 @@ public class TabFragment1 extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         this.disposeWhenDestroy();
+    }
+
+    public boolean internetConnectivityVerifier(){
+        // Check for Internet connection
+        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
+        if (!networkState){
+            internetConnectivityMessage();
+        } return networkState;
     }
 
     // Connectivity failure message
@@ -104,13 +106,12 @@ public class TabFragment1 extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                internetConnectivityVerifier();
                 if(!networkState){
-                    internetConnectivityMessage();
                     // Stops the SwipeRefreshLayout animation
                     mSwipeRefreshLayout.setRefreshing(false);
                 }else{
                     executeHttpRequestWithRetrofit();
-
                 }
             }
         });

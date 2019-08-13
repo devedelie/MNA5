@@ -17,9 +17,11 @@ import com.elbaz.eliran.mynewsapp.Controllers.Activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.Utils.CheckInternetConnection;
 import com.elbaz.eliran.mynewsapp.Utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.Utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.Views.NYTAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ public class TabFragment4 extends Fragment {
     private Disposable mDisposable;
     private List<Result> mResults;
     private NYTAdapter mNYTAdapter;
+    private Boolean networkState;
 
     TabFragment1 mTabFragment1 = new TabFragment1();
 
@@ -49,18 +52,34 @@ public class TabFragment4 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_4, container, false);
+
+        this.internetConnectivityVerifier();
+
         // Call during UI creation
         ButterKnife.bind(this, view);
-
-        // Set the recyclerView to fix size in order to increase performances
+        // Set the recyclerView to fixed size in order to increase performances
         mRecyclerView.setHasFixedSize(true);
-
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureSwipeRefreshLayout();
         this.configureOnClickRecyclerView();
 
         return view;
+    }
+
+    public boolean internetConnectivityVerifier(){
+        // Check for Internet connection
+        networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
+        if (!networkState){
+            internetConnectivityMessage();
+        } return networkState;
+    }
+
+    // Connectivity failure message
+    public void internetConnectivityMessage(){
+        Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
+                Snackbar.LENGTH_LONG)
+                .show();
     }
 
     @Override
@@ -108,7 +127,13 @@ public class TabFragment4 extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                executeHttpRequestWithRetrofit();
+                internetConnectivityVerifier();
+                if(!networkState){
+                    // Stops the SwipeRefreshLayout animation
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }else{
+                    executeHttpRequestWithRetrofit();
+                }
             }
         });
     }
