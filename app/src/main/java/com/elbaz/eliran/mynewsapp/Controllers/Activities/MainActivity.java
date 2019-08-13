@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.over_flow_item_2:
                 ViewDialog showHelpDialog = new ViewDialog();
-                showHelpDialog.showDialog(this, getString(R.string.about_title),getString(R.string.about_upper_text), getString(R.string.about_developer), getString(R.string.about_content));
+                showHelpDialog.showDialog(this, getString(R.string.help_title),getString(R.string.help_upper_text), getString(R.string.about_developer), getString(R.string.about_content));
                 return true;
             case R.id.over_flow_item_3:
                 ViewDialog showAboutDialog = new ViewDialog();

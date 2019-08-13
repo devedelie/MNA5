@@ -43,7 +43,6 @@ public class NYTAdapter extends RecyclerView.Adapter<NYTViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull NYTViewHolder nytViewHolder, int i) {
         nytViewHolder.updateTopStoriesWithTitles(this.mResults.get(i), this.glide);
-
     }
 
     @Override

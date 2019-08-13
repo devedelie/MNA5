@@ -113,4 +113,8 @@
     <string name="about_developer">The application was developed by: Eliran Elbaz</string>
     <string name="about_content">All the content in this application is being fetched from New York Times API </string>
 
+    <string name="help_title">Contact us</string>
+    <string name="help_upper_text">You can contact the author of this application on email: devedelie@gmail.com</string>
+
+
 </resources>

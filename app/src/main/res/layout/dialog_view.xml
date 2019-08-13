@@ -22,10 +22,10 @@
         android:id="@+id/text_dialog"
         android:layout_below="@+id/topTitle"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="20dp"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#ff000000" />
 
     <TextView
@@ -35,8 +35,8 @@
         android:id="@+id/text_dialog_2"
         android:layout_below="@+id/text_dialog"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginBottom="20dp"
         android:textSize="12sp"
         android:textColor="#ff000000" />
@@ -48,8 +48,8 @@
         android:id="@+id/text_dialog_3"
         android:layout_below="@+id/text_dialog_2"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginBottom="20dp"
         android:textSize="12sp"
         android:textColor="#ff000000" />
