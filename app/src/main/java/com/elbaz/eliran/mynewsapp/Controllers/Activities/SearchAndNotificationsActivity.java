@@ -56,7 +56,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     private int buttonSelectorFlag=0;
     private List<String> filtersQueryString = new ArrayList<>(6);
     SharedPreferences mSharedPreferences;
-    private Boolean searchActivity, notificationActivity;
+    private Boolean searchActivity, notificationActivity, isStartDateBigger=false;
     public static String[] intentBooleanID;
 
     @Override
@@ -289,6 +289,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         if (joinedFilterString == null || joinedFilterString.isEmpty()){
             SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
             Vibration();
+        }else if(checkDateValidity()){
+            SnackBarMessages("Notice that your start-date is bigger then the end-date");
+            isStartDateBigger = false;
         }else{
             Log.d(TAG, "onSearchClicked result: " + finalFilterString);
             // Set and transfer data into the invoked activity
@@ -302,6 +305,16 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             intent.putExtra(getString(R.string.sort), sort );
             startActivityForResult(intent,100);
         }
+    }
+
+    // Verify if search start-date is bigger then end-date
+    private boolean checkDateValidity(){
+        // Check if the user filled both fields
+        if(BeginDateStringForURL != null && EndDateStringForURL != null){
+            // check if start date is bigger then end date
+            isStartDateBigger = (Integer.parseInt(BeginDateStringForURL) > Integer.parseInt(EndDateStringForURL));
+        }
+        return isStartDateBigger;
     }
 
     @Override
