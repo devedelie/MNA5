@@ -16,7 +16,24 @@
     <string name="technology">technology</string>
     <string name="sports">sports</string>
 
-    <!--Drawer categories-->
+    <!--Drawer categories for class file-->
+    <string name="categoryPutExtraID">categoryPutExtraID</string>
+    <string-array name="categories">
+        <item>world</item>
+        <item>politics</item>
+        <item>business</item>
+        <item>health</item>
+        <item>automobiles</item>
+        <item>science</item>
+        <item>books</item>
+        <item>food</item>
+        <item>movies</item>
+        <item>arts</item>
+        <item>fashion</item>
+        <item>travel</item>
+    </string-array>
+
+    <!--Categories for Drawer Layout file-->
     <string name="more_news">More News</string>
     <string name="world_news">World</string>
     <string name="travel">Travel</string>
@@ -31,20 +48,6 @@
     <string name="politics">Politics</string>
     <string name="science">Science</string>
     <!--category values for drawer URLs-->
-    <string name="categoryPutExtraID">categoryPutExtraID</string>
-    <string name="value_world">world</string>
-    <string name="value_travel">travel</string>
-    <string name="value_arts">arts</string>
-    <string name="value_automobiles">automobiles</string>
-    <string name="value_books">books</string>
-    <string name="value_business">business</string>
-    <string name="value_fashion">fashion</string>
-    <string name="value_food">food</string>
-    <string name="value_health">health</string>
-    <string name="value_movies">movies</string>
-    <string name="value_politics">politics</string>
-    <string name="value_science">science</string>
-
 
     <!--Used in navigation drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>

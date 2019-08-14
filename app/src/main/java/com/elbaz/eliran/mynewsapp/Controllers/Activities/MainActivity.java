@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,8 @@ import com.elbaz.eliran.mynewsapp.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import static android.content.ContentValues.TAG;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private Context mContext;
     public static String category, pageTitle;
+    public static String[] categoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,61 +106,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        // 4 - Handle Navigation Item Click
-        int id = menuItem.getItemId();
+        // Get Array from resources
+        Resources resources = getResources();
+        categoryList = resources.getStringArray(R.array.categories);
+        // Get the order value of the item as defined in Drawer XML
+        int id = menuItem.getOrder();
+        // put the relevant item from the current position on the Array into category
+        category = categoryList[id];
+        // Make the page title with first capital letter
+        pageTitle = category.substring(0,1).toUpperCase() + category.substring(1).toLowerCase();
 
-        switch (id){
-            case R.id.activity_main_drawer_1:
-                category=(getString(R.string.value_world));
-                pageTitle=(getString(R.string.world_news));
-                break;
-            case R.id.activity_main_drawer_2:
-                category=(getString(R.string.value_politics));
-                pageTitle=(getString(R.string.politics));
-                break;
-            case R.id.activity_main_drawer_3:
-                category=(getString(R.string.value_business));
-                pageTitle=(getString(R.string.business));
-                break;
-            case R.id.activity_main_drawer_4:
-                category=(getString(R.string.value_health));
-                pageTitle=(getString(R.string.health));
-                break;
-            case R.id.activity_main_drawer_5:
-                category=(getString(R.string.value_automobiles));
-                pageTitle=(getString(R.string.automobiles));
-                break;
-            case R.id.activity_main_drawer_6:
-                category=(getString(R.string.value_science));
-                pageTitle=(getString(R.string.science));
-                break;
-            case R.id.activity_main_drawer_7:
-                category=(getString(R.string.value_books));
-                pageTitle=(getString(R.string.books));
-                break;
-            case R.id.activity_main_drawer_8:
-                category=(getString(R.string.value_food));
-                pageTitle=(getString(R.string.food));
-                break;
-            case R.id.activity_main_drawer_9:
-                category=(getString(R.string.value_movies));
-                pageTitle=(getString(R.string.movies));
-                break;
-            case R.id.activity_main_drawer_10:
-                category=(getString(R.string.value_arts));
-                pageTitle=(getString(R.string.arts));
-                break;
-            case R.id.activity_main_drawer_11:
-                category=(getString(R.string.value_fashion));
-                pageTitle=(getString(R.string.fashion));
-                break;
-            case R.id.activity_main_drawer_12:
-                category=(getString(R.string.value_travel));
-                pageTitle=(getString(R.string.travel));
-                break;
-            default:
-                break;
-        }
+        Log.d(TAG, "onNavigationItemSelected: clicked item ID is" + id + " "+ category);
         // Close the Drawer when item is selected
         this.drawerLayout.closeDrawer(GravityCompat.START);
         activityInstantiator();
