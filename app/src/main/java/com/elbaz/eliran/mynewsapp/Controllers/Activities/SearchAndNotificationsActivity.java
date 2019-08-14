@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     private List<String> filtersQueryString = new ArrayList<>(6);
     SharedPreferences mSharedPreferences;
     private Boolean searchActivity, notificationActivity;
+    public static String[] intentBooleanID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,11 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_search_and_notification);
 
         // Get boolean of which kind of activity will be shown to the user
+        Resources resources = getResources();
+        intentBooleanID = resources.getStringArray(R.array.intentSearchOrNotificationsActivity);
         Intent intent = getIntent();
-        searchActivity = intent.getBooleanExtra(getString(R.string.intent_search_activity_boolean), false);
-        notificationActivity = intent.getBooleanExtra(getString(R.string.intent_notification_activity_boolean), false);
+        searchActivity = intent.getBooleanExtra(intentBooleanID[0], false);
+        notificationActivity = intent.getBooleanExtra(intentBooleanID[1], false);
 
         mSearchQueryEditText = findViewById(R.id.SearchField);
         mNotificationsQueryEditText = findViewById(R.id.NotificationsSearchField);

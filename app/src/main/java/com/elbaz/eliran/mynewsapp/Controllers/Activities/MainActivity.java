@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private Context mContext;
     public static String category, pageTitle;
-    public static String[] categoryList;
+    public static String[] categoryList, dialogTextArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
     /**
      * Navigation menu items declaration (Drawer)
      */
@@ -109,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Get Array from resources
         Resources resources = getResources();
         categoryList = resources.getStringArray(R.array.categories);
-        // Get the order value of the item as defined in Drawer XML
+        // Get the order of the item as defined in Drawer XML
         int id = menuItem.getOrder();
-        // put the relevant item from the current position on the Array into category
+        // Get the item with the same position on the Array
         category = categoryList[id];
         // Make the page title with first capital letter
         pageTitle = category.substring(0,1).toUpperCase() + category.substring(1).toLowerCase();
@@ -143,34 +142,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //3 - Handle actions on menu items
-        switch (item.getItemId()) {
-            case R.id.menu_activity_main_search:
-                Intent searchIntent = new Intent(this, SearchAndNotificationsActivity.class);
-                searchIntent.putExtra(getString(R.string.intent_search_activity_boolean), true);
-                startActivity(searchIntent);
-                return true;
-            case R.id.over_flow_item_1:
-                Intent notificationIntent = new Intent(this, SearchAndNotificationsActivity.class);
-                notificationIntent.putExtra(getString(R.string.intent_notification_activity_boolean), true);
-                startActivity(notificationIntent);
-                return true;
-            case R.id.over_flow_item_2:
-                ViewDialog showHelpDialog = new ViewDialog();
-                showHelpDialog.showDialog(this, getString(R.string.help_title),getString(R.string.help_upper_text), getString(R.string.about_developer), getString(R.string.about_content));
-                return true;
-            case R.id.over_flow_item_3:
-                ViewDialog showAboutDialog = new ViewDialog();
-                showAboutDialog.showDialog(this, getString(R.string.about_title),getString(R.string.about_upper_text), getString(R.string.about_developer), getString(R.string.about_content));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int order = item.getOrder();
+        // Invoke Activity if user press Search OR Notifications from menu (items order 0/1)
+        if (order == 0 || order == 1){
+            Intent searchIntent = new Intent(this, SearchAndNotificationsActivity.class);
+            Resources resources = getResources();
+            String[] stringArray = resources.getStringArray(R.array.intentSearchOrNotificationsActivity);
+            searchIntent.putExtra(stringArray[order], true);
+            startActivity(searchIntent);
+        }else if (order == 2 || order == 3){
+            // Invoke Dialog if user press on Help OR About from menu (items order 2/3)
+            ViewDialog showRelevantDialog = new ViewDialog();
+            showRelevantDialog.showDialog(this, order);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public class ViewDialog {
-
-        public void showDialog(Activity activity,String topTitle, String msg, String msg2, String msg3){
+        public void showDialog(Activity activity,int order){
+            Resources resources = getResources();
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
@@ -180,14 +170,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             int height = (int)(getResources().getDisplayMetrics().heightPixels*0.97);
             dialog.getWindow().setLayout(width, height);
 
+            // Load: Help OR About Array texts
+            if (order == 2){
+                dialogTextArray = resources.getStringArray(R.array.dialog_help_text);
+            }else if (order == 3){
+                dialogTextArray = resources.getStringArray(R.array.dialog_about_text);
+            }
+            // Set view elements
             TextView dialogTitle = dialog.findViewById(R.id.topTitle);
-            dialogTitle.setText(topTitle);
+            dialogTitle.setText(dialogTextArray[0]);
             TextView text = dialog.findViewById(R.id.text_dialog);
-            text.setText(msg);
+            text.setText(dialogTextArray[1]);
             TextView text2 = dialog.findViewById(R.id.text_dialog_2);
-            text2.setText(msg2);
+            text2.setText(dialogTextArray[2]);
             TextView text3 = dialog.findViewById(R.id.text_dialog_3);
-            text3.setText(msg3);
+            text3.setText(dialogTextArray[3]);
             Button dialogButton = dialog.findViewById(R.id.btn_dialog);
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -195,11 +192,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     dialog.dismiss();
                 }
             });
-
             dialog.show();
-
         }
     }
-
 }
 

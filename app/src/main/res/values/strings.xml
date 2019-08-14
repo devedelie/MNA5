@@ -100,8 +100,25 @@
     <string name="current_switch_state">current_switch_state</string>
 
     <!--Search OR Notification intent Booleans-->
-    <string name="intent_search_activity_boolean">intent_search_activity_boolean</string>
-    <string name="intent_notification_activity_boolean">intent_notification_activity_boolean</string>
+    <string-array name="intentSearchOrNotificationsActivity">
+        <item>intent_search_activity_boolean</item>
+        <item>intent_notification_activity_boolean</item>
+    </string-array>
+
+    <!--Below are the Help Texts-->
+    <string-array name="dialog_help_text">
+        <item>Help - Contact us</item>
+        <item>You can contact the author of this application on email: devedelie@gmail.com</item>
+        <item></item>
+        <item></item>
+    </string-array>
+        <!--below are the About texts-->
+    <string-array name="dialog_about_text">
+        <item>About My News App</item>
+        <item>My-News App is a news desk application based on New-York-Times API. The application was developed as part of Android development course on OpenClassRooms</item>
+        <item>The application was developed by: Eliran Elbaz</item>
+        <item>All the content in this application is being fetched from New York Times API</item>
+    </string-array>
 
     <!--WorkManager-->
     <string name="WM_periodic_notifications_tag">periodic_notifications</string>
@@ -110,14 +127,7 @@
     <string name="negative_task_httpResult_SnackBar_message">No articles matching your criteria today!</string>
     <string name="negative_description_httpResult_SnackBar_message">You can try expanding the search criteria to improve results</string>
 
-    <!--Dialog Texts-->
-    <string name="about_title">About My News App</string>
-    <string name="about_upper_text">My-News App is a news desk application based on New-York-Times API. The application was developed as part of Android development course on OpenClassRooms</string>
-    <string name="about_developer">The application was developed by: Eliran Elbaz</string>
-    <string name="about_content">All the content in this application is being fetched from New York Times API </string>
 
-    <string name="help_title">Contact us</string>
-    <string name="help_upper_text">You can contact the author of this application on email: devedelie@gmail.com</string>
 
 
 </resources>
