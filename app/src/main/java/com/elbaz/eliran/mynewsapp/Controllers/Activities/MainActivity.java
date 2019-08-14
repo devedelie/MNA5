@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }else if (order == 3){
                 dialogTextArray = resources.getStringArray(R.array.dialog_about_text);
             }
-            // Set view elements
+            // Set view elements (get text from Array in strings.xml)
             TextView dialogTitle = dialog.findViewById(R.id.topTitle);
             dialogTitle.setText(dialogTextArray[0]);
             TextView text = dialog.findViewById(R.id.text_dialog);
