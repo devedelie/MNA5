@@ -357,22 +357,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             editor.commit();
             // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
-            //////// Worker Setup ///////////
-            // Initiate the Worker class to work daily
-            Constraints constraints = new Constraints.Builder()
-                    .setRequiresBatteryNotLow(true)
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build();
-
-            PeriodicWorkRequest saveRequest =
-                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                            .addTag(getString(R.string.WM_periodic_notifications_tag))
-                            .setInitialDelay(1, TimeUnit.DAYS)
-                            .setConstraints(constraints)
-                            .build();
-
-            WorkManager.getInstance().enqueue(saveRequest);
-            ////////// End of Worker Setup /////////
+            // Initiate the Worker class 
+            workerSetup();
         }else{
             Log.i("switch_is_checked", isChecked + "");
             // Save switch state
@@ -388,6 +374,24 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         } //// end of entire condition
     }
 
+    // Daily Worker Setup
+    public void workerSetup(){
+        // Initiate the Worker class to work daily
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresBatteryNotLow(true)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+
+        PeriodicWorkRequest saveRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                        .addTag(getString(R.string.WM_periodic_notifications_tag))
+                        .setInitialDelay(1, TimeUnit.DAYS)
+                        .setConstraints(constraints)
+                        .build();
+
+        WorkManager.getInstance().enqueue(saveRequest);
+    }
+
     // A method to show popup SnackBar messages
     protected void SnackBarMessages (String string){
         Snackbar.make(getCurrentFocus(), string,
@@ -400,6 +404,4 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibe.vibrate(50);
     }
-
-
 }
