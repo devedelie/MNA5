@@ -290,7 +290,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
             Vibration();
         }else if(checkDateValidity()){
-            SnackBarMessages("Notice that your start-date is bigger then the end-date");
+            SnackBarMessages(getString(R.string.startDate_is_bigger_then_endDate));
+            Vibration();
             isStartDateBigger = false;
         }else{
             Log.d(TAG, "onSearchClicked result: " + finalFilterString);

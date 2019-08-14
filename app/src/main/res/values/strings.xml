@@ -85,6 +85,7 @@
     <string name="notifications_off">Notifications were turned OFF</string>
     <string name="notifications_on">Notifications have been enabled</string>
     <string name="category_checkbox_limit">You cannot uncheck all categories while the notification switch is ON</string>
+    <string name="startDate_is_bigger_then_endDate">Notice: start-date can\'t be bigger then the end-date</string>
     <string name="search_actionBar_title">Search</string>
     <string name="notifications_actionBar_title">Notifications</string>
     <string name="switch_off_to_edit"> (Switch off to edit)</string>
