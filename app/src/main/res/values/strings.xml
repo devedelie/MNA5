@@ -123,12 +123,9 @@
 
     <!--WorkManager-->
     <string name="WM_periodic_notifications_tag">periodic_notifications</string>
-    <string name="positive_task_httpResult_SnackBar_message">We have found new daily articles</string>
+    <string name="positive_task_httpResult_SnackBar_message">We have found new articles</string>
     <string name="positive_description_httpResult_SnackBar_message"> new articles matching your search criteria</string>
     <string name="negative_task_httpResult_SnackBar_message">No articles matching your criteria today!</string>
-    <string name="negative_description_httpResult_SnackBar_message">You can try expanding the search criteria to improve results</string>
-
-
-
+    <string name="negative_description_httpResult_SnackBar_message">Try expanding your search criteria to improve results</string>
 
 </resources>

@@ -29,11 +29,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.Utils.NotificationWorker;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.ContentValues.TAG;
@@ -131,10 +134,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         }
         // Check if the switch is ON, and set the EditText field enabled/disabled
         if(mNotificationsSwitch.isChecked()){
+            // Set new hint text
             mNotificationsQueryEditText.setText(mSharedPreferences.getString(getString(R.string.query_string), ""));
             mNotificationsQueryEditText.setEnabled(false);
-            // Set new hint text
-            mNotificationsQueryEditText.setText(mSharedPreferences.getString(getString(R.string.query_string), "") + getString(R.string.switch_off_to_edit));
         }
     }
 
@@ -357,7 +359,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             editor.commit();
             // Show a message
             SnackBarMessages(getString(R.string.notifications_on));
-            // Initiate the Worker class 
+            // Initiate the Worker class
             workerSetup();
         }else{
             Log.i("switch_is_checked", isChecked + "");
@@ -404,4 +406,32 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibe.vibrate(50);
     }
+
+    /////////////////////////////////////////
+    // Testing ONLY - A method to know if WorkManager has a running scheduled work (by TAG)
+    public void check(View view){
+        Boolean x = isWorkScheduled(getString(R.string.WM_periodic_notifications_tag));
+        Log.d(TAG, "check is ON: " + x);
+    }
+    public boolean isWorkScheduled( String tag) {
+        WorkManager instance = WorkManager.getInstance();
+        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
+        try {
+            boolean running = false;
+            List<WorkInfo> workInfoList = statuses.get();
+            for (WorkInfo workInfo : workInfoList) {
+                WorkInfo.State state = workInfo.getState();
+                running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+            }
+            return running;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    ///////////////////////////////////////////////////////
+    // End of Test
 }
