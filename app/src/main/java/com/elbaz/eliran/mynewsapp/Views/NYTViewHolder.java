@@ -180,8 +180,8 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
     }
 
     // Set separator if needed
-    private void needSeparator (boolean sep){ // section separator ">"
-        if (sep){ separator = ""; }
+    private void needSeparator (boolean emptySubsection){ // section separator ">"
+        if (emptySubsection){ separator = ""; }
         else{ separator = Constants.SEPARATOR; }
     }
 }
