@@ -53,7 +53,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_content_title.setText(titles.getTitle());
         // get news section of origin
         this.item_section.setText(titles.getSection());
-        // Set separator(>) if needed
+        // Set separator(>) if subsection is available
         needSeparator(titles.getSubsection().isEmpty() || titles.getSubsection()== null);
 //        Log.d(TAG, "updateTopStoriesWithTitles_subsection: " + titles.getSubsection());
         // get news sub-section
@@ -71,7 +71,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_content_title.setText(titles.getTitle());
         // get news section of origin
         this.item_section.setText(titles.getSection());
-        // Set separator(>) if needed
+        // // Set separator(>) if subsection is available
         needSeparator(titles.getSubsection().isEmpty() || titles.getSubsection()== null);
         // get news sub-section
         this.item_subsection.setText(separator + titles.getSubsection());
@@ -88,10 +88,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_content_title.setText(titles.getSnippet());
         // get news section of origin
         this.item_section.setText(titles.getNewsDesk());
-        // Set separator(>) if needed
-//        if(titles.getSectionName().isEmpty() || titles.getSectionName()== null) {
-//            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-//        }
+        //// Set separator(>) if subsection is available
         needSeparator(titles.getSectionName().isEmpty() || titles.getSectionName()== null);
         // get news sub-section
         this.item_subsection.setText(separator + titles.getSectionName());
