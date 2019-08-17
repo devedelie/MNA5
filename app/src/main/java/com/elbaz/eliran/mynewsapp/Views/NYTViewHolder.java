@@ -45,7 +45,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Update TopStories titles views with text, date and image
+     * Methods to update recyclerView item with titles views, text, date and image
      */
     public void updateTopStoriesWithTitles(Result titles, RequestManager glide){
         //Load the image of the title
@@ -65,9 +65,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_date.setText(shortDate);
     }
 
-    /**
-     * Update MostPopular titles views with text, date and image
-     */
     public void updateMostPopularWithTitles(ResultMostPopular titles, RequestManager glide){
         //Load the image of the title
         this.setImageForMostPopular(titles, glide);
@@ -85,9 +82,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         this.item_date.setText(shortDate);
     }
 
-    /**
-     * Update SearchResults titles views with text, date and image
-     */
     public void updateSearchResultsWithTitles(Doc titles, RequestManager glide){
                 //Load the image of the title
         this.setImageForSearchResults(titles, glide);
@@ -109,7 +103,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Set image for the UI (TopStories tabs)
+     * Methods to set image for the UI (TopStories, Most popular and SearchResults)
      */
     private void setImageForTopStories(Result result, RequestManager glide){
         // Check if there is data in Multimedia
@@ -131,9 +125,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * Set image for the UI (SearchResults activity)
-     */
     private void setImageForSearchResults(Doc doc, RequestManager glide){
         // Check if there is data in Multimedia
         if (doc.getMultimedia() == null || doc.getMultimedia().isEmpty()){
@@ -154,9 +145,6 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * Set image for the UI (MostPopular tab)
-     */
     private void setImageForMostPopular (ResultMostPopular result, RequestManager glide){
         // Check if there is data in Multimedia
         if (result.getMedia() == null || result.getMedia().isEmpty()){
@@ -177,9 +165,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    /**
-     * Date format converter
-     */
+    // Date format converter
     String convertDate(String inputDate) {
         DateFormat theDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
@@ -197,6 +183,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         return theDateFormat.format(date);
     }
 
+    // Set separator if needed
     private void needSeparator (boolean sep){ // section separator ">"
         if (sep){ separator = ""; }
         else{ separator = Constants.SEPARATOR; }
