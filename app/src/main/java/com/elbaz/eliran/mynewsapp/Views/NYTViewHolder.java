@@ -30,7 +30,6 @@ import static android.content.ContentValues.TAG;
  * Created by Eliran Elbaz on 18-Jul-19.
  */
 public class NYTViewHolder extends RecyclerView.ViewHolder {
-    View mView;
     String separator;
 
     @BindView(R.id.item_content_title) TextView item_content_title;
