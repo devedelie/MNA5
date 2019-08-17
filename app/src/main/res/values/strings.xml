@@ -16,6 +16,12 @@
     <string name="technology">technology</string>
     <string name="sports">sports</string>
 
+    <!--RecyclerView Item text-->
+    <string name="item_section">section</string>
+    <string name="item_subsection">sub-section</string>
+    <string name="item_date">date</string>
+    <string name="item_Content_Title">Content-Title</string>
+
     <!--Drawer categories for class file-->
     <string name="categoryPutExtraID">categoryPutExtraID</string>
     <string-array name="categories">

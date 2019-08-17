@@ -40,14 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="section" />
-        <TextView
-            android:id="@+id/item_section_subsection_separator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text=" > "
-            />
+            android:text="@string/item_section" />
+
         <TextView
             android:id="@+id/item_subsection"
             android:layout_width="wrap_content"
@@ -64,7 +58,7 @@
                 android:id="@+id/item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date"
+                android:text="@string/item_date"
                 android:textSize="12sp"
                 android:layout_marginEnd="10dp" />
 
@@ -82,7 +76,7 @@
             android:layout_marginEnd="3dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Content-Title" />
+            android:text="@string/item_Content_Title" />
     </LinearLayout>
     <!--End of content-->
     </LinearLayout>

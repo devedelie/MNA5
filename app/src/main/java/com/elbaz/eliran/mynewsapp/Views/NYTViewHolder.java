@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
+import com.elbaz.eliran.mynewsapp.Models.Constants;
 import com.elbaz.eliran.mynewsapp.Models.MostPopularModels.ResultMostPopular;
 import com.elbaz.eliran.mynewsapp.Models.SearchModels.Doc;
 import com.elbaz.eliran.mynewsapp.Models.TopStoriesModels.Result;
@@ -30,12 +31,11 @@ import static android.content.ContentValues.TAG;
  */
 public class NYTViewHolder extends RecyclerView.ViewHolder {
     View mView;
-    String space;
+    String separator;
 
     @BindView(R.id.item_content_title) TextView item_content_title;
     @BindView(R.id.item_section) TextView item_section;
     @BindView(R.id.item_subsection) TextView item_subsection;
-    @BindView(R.id.item_section_subsection_separator) TextView item_section_subsection_separator;
     @BindView(R.id.item_date) TextView item_date;
     @BindView(R.id.image_placeholder) ImageView mImageView;
 
@@ -55,11 +55,10 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getSection());
         // Set separator(>) if needed
-        if(titles.getSubsection().isEmpty() || titles.getSubsection()== null) {
-            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-       }
+        needSeparator(titles.getSubsection().isEmpty() || titles.getSubsection()== null);
+//        Log.d(TAG, "updateTopStoriesWithTitles_subsection: " + titles.getSubsection());
         // get news sub-section
-        this.item_subsection.setText(titles.getSubsection());
+        this.item_subsection.setText(separator + titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);
@@ -77,11 +76,9 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getSection());
         // Set separator(>) if needed
-        if(titles.getSubsection().isEmpty() || titles.getSubsection()== null) {
-            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-        }
+        needSeparator(titles.getSubsection().isEmpty() || titles.getSubsection()== null);
         // get news sub-section
-        this.item_subsection.setText(titles.getSubsection());
+        this.item_subsection.setText(separator + titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);
@@ -99,11 +96,12 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getNewsDesk());
         // Set separator(>) if needed
-        if(titles.getSectionName().isEmpty() || titles.getSectionName()== null) {
-            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
-        }
+//        if(titles.getSectionName().isEmpty() || titles.getSectionName()== null) {
+//            this.item_section_subsection_separator.setVisibility(View.INVISIBLE);
+//        }
+        needSeparator(titles.getSectionName().isEmpty() || titles.getSectionName()== null);
         // get news sub-section
-        this.item_subsection.setText(titles.getSectionName());
+        this.item_subsection.setText(separator + titles.getSectionName());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPubDate();
         String shortDate = convertDate(fullDate);
@@ -199,4 +197,8 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         return theDateFormat.format(date);
     }
 
+    private void needSeparator (boolean sep){ // section separator ">"
+        if (sep){ separator = ""; }
+        else{ separator = Constants.SEPARATOR; }
+    }
 }
