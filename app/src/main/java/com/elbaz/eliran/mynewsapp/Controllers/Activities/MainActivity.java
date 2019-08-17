@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ViewPager pager = findViewById(R.id.activity_main_viewpager);
         //Set Adapter PageAdapter and glue it together
         pager.setAdapter(new PageAdapter(mContext, getSupportFragmentManager()));
-        // Set the limit of fragments to be loaded in the background
-        // (loads 3 fragments offScreen and improves the load fluency)
+        // Set the offscreenLimit - loads 3 fragments offScreen to improves fluency of visual load
         pager.setOffscreenPageLimit(3);
 
         //Get TabLayout from layout
