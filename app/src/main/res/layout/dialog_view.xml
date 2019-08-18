@@ -28,6 +28,13 @@
         android:textSize="12sp"
         android:textColor="#ff000000" />
 
+    <View
+        android:id="@+id/dialog_divider1"
+        android:layout_below="@id/text_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/design_default_color_primary" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

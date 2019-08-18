@@ -1,13 +1,14 @@
-package com.elbaz.eliran.mynewsapp;
+package com.elbaz.eliran.mynewsapp.Controllers.Activities;
 
 import android.content.Context;
+
 import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import androidx.test.filters.LargeTest;
-
-import com.elbaz.eliran.mynewsapp.Controllers.Activities.MainActivity;
+import com.elbaz.eliran.mynewsapp.R;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,8 +24,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
-
-
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -53,14 +52,13 @@ public class MainActivityInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
         assertEquals("com.elbaz.eliran.mynewsapp", appContext.getPackageName());
     }
 
     @Test
     public void testClickActionBarItem() {
         // We make sure the contextual action bar is hidden.
-        onView(withId(R.id.over_flow_item_1))
+        onView(ViewMatchers.withId(R.id.over_flow_item_1))
                 .perform(click());
 
         // Click on the icon - we can find it by the r.Id.
@@ -70,6 +68,6 @@ public class MainActivityInstrumentedTest {
         // Verify that we have really clicked on the icon
         // by checking the TextView content.
         onView(withId(R.string.itme_1))
-                .check(matches(withText("action 1")));
+                .check(matches(withText("Notifications")));
     }
 }
