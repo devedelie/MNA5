@@ -8,7 +8,7 @@
     <string name="tab_name_1">TOP STORIES</string>
     <string name="tab_name_2">MOST POPULAR</string>
     <string name="tab_name_3">TECH</string>
-    <string name="tab_name_4">SPORT</string>
+    <string name="tab_name_4">SPORTS</string>
 
     <!--Fragments url category/section for httpExecute:  /{section}.json?q=...-->
     <string name="home">home</string>
