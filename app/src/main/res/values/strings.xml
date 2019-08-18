@@ -121,7 +121,7 @@
     </string-array>
         <!--below are the About texts-->
     <string-array name="dialog_about_text">
-        <item>About My News App</item>
+        <item>About My-News App</item>
         <item>My-News App is a news desk application based on New-York-Times API. The application was developed as part of Android development course on OpenClassRooms</item>
         <item>The application was developed by: Eliran Elbaz</item>
         <item>All the content in this application is being fetched from New York Times API</item>

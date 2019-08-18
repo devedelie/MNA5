@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Controllers.Activities.MainActivity"
+            android:name=".controllers.activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,41 +24,41 @@
             </intent-filter>
         </activity> <!-- child 1 of MainActivity -->
         <activity
-            android:name=".Controllers.Activities.SearchAndNotificationsActivity"
+            android:name=".controllers.activities.SearchAndNotificationsActivity"
             android:label="Search and notifications"
-            android:parentActivityName=".Controllers.Activities.MainActivity"
+            android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controllers.Activities.MainActivity" />
+                android:value=".controllers.activities.MainActivity" />
         </activity> <!-- End of Child 1 -->
         <!-- Child 2 of MainActivity -->
         <activity
-            android:name=".Controllers.Activities.WebPageActivity"
+            android:name=".controllers.activities.WebPageActivity"
             android:label="The New York Times"
-            android:parentActivityName=".Controllers.Activities.MainActivity"
+            android:parentActivityName=".controllers.activities.MainActivity"
             android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controllers.Activities.MainActivity" />
+                android:value=".controllers.activities.MainActivity" />
         </activity> <!-- Child of SearchAndNotificationsActivity -->
         <activity
-            android:name=".Controllers.Activities.SearchResultsActivity"
+            android:name=".controllers.activities.SearchResultsActivity"
             android:label="Search Results"
             android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Controllers.Activities.SearchAndNotificationsActivity" />
+                android:value=".controllers.activities.SearchAndNotificationsActivity" />
         </activity>
         <activity
-            android:name=".Controllers.Activities.DrawerCategoriesActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".controllers.activities.DrawerCategoriesActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
