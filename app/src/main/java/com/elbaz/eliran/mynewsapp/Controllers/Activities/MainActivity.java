@@ -49,10 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.configureToolbar();
         //2 - Configure ViewPager
         this.configureViewPagerAndTabs();
-        //3 - Configure Drawer
-        this.configureDrawerLayout();
-        //4 - Configure NavigationView
-        this.configureNavigationView();
+        //3 - Configure Drawer layout and NavigationView
+        this.configureDrawerLayoutAndNavigationView();
     }
 
     /**
@@ -85,19 +83,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * 3 - Configure Drawer-menu Layout (Drawer)
+     * 3 - Configure Drawer-menu Layout + NavigationView (Drawer)
      */
-    private void configureDrawerLayout(){
+    private void configureDrawerLayoutAndNavigationView(){
+        // Configure drawer layout
         this.drawerLayout = findViewById(R.id.activity_main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-    }
-
-    /**
-     * 4 - Configure NavigationView (Drawer)
-     */
-    private void configureNavigationView(){
+        // Configure NavigationView & set item selection listener
         this.navigationView = findViewById(R.id.activity_main_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -130,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Inflate the menu with the icons (search and parameters)
+     * Inflate the top-menu (menu with search and parameters icons)
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
