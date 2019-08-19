@@ -9,4 +9,5 @@
     <color name="dividers">#BDBDBD</color>
     <color name="recyclerViewBackground">#F3F3F3</color>
     <color name="icons">#ffff</color>
+    <color name="general_white">#ffff</color>
 </resources>

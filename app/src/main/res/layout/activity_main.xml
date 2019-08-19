@@ -41,6 +41,7 @@
 
     <!-- 2 | NavigationView (headerLayout + menu)-->
     <com.google.android.material.navigation.NavigationView
+        android:background="@color/dividers"
         android:id="@+id/activity_main_nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
