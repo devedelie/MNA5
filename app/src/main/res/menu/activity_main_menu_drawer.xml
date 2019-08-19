@@ -11,62 +11,62 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/activity_main_drawer_1"
-                    android:icon="@drawable/ic_center_focus_strong_black_24dp"
+                    android:icon="@drawable/ic__icon_world"
                     android:title="@string/world_news"
                     android:orderInCategory="0" />
                 <item
                     android:id="@+id/activity_main_drawer_2"
-                    android:icon="@drawable/ic_center_focus_strong_black_24dp"
+                    android:icon="@drawable/ic__icon_politics"
                     android:title="@string/politics"
                     android:orderInCategory="1"/>
                 <item
                     android:id="@+id/activity_main_drawer_3"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_business"
                     android:title="@string/business"
                     android:orderInCategory="2"/>
                 <item
                     android:id="@+id/activity_main_drawer_4"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_health"
                     android:title="@string/health"
                     android:orderInCategory="3"/>
                 <item
                     android:id="@+id/activity_main_drawer_5"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_automobiles"
                     android:title="@string/automobiles"
                     android:orderInCategory="4"/>
                 <item
                     android:id="@+id/activity_main_drawer_6"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_science"
                     android:title="@string/science"
                     android:orderInCategory="5"/>
                 <item
                     android:id="@+id/activity_main_drawer_7"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_books"
                     android:title="@string/books"
                     android:orderInCategory="6"/>
                 <item
                     android:id="@+id/activity_main_drawer_8"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_food"
                     android:title="@string/food"
                     android:orderInCategory="7"/>
                 <item
                     android:id="@+id/activity_main_drawer_9"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_movies"
                     android:title="@string/movies"
                     android:orderInCategory="8"/>
                 <item
                     android:id="@+id/activity_main_drawer_10"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_arts"
                     android:title="@string/arts"
                     android:orderInCategory="9"/>
                 <item
                     android:id="@+id/activity_main_drawer_11"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_fashion"
                     android:title="@string/fashion"
                     android:orderInCategory="10"/>
                 <item
                     android:id="@+id/activity_main_drawer_12"
-                    android:icon="@drawable/ic_settings_applications_white_24dp"
+                    android:icon="@drawable/ic__icon_travel"
                     android:title="@string/travel"
                     android:orderInCategory="11"/>
             </group>
