@@ -72,9 +72,9 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
         // get news section of origin
         this.item_section.setText(titles.getSection());
         // // Set separator(>) if subsection is available
-        needSeparator(titles.getSubsection().isEmpty() || titles.getSubsection()== null);
+//        needSeparator(titles.getSubsection().isEmpty() || titles.getSubsection()== null);
         // get news sub-section
-        this.item_subsection.setText(separator + titles.getSubsection());
+//        this.item_subsection.setText(separator + titles.getSubsection());
         // get published date from the title, then convert the format and setText
         String fullDate = titles.getPublishedDate();
         String shortDate = convertDate(fullDate);

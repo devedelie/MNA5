@@ -29,13 +29,13 @@ public class NYTStreamsTest {
                 .assertNoTimeout()
                 .awaitTerminalEvent();
 
-        NYTNews mostPopular = topStoriesTestObserver.values().get(0);
-        Assert.assertTrue(mostPopular.getResults().size() > 0);
+        NYTNews topStories = topStoriesTestObserver.values().get(0);
+        Assert.assertTrue(topStories.getResults().size() > 0);
     }
 
     @Test
     public void isStream_fetchMostPopularStream_correctSizeReturned() {
-        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("facebook");
+        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular(7);
 
         TestObserver<NYTMostPopular> mostPopularTestObserver = new TestObserver<>();
 

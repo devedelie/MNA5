@@ -24,8 +24,8 @@ public interface NYTService {
     Observable<NYTNews> getResultsTopStories(@Path("category") String category,
                                              @Query("api-key") String apiKey);
 
-    @GET("svc/mostpopular/v2/shared/1/{platform}.json")
-    Observable<NYTMostPopular> getResultsMostPopular (@Path("platform") String platform,
+    @GET("svc/mostpopular/v2/viewed/{period}.json")
+    Observable<NYTMostPopular> getResultsMostPopular (@Path("period") int platform,
                                                       @Query("api-key") String apiKey);
 
 

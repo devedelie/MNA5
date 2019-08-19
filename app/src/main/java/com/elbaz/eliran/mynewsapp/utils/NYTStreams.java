@@ -28,9 +28,9 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<NYTMostPopular> streamFetchMostPopular(String platform){
+    public static Observable<NYTMostPopular> streamFetchMostPopular(int daysPeriod){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.getResultsMostPopular(platform, API_KEY)
+        return nytService.getResultsMostPopular(daysPeriod, API_KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

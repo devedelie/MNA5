@@ -139,7 +139,7 @@ public class TabFragment2 extends Fragment {
     // 1 - Execute the stream
     private void executeHttpRequestWithRetrofit(){
         // 1.2 - Execute the stream subscribing to Observable defined inside NYTStream
-        this.mDisposable = NYTStreams.streamFetchMostPopular(getString(R.string.facebook))
+        this.mDisposable = NYTStreams.streamFetchMostPopular(7)
                 .subscribeWith(new DisposableObserver<NYTMostPopular>(){
 
                     @Override
