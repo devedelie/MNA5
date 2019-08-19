@@ -22,8 +22,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.elbaz.eliran.mynewsapp.adapters.PageAdapter;
 import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.adapters.PageAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ViewPager pager = findViewById(R.id.activity_main_viewpager);
         //Set Adapter PageAdapter and glue it together
         pager.setAdapter(new PageAdapter(mContext, getSupportFragmentManager()));
-        // Set the offscreenLimit - loads 3 fragments offScreen to improves fluency of visual load
-        pager.setOffscreenPageLimit(3);
+        // Set the offscreenLimit - loads 2 fragments simultaneously offScreen, to improves fluency of visual load
+        pager.setOffscreenPageLimit(2);
 
         //Get TabLayout from layout
         TabLayout tabs= findViewById(R.id.activity_main_tabs);
