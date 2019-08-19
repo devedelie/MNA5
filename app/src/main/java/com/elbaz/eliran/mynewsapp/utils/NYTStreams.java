@@ -29,7 +29,6 @@ public class NYTStreams {
     }
 
     public static Observable<NYTMostPopular> streamFetchMostPopular(String daysPeriod){
-        Log.d(TAG, "streamFetchMostPopular: "+ daysPeriod);
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getResultsMostPopular(daysPeriod, API_KEY)
                 .subscribeOn(Schedulers.io())
