@@ -25,7 +25,7 @@ public interface NYTService {
                                              @Query("api-key") String apiKey);
 
     @GET("svc/mostpopular/v2/viewed/{period}.json")
-    Observable<NYTMostPopular> getResultsMostPopular (@Path("period") int platform,
+    Observable<NYTMostPopular> getResultsMostPopular (@Path("period") String period,
                                                       @Query("api-key") String apiKey);
 
 

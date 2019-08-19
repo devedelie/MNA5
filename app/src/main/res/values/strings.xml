@@ -12,7 +12,7 @@
 
     <!--Fragments url category/section for httpExecute:  /{section}.json?q=...-->
     <string name="home">home</string>
-    <string name="facebook">facebook</string>
+    <string name="days_period">7</string>
     <string name="technology">technology</string>
     <string name="sports">sports</string>
 
