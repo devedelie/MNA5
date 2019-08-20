@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Context mContext;
     public static String category, pageTitle;
     public static String[] categoryList, dialogTextArray;
+    View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         // Context for the fragments
         mContext = this;
+        // Get RootView for snackBarMessage
+        rootView = getWindow().getDecorView().getRootView();
 
         //1 - Configuring Toolbar
         this.configureToolbar();
