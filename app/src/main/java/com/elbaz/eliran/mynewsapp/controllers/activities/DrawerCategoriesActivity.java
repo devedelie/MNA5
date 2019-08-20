@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,14 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.Result;
-import com.elbaz.eliran.mynewsapp.R;
-import com.elbaz.eliran.mynewsapp.utils.CheckInternetConnection;
 import com.elbaz.eliran.mynewsapp.utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.views.NYTAdapter;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,6 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
     private Disposable mDisposable;
     private List<Result> mResults;
     private NYTAdapter mNYTAdapter;
-    private Boolean networkState;
 
     // ButterKnife
     @BindView(R.id.drawer_categories_recyclerView) RecyclerView mRecyclerView;
@@ -51,20 +49,12 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_categories);
 
-        // Check for Internet connection
-        networkState = CheckInternetConnection.isNetworkAvailable(getApplicationContext());
-        if (!networkState){
-            internetConnectivityMessage();
-        }
-
         ButterKnife.bind(this);
-
         // Set the recyclerView to fixed size in order to increase performances
         mRecyclerView.setHasFixedSize(true);
         this.configureToolbar();
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
-        this.configureSwipeRefreshLayout();
         this.configureOnClickRecyclerView();
     }
 
@@ -113,32 +103,6 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
-    // Connectivity failure message
-    public void internetConnectivityMessage(){
-        Snackbar.make(getCurrentFocus(), R.string.internet_connectivity,
-                Snackbar.LENGTH_LONG)
-                .show();
-    }
-
-    //-----------------
-    // Swipe configuration (reload news)
-    //-----------------
-    private void configureSwipeRefreshLayout(){
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if(!networkState){
-                    internetConnectivityMessage();
-                    // Stops the SwipeRefreshLayout animation
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }else{
-                    executeHttpRequestWithRetrofit();
-
-                }
-            }
-        });
-    }
-
     //-----------------
     // HTTP (RxJAVA)
     //-----------------
@@ -152,16 +116,18 @@ public class DrawerCategoriesActivity extends AppCompatActivity {
                     @Override
                     public void onNext(NYTNews nytNews) {
                         // 1.3 - Update UI with list of titles
-                        Log.e(TAG, "onNext" );
+                        Log.e(TAG, "onNext DrawerActivity" );
                         updateUI(nytNews.getResults());
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: "+ e );
+                        Log.e(TAG, "onError DrawerActivity: "+ e );
+                        Toast.makeText(DrawerCategoriesActivity.this, getString(R.string.internet_connectivity_drawer), Toast.LENGTH_LONG).show();
+                        finish();
                     }
                     @Override
                     public void onComplete() {
-                        Log.d(TAG, "onComplete");
+                        Log.d(TAG, "onComplete DrawerActivity");
                         findViewById(R.id.drawer_activities_loadingAnimation).setVisibility(View.GONE);
                     }
                 });
