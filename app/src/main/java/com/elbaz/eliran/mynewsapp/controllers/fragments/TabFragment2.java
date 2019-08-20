@@ -77,7 +77,7 @@ public class TabFragment2 extends Fragment {
 
     // Connectivity failure message
     public void internetConnectivityMessage(){
-        Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
+        Snackbar.make(getActivity().findViewById(R.id.activity_main_root), R.string.internet_connectivity,
                 Snackbar.LENGTH_LONG)
                 .show();
     }

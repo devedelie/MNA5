@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.controllers.activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.Result;
-import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.utils.CheckInternetConnection;
 import com.elbaz.eliran.mynewsapp.utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.utils.NYTStreams;
@@ -39,8 +39,7 @@ import static android.content.ContentValues.TAG;
 public class TabFragment1 extends Fragment {
 
     public static final String BUNDLE_URL= "BUNDLE_URL";
-
-
+    
     private Disposable mDisposable;
     private List<Result> mResults;
     private NYTAdapter mNYTAdapter;
@@ -84,7 +83,7 @@ public class TabFragment1 extends Fragment {
 
     // Connectivity failure message
     public void internetConnectivityMessage(){
-        Snackbar.make(getActivity().getCurrentFocus(), R.string.internet_connectivity,
+        Snackbar.make(getActivity().findViewById(R.id.activity_main_root), R.string.internet_connectivity,
                 Snackbar.LENGTH_LONG)
                 .show();
     }
