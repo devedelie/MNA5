@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -144,8 +143,6 @@ public class SearchResultsActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: "+ e );
-                        // Hide loading animation when finished HttpRequest
-                        Toast.makeText(SearchResultsActivity.this, getString(R.string.search_error), Toast.LENGTH_LONG).show();
                         finish();
                     }
 
