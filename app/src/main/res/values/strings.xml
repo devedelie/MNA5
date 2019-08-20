@@ -1,6 +1,9 @@
 <resources>
     <!--Internet connection-->
     <string name="internet_connectivity">Please check your Internet connection and refresh the page</string>
+    <string name="internet_connectivity_drawer">Please check your Internet connection and try again</string>
+    <!--Error message-->
+    <string name="search_error">Error: failed to fetch results! Please try again later</string>
     <!--App title-->
     <string name="app_name">My News</string>
 
