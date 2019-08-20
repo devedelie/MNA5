@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.controllers.activities.WebPageActivity;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.Result;
-import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.utils.CheckInternetConnection;
 import com.elbaz.eliran.mynewsapp.utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.utils.NYTStreams;
+import com.elbaz.eliran.mynewsapp.utils.SnackbarMessagesAndVibrations;
 import com.elbaz.eliran.mynewsapp.views.NYTAdapter;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,7 @@ public class TabFragment3 extends Fragment {
     private List<Result> mResults;
     private NYTAdapter mNYTAdapter;
     private Boolean networkState;
+    View rootView;
 
     // try
     @BindView(R.id.fragment_3_recyclerView) RecyclerView mRecyclerView;
@@ -50,9 +51,10 @@ public class TabFragment3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_3, container, false);
-
+        // Get RootView for snackBarMessage
+        rootView = getActivity().getWindow().getDecorView().getRootView();
+        // check internet connection
         this.internetConnectivityVerifier();
-
         // Call during UI creation
         ButterKnife.bind(this, view);
         // Set the recyclerView to fixed size in order to increase performances
@@ -75,15 +77,8 @@ public class TabFragment3 extends Fragment {
         // Check for Internet connection
         networkState = CheckInternetConnection.isNetworkAvailable(getActivity().getApplicationContext());
         if (!networkState){
-            internetConnectivityMessage();
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.activity_main_root),getString(R.string.internet_connectivity));
         } return networkState;
-    }
-
-    // Connectivity failure message
-    public void internetConnectivityMessage(){
-        Snackbar.make(getActivity().findViewById(R.id.activity_main_root), R.string.internet_connectivity,
-                Snackbar.LENGTH_LONG)
-                .show();
     }
 
     //-----------------

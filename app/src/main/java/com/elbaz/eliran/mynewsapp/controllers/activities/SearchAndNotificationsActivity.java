@@ -2,14 +2,12 @@ package com.elbaz.eliran.mynewsapp.controllers.activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,7 +32,7 @@ import androidx.work.WorkManager;
 
 import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.utils.NotificationWorker;
-import com.google.android.material.snackbar.Snackbar;
+import com.elbaz.eliran.mynewsapp.utils.SnackbarMessagesAndVibrations;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.text.SimpleDateFormat;
@@ -61,11 +59,14 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     SharedPreferences mSharedPreferences;
     private Boolean searchActivity, notificationActivity, isStartDateBigger=false;
     public static String[] intentBooleanID;
+    View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_and_notification);
+        // Get RootView for snackBarMessage
+        rootView = getWindow().getDecorView().getRootView();
 
         // Get boolean of which kind of activity will be shown to the user
         Resources resources = getResources();
@@ -258,8 +259,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                     // If all the categories were unchecked (only on Notifications) while the switch was live, block the action and indicate the user
                     if (notificationActivity && filtersQueryString.size() == 1 && mNotificationsSwitch.isChecked()){
                         buttonView.setChecked(true); // set back the checkbox
-                        Vibration();
-                        SnackBarMessages(getString(R.string.category_checkbox_limit));
+                        SnackbarMessagesAndVibrations.Vibration(getApplicationContext());
+                        SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.category_checkbox_limit));
                     }else{
                         filtersQueryString.remove(category);
                     }
@@ -289,11 +290,11 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     public void searchButtonOnClickAction (View view){
         // Check if at least one category is selected
         if (joinedFilterString == null || joinedFilterString.isEmpty()){
-            SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
-            Vibration();
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.Your_filter_field_is_empty));
+            SnackbarMessagesAndVibrations.Vibration(getApplicationContext());
         }else if(checkDateValidity()){
-            SnackBarMessages(getString(R.string.startDate_is_bigger_then_endDate));
-            Vibration();
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.startDate_is_bigger_then_endDate));
+            SnackbarMessagesAndVibrations.Vibration(getApplicationContext());
             isStartDateBigger = false;
         }else{
             Log.d(TAG, "onSearchClicked result: " + finalFilterString);
@@ -324,7 +325,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         // Check if failed to find results, and show a SnackBar pop-up
         if (resultCode == Activity.RESULT_CANCELED) {
-            SnackBarMessages(getString(R.string.no_results));
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.no_results));
         }
     }
 
@@ -336,8 +337,8 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         // Check if at least one category is selected
         if (joinedFilterString == null || joinedFilterString.isEmpty()){
-            SnackBarMessages(getString(R.string.Your_filter_field_is_empty));
-            Vibration();
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.Your_filter_field_is_empty));
+            SnackbarMessagesAndVibrations.Vibration(getApplicationContext());
             // set the switch back to off mode
             mNotificationsSwitch.setChecked(false);
         }else{
@@ -358,7 +359,7 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             editor.putBoolean(getString(R.string.current_switch_state), true);
             editor.commit();
             // Show a message
-            SnackBarMessages(getString(R.string.notifications_on));
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.notifications_on));
             // Initiate the Worker class
             workerSetup();
         }else{
@@ -369,9 +370,9 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
             // Enable EditText field
             mNotificationsQueryEditText.setEnabled(true);
             // Show a message
-            SnackBarMessages(getString(R.string.notifications_off));
+            SnackbarMessagesAndVibrations.showSnakbarMessage(rootView.findViewById(R.id.GlobalSearchLayout),getString(R.string.notifications_off));
             // Stops the activity of the worker (by Tag)
-            WorkManager.getInstance().cancelAllWorkByTag(getString(R.string.WM_periodic_notifications_tag));
+            WorkManager.getInstance(this).cancelAllWorkByTag(getString(R.string.WM_periodic_notifications_tag));
            }  //// end of isChecked condition
         } //// end of entire condition
     }
@@ -392,19 +393,6 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                         .build();
 
         WorkManager.getInstance(this).enqueue(saveRequest);
-    }
-
-    // A method to show popup SnackBar messages
-    protected void SnackBarMessages (String string){
-        Snackbar.make(findViewById(R.id.GlobalSearchLayout), string,
-                Snackbar.LENGTH_LONG)
-                .show();
-    }
-
-    // Vibration method
-    protected void Vibration (){
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(50);
     }
 
     /////////////////////////////////////////
