@@ -391,12 +391,12 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
                         .setConstraints(constraints)
                         .build();
 
-        WorkManager.getInstance().enqueue(saveRequest);
+        WorkManager.getInstance(this).enqueue(saveRequest);
     }
 
     // A method to show popup SnackBar messages
     protected void SnackBarMessages (String string){
-        Snackbar.make(getCurrentFocus(), string,
+        Snackbar.make(findViewById(R.id.GlobalSearchLayout), string,
                 Snackbar.LENGTH_LONG)
                 .show();
     }
