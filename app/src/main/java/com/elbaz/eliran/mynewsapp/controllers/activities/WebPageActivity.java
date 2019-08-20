@@ -52,7 +52,7 @@ public class WebPageActivity extends AppCompatActivity {
         String url = getIntent().getStringExtra(TabFragment1.BUNDLE_URL);
 
         // Page tools and configurations
-//      mWebView.getSettings().setJavaScriptEnabled(true);  // Disabled to avoid blocking pop-ups
+      mWebView.getSettings().setJavaScriptEnabled(false); // Disabled to avoid NYT blocking pop-ups
         mWebView.getSettings().setLoadWithOverviewMode(true); //Loads the WebView with the attributes and zooms out the content to fit on screen by width
         mWebView.getSettings().setUseWideViewPort(false); // When the value is false, the layout width is always set to the width of the WebView control in device-independent (CSS) pixels.
         mWebView.getSettings().setBuiltInZoomControls(true);
