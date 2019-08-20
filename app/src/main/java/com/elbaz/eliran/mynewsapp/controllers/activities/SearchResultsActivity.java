@@ -128,15 +128,12 @@ public class SearchResultsActivity extends AppCompatActivity {
                         updateUI(nytSearch.getResponse().getDocs());
                         // Display a message if returned 0 results
                         int sizeOfList = nytSearch.getResponse().getDocs().size();
+                        Intent back = new Intent();
+                        setResult(Activity.RESULT_OK, back);
                         if (sizeOfList == 0){
                             // If no matches - send result to previous activity to invoke a SnackBar pop-up, then finish the activity
-                            Intent back = new Intent();
                             setResult(Activity.RESULT_CANCELED, back);
                             finish();
-                        }else {
-                            // Inform the previous activity that results are OK
-                            Intent back = new Intent();
-                            setResult(Activity.RESULT_OK, back);
                         }
                     }
 
