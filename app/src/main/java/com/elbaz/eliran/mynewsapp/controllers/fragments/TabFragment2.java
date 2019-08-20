@@ -55,8 +55,6 @@ public class TabFragment2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tab_2, container, false);
         // Get RootView for snackBarMessage
         rootView = getActivity().getWindow().getDecorView().getRootView();
-        // check internet connection
-        this.internetConnectivityVerifier();
         // Call during UI creation
         ButterKnife.bind(this, view);
         // Set the recyclerView to fixed size in order to increase performances
