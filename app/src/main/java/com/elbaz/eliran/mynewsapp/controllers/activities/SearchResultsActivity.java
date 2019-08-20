@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.models.SearchModels.Doc;
 import com.elbaz.eliran.mynewsapp.models.SearchModels.NYTSearch;
 import com.elbaz.eliran.mynewsapp.models.SearchModels.Response;
-import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.utils.ItemClickSupport;
 import com.elbaz.eliran.mynewsapp.utils.NYTStreams;
 import com.elbaz.eliran.mynewsapp.views.NYTAdapterSearchResults;
@@ -143,6 +144,9 @@ public class SearchResultsActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: "+ e );
+                        // Hide loading animation when finished HttpRequest
+                        Toast.makeText(SearchResultsActivity.this, getString(R.string.search_error), Toast.LENGTH_LONG).show();
+                        finish();
                     }
 
                     @Override
