@@ -7,6 +7,7 @@ import com.elbaz.eliran.mynewsapp.models.MostPopularModels.ResultMostPopular;
 import com.elbaz.eliran.mynewsapp.models.SearchModels.Doc;
 import com.elbaz.eliran.mynewsapp.models.SearchModels.NYTSearch;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.NYTNews;
+import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.Result;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,7 +33,7 @@ import static android.content.ContentValues.TAG;
 public class NYTStreamsTest {
 
     @Test
-    public void isStream_fetchTopStoriesStream_correctSizeReturned() {
+    public void isStream_fetchTopStoriesStream_returnedSizeBiggerThanZero() {
         Observable<NYTNews> observableTopStories = NYTStreams.streamFetchTopStories("home");
 
         TestObserver<NYTNews> topStoriesTestObserver = new TestObserver<>();
@@ -44,11 +45,16 @@ public class NYTStreamsTest {
 
         NYTNews topStories = topStoriesTestObserver.values().get(0);
         Assert.assertTrue(topStories.getResults().size() > 0);
+        for(Result result: topStories.getResults()){
+            Assert.assertTrue(result.getPublishedDate() != null && !result.getPublishedDate().isEmpty());
+            Assert.assertTrue(result.getTitle() != null && !result.getTitle().isEmpty());
+            Assert.assertTrue(result.getSection() != null && !result.getSection().isEmpty());
+        }
     }
 
     @Test
-    public void isStream_fetchMostPopularLast7Days_ReturnBiggerThanZero() {
-        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("7"); // Only the following values are allowed: 1, 7, 30
+    public void isStream_fetchMostPopularLast7Days_ReturnSizeBiggerThanZero() {
+        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("30"); // Only the following values are allowed: 1, 7, 30
 
         TestObserver<NYTMostPopular> mostPopularTestObserver = new TestObserver<>();
 
@@ -59,6 +65,11 @@ public class NYTStreamsTest {
 
         NYTMostPopular mostPopular = mostPopularTestObserver.values().get(0);
         Assert.assertTrue(mostPopular.getResults().size() > 0);
+        for (ResultMostPopular rms: mostPopular.getResults()){
+            Assert.assertTrue(rms.getTitle() != null && !rms.getTitle().isEmpty());
+            Assert.assertTrue(rms.getSection() != null && !rms.getSection().isEmpty());
+            Assert.assertTrue(rms.getPublishedDate() != null && !rms.getPublishedDate().isEmpty());
+        }
     }
 
     @Test
@@ -74,13 +85,12 @@ public class NYTStreamsTest {
 
         NYTMostPopular mostPopular = mostPopularTestObserver.values().get(0);
         // Assert that all the titles are within the correct period (0-10 days-old max)
-        String dateBefore7Days = subtractDays(10); // the period value 7 returns news within the last 10 days approximetely
+        String dateBefore7Days = subtractDays(10); // the period value '7' returns news within the last 10 days approximately
         for (ResultMostPopular result: mostPopular.getResults()){
             String date = convertDate(result.getPublishedDate());
-            Log.d(TAG, "isStream_ReturnResultsWithinTheLastWeek: " +dateBefore7Days + " "+ date);
+            Log.d(TAG, "isStream_ReturnResultsWithinTheLastWeek: is bigger? " +dateBefore7Days + " < "+ date);
             // check if the date is
             Assert.assertTrue(Integer.parseInt(date) >= Integer.parseInt(dateBefore7Days));
-
         }
     }
 
@@ -100,8 +110,8 @@ public class NYTStreamsTest {
         Assert.assertTrue(searchResults.getResponse().getDocs().size() > 0);
         Assert.assertEquals(10,searchResults.getResponse().getDocs().size());
 
-        for (Doc d: searchResults.getResponse().getDocs()) {
-            Assert.assertEquals( "Politics", d.getNewsDesk());
+        for (Doc doc: searchResults.getResponse().getDocs()) {
+            Assert.assertEquals( "Politics", doc.getNewsDesk());
         }
     }
 
