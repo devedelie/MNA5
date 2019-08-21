@@ -2,37 +2,36 @@ package com.elbaz.eliran.mynewsapp.controllers.activities;
 
 import android.content.Context;
 
-import androidx.test.InstrumentationRegistry;
-import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.espresso.Espresso;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import com.elbaz.eliran.mynewsapp.R;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.CoreMatchers.anyOf;
 import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-@FixMethodOrder (MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder (MethodSorters.NAME_ASCENDING)
 public class MainActivityInstrumentedTest {
     // -------------------------------------------------------------------------------------------
     @Rule
@@ -51,23 +50,41 @@ public class MainActivityInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        Context appContext = getInstrumentation().getTargetContext();
         assertEquals("com.elbaz.eliran.mynewsapp", appContext.getPackageName());
     }
 
     @Test
-    public void testClickActionBarItem() {
-        // We make sure the contextual action bar is hidden.
-        onView(ViewMatchers.withId(R.id.over_flow_item_1))
-                .perform(click());
-
-        // Click on the icon - we can find it by the r.Id.
-        onView(withId(R.id.over_flow_item_1))
-                .perform(click());
-
-        // Verify that we have really clicked on the icon
-        // by checking the TextView content.
-        onView(withId(R.string.itme_1))
-                .check(matches(withText("Notifications")));
+    public void MainActivity_checkMainViewElementsVisibility_returnMatch() {
+        onView(withText("TOP STORIES")).check(matches(isCompletelyDisplayed()));
+        onView(withText("MOST POPULAR")).check(matches(isCompletelyDisplayed()));
+        onView(withText("TECH")).check(matches(isCompletelyDisplayed()));
+        onView(withText("SPORTS")).check(matches(isCompletelyDisplayed()));
+        onView(withText("My News")).check(matches(isCompletelyDisplayed()));
+        // Open the overflow menu OR open the options menu,
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Notifications")).check(matches(isCompletelyDisplayed()));
+        onView(withText("Help")).check(matches(isCompletelyDisplayed()));
+        onView(withText("About")).check(matches(isCompletelyDisplayed()));
     }
+
+    @Test
+    public void MainActivity_testClickInsertItem_click() {
+        // Performs click test by opening the menu and clicking on each item(revert with pressBack())
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(anyOf(withText("Notifications"), withId(R.id.over_flow_item_1))).perform(click());
+        Espresso.pressBack();
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(anyOf(withText("Help"), withId(R.id.over_flow_item_2))).perform(click());
+        onView(withId(R.id.btn_dialog)).perform(click());
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(anyOf(withText("About"), withId(R.id.over_flow_item_3))).perform(click());
+
+    }
+
+//    @Test
+//    public void checkNavigationSearchArticle(){
+//        onView(withId(R.id.searchButton)).perform(click());
+//        intended(hasComponent(SearchAndNotificationsActivity.class.getName()));
+//    }
 }
