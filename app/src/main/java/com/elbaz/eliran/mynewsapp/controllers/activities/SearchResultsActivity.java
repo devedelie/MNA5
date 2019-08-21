@@ -73,7 +73,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         this.configureRecyclerView();
         this.executeHttpRequestWithRetrofit();
         this.configureOnClickRecyclerView();
-
     }
     
     @Override
@@ -161,14 +160,12 @@ public class SearchResultsActivity extends AppCompatActivity {
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     // -----------------
     // ACTION RecyclerView onClick
     // -----------------
-
     // 1 - Configure item click on RecyclerView
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(mRecyclerView, R.layout.recyclerview_item)
@@ -187,7 +184,6 @@ public class SearchResultsActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
     //-----------------
     // Update UI

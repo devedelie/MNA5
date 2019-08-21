@@ -39,8 +39,6 @@ public interface NYTService {
                                               @Query("sort") String sort,
                                               @Query("api-key") String apiKey);
 
-
-
         Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
