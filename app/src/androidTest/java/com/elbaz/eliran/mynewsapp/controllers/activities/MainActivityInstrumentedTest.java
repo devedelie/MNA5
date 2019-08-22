@@ -37,13 +37,16 @@ import static org.junit.Assert.assertEquals;
 @LargeTest
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainActivityInstrumentedTest {
+    Context appContext= getInstrumentation().getTargetContext();
     // -------------------------------------------------------------------------------------------
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     // Configurations and actions to be taken before each test
     @Before
-    public void setUp() throws Exception{ }
+    public void setUp() throws Exception{
+
+    }
 
     // Configurations and actions to be taken after each test (ex: close the app)
     @After
@@ -54,7 +57,7 @@ public class MainActivityInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = getInstrumentation().getTargetContext();
+//        appContext = getInstrumentation().getTargetContext();
         assertEquals("com.elbaz.eliran.mynewsapp", appContext.getPackageName());
     }
 

@@ -3,7 +3,6 @@ package com.elbaz.eliran.mynewsapp;
 import com.elbaz.eliran.mynewsapp.models.Constants;
 import com.elbaz.eliran.mynewsapp.views.NYTViewHolder;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -14,12 +13,12 @@ import static org.testng.Assert.assertEquals;
 public class GeneralDataTest {
     @Test
     public void MainActivity_verifyAPIKey_returnCorrectAPIKey(){
-        Assert.assertEquals("eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA", Constants.API_KEY);
+        assertEquals(Constants.API_KEY, "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA");
     }
 
     @Test
     public void MainActivity_verifyBaseURL_returnCorrectBaseURL(){
-        Assert.assertEquals("https://api.nytimes.com/", Constants.BASE_URL);
+        assertEquals(Constants.BASE_URL, "https://api.nytimes.com/");
     }
 
     @Test

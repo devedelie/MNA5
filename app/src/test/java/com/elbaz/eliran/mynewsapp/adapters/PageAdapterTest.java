@@ -1,13 +1,13 @@
 package com.elbaz.eliran.mynewsapp.adapters;
 
 import android.content.Context;
+
 import androidx.fragment.app.FragmentManager;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -20,7 +20,7 @@ public class PageAdapterTest {
 
     // Test for returning 4 tabs
     @Test
-    public void TestNumberOfTabs () throws Exception{
+    public void PageAdapter_TestNumberOfTabs_assertCorrectNumber () throws Exception{
             // Create a new PageAdapter instance
             PageAdapter pageAdapter = new PageAdapter(mContext, mFragmentManager );
             // Check that the method returns 4 as the number of tabs to show
@@ -29,49 +29,25 @@ public class PageAdapterTest {
 
     // Testing the titles, based on their position on the tab-menu
     @Test
-    public void TestNameOfTabs () throws Exception{
+    public void PageAdapter_TestTabsNames_assertName () throws Exception{
         // Create a new PageAdapter instance with Mockito
         PageAdapter pageAdapter = Mockito.mock(PageAdapter.class);
-        // Set the condition
-        Mockito.when(pageAdapter.getPageTitle(1)).thenReturn("MOST POPULAR");
+        Mockito.when(pageAdapter.getPageTitle(0)).thenReturn("TOP STORIES");
         // Load the title into a variable
-        String title = pageAdapter.getPageTitle(1);
+        String title = pageAdapter.getPageTitle(0);
         // Check that the method returns the correct tab title
-        assertEquals("MOST POPULAR", title);
+        assertEquals("TOP STORIES", title);
+
+        Mockito.when(pageAdapter.getPageTitle(1)).thenReturn("MOST POPULAR");
+        String title2 = pageAdapter.getPageTitle(1);
+        assertEquals("MOST POPULAR", title2);
+        Mockito.when(pageAdapter.getPageTitle(2)).thenReturn("TECH");
+        String title3 = pageAdapter.getPageTitle(2);
+        assertEquals("TECH", title3);
+        Mockito.when(pageAdapter.getPageTitle(3)).thenReturn("SPORTS");
+        String title4 = pageAdapter.getPageTitle(3);
+        assertEquals("SPORTS", title4);
     }
-
-
-
-    @Test
-    public void tabScroll() {
-//            // 1
-//            PageAdapter pageAdapter = mock(PageAdapter.class);
-//
-//            // 2
-//            When(PageAdapter.getItem())
-//
-//
-//
-//
-    }
-
-    @Test
-    public void tabTitleTest() throws Exception{
-        // ask
-        PageAdapter pageAdapter = mock (PageAdapter.class);
-
-        // 2
-//        pageAdapter.getItem(2);
-//        when(pageAdapter.getItem(2)).thenReturn();
-
-        // 3
-//        assertEquals(2, pageAdapter.getItem(2), 0.001);
-
-
-    }
-
-
-
 }
 
 
