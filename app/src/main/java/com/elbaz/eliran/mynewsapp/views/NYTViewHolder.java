@@ -157,7 +157,7 @@ public class NYTViewHolder extends RecyclerView.ViewHolder {
     }
 
     // Date format converter
-    String convertDate(String inputDate) {
+    public static String convertDate(String inputDate) {
         DateFormat theDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
