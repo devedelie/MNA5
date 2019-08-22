@@ -58,4 +58,6 @@ public class MainActivityTest {
         assertEquals("bla bla", mNavigationView.getMenu().findItem(R.id.activity_main_drawer_3).getTitle().toString());
     }
 
+
+
 }

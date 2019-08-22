@@ -18,8 +18,12 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.repeatedlyUntil;
+import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -31,7 +35,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-//@FixMethodOrder (MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainActivityInstrumentedTest {
     // -------------------------------------------------------------------------------------------
     @Rule
@@ -55,12 +59,29 @@ public class MainActivityInstrumentedTest {
     }
 
     @Test
-    public void MainActivity_checkMainViewElementsVisibility_returnMatch() {
+    public void MainActivity_checkMainViewElementsVisibility_returnMatch() throws Exception {
+        onView(withId(R.id.menu_activity_main_search)).check(matches(isCompletelyDisplayed())); // magnifying glass icon
+        onView(withId(R.id.activity_main_root)).check(matches(isCompletelyDisplayed())); // main layout
+        onView(withId(R.id.activity_main_drawer_layout)).check(matches(isCompletelyDisplayed())); // drawer layout
+        onView(withId(R.id.fragment_page_1_rootview)).check(matches(isCompletelyDisplayed())); // fragment 1 layout
         onView(withText("TOP STORIES")).check(matches(isCompletelyDisplayed()));
         onView(withText("MOST POPULAR")).check(matches(isCompletelyDisplayed()));
         onView(withText("TECH")).check(matches(isCompletelyDisplayed()));
         onView(withText("SPORTS")).check(matches(isCompletelyDisplayed()));
         onView(withText("My News")).check(matches(isCompletelyDisplayed()));
+    }
+
+    @Test
+    public void ViewPager_viewPagerSwipeLeft_returnFragmentsLayoutIDMatching() throws Exception{
+        int maxAttempts=3;
+        onView(withId(R.id.activity_main_viewpager)).perform(repeatedlyUntil(swipeLeft(), hasDescendant(withId(R.id.fragment_1_recyclerView)), maxAttempts));
+        onView(withId(R.id.activity_main_viewpager)).perform(repeatedlyUntil(swipeLeft(), hasDescendant(withId(R.id.fragment_2_recyclerView)), maxAttempts));
+        onView(withId(R.id.activity_main_viewpager)).perform(repeatedlyUntil(swipeLeft(), hasDescendant(withId(R.id.fragment_3_recyclerView)), maxAttempts));
+        onView(withId(R.id.activity_main_viewpager)).perform(repeatedlyUntil(swipeLeft(), hasDescendant(withId(R.id.fragment_4_recyclerView)), maxAttempts));
+    }
+
+    @Test
+    public void MainActivity_checkOverFlowMenuItems_returnMatch(){
         // Open the overflow menu OR open the options menu,
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("Notifications")).check(matches(isCompletelyDisplayed()));
@@ -69,7 +90,7 @@ public class MainActivityInstrumentedTest {
     }
 
     @Test
-    public void MainActivity_testClickInsertItem_click() {
+    public void MainActivity_testClickInsertItem_click() throws Exception{
         // Performs click test by opening the menu and clicking on each item(revert with pressBack())
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(anyOf(withText("Notifications"), withId(R.id.over_flow_item_1))).perform(click());
@@ -79,12 +100,14 @@ public class MainActivityInstrumentedTest {
         onView(withId(R.id.btn_dialog)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(anyOf(withText("About"), withId(R.id.over_flow_item_3))).perform(click());
+        Espresso.pressBack();
 
     }
 
-//    @Test
-//    public void checkNavigationSearchArticle(){
-//        onView(withId(R.id.searchButton)).perform(click());
-//        intended(hasComponent(SearchAndNotificationsActivity.class.getName()));
-//    }
+    @Test
+    public void navigationDrawer_ClickOnItemToLoadArticles_returnToMainActivity() throws Exception {
+        // open drawer -- > perform click-->close drawer --> go back from activity
+        onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
+        onView(withText(R.string.food)).perform(click());
+    }
 }
