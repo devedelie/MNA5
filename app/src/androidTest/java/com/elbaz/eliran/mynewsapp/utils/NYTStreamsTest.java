@@ -33,7 +33,7 @@ import static android.content.ContentValues.TAG;
 public class NYTStreamsTest {
 
     @Test
-    public void isStream_fetchTopStoriesStream_returnedSizeBiggerThanZero() {
+    public void isStream_fetchTopStoriesStream_returnSomeData() {
         Observable<NYTNews> observableTopStories = NYTStreams.streamFetchTopStories("home");
 
         TestObserver<NYTNews> topStoriesTestObserver = new TestObserver<>();
@@ -53,7 +53,7 @@ public class NYTStreamsTest {
     }
 
     @Test
-    public void isStream_fetchMostPopularLast7Days_ReturnSizeBiggerThanZero() {
+    public void isStream_fetchMostPopularLast7Days_ReturnSomeData() {
         Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("30"); // Only the following values are allowed: 1, 7, 30
 
         TestObserver<NYTMostPopular> mostPopularTestObserver = new TestObserver<>();
@@ -132,7 +132,7 @@ public class NYTStreamsTest {
     }
 
     @Test
-    public void isStream_fetchSearchResultsForBeginDate_returnBeginDateEqualsToOldestTitle() {
+    public void isStream_fetchSearchResultsForBeginDateWithNoQuery_returnOldestTitleDateEqualsToBeginDate() {
         Observable<NYTSearch> observableSearchResults = NYTStreams.streamFetchSearchResults("20190801", null, "news_desk:(\"Politics\")", "", "oldest");
 
         TestObserver<NYTSearch> searchResultTestObserver = new TestObserver<>();
