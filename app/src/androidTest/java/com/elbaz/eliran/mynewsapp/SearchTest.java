@@ -1,11 +1,11 @@
-package com.elbaz.eliran.mynewsapp.controllers.activities;
+package com.elbaz.eliran.mynewsapp;
 
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.controllers.activities.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

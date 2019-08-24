@@ -1,4 +1,4 @@
-package com.elbaz.eliran.mynewsapp.utils;
+package com.elbaz.eliran.mynewsapp;
 
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import com.elbaz.eliran.mynewsapp.models.SearchModels.Doc;
 import com.elbaz.eliran.mynewsapp.models.SearchModels.NYTSearch;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.NYTNews;
 import com.elbaz.eliran.mynewsapp.models.TopStoriesModels.Result;
+import com.elbaz.eliran.mynewsapp.utils.NYTStreams;
 
 import org.junit.Assert;
 import org.junit.Test;
