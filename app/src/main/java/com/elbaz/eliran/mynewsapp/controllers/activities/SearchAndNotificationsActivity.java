@@ -398,11 +398,11 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
     /////////////////////////////////////////
     // Testing ONLY - A method to know if WorkManager has a running scheduled work (by TAG)
     public void check(View view){
-        Boolean x = isWorkScheduled(getString(R.string.WM_periodic_notifications_tag));
+        boolean x = isWorkScheduled(getString(R.string.WM_periodic_notifications_tag));
         Log.d(TAG, "Scheduled work, with tag: "+getString(R.string.WM_periodic_notifications_tag) + "is ON? "+ x);
     }
     public boolean isWorkScheduled( String tag) {
-        WorkManager instance = WorkManager.getInstance();
+        WorkManager instance = WorkManager.getInstance(this);
         ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
         try {
             boolean running = false;
