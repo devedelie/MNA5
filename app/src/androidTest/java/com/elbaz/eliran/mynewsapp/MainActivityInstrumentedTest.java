@@ -1,4 +1,4 @@
-package com.elbaz.eliran.mynewsapp.controllers.activities;
+package com.elbaz.eliran.mynewsapp;
 
 import android.content.Context;
 import android.widget.TextView;
@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import com.elbaz.eliran.mynewsapp.R;
+import com.elbaz.eliran.mynewsapp.controllers.activities.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -42,6 +42,7 @@ import static org.junit.Assert.assertEquals;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainActivityInstrumentedTest {
     private Context appContext= getInstrumentation().getTargetContext();
+    private static final int ITEM_BELOW_THE_FOLD = 12;
     // -------------------------------------------------------------------------------------------
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -96,10 +97,16 @@ public class MainActivityInstrumentedTest {
     }
 
     @Test
-    public void MainActivity_testClickInsertItem_click() throws Exception{
+    public void MainActivity_testClickInsertItem_returnCorrectActivity() throws Exception{
+        onView(anyOf(withId(R.id.menu_activity_main_search))).perform(click());
+        onView(allOf(instanceOf(TextView.class), withParent(withId(R.id.toolbar))))
+                .check(matches(withText("Search")));
+        Espresso.pressBack();
         // Performs click test by opening the menu and clicking on each item(revert with pressBack())
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(anyOf(withText("Notifications"), withId(R.id.over_flow_item_1))).perform(click());
+        onView(allOf(instanceOf(TextView.class), withParent(withId(R.id.toolbar))))
+                .check(matches(withText("Notifications")));
         Espresso.pressBack();
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(anyOf(withText("Help"), withId(R.id.over_flow_item_2))).perform(click());
@@ -117,6 +124,6 @@ public class MainActivityInstrumentedTest {
         onView(withText(R.string.food)).perform(click());
         // Match the selected category with the relevant result (page title on toolbar)
         onView(allOf(instanceOf(TextView.class), withParent(withId(R.id.toolbar))))
-                .check(matches(withText(R.string.food)));
+                .check(matches(withText("Food")));
     }
 }
