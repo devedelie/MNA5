@@ -1,6 +1,7 @@
 package com.elbaz.eliran.mynewsapp.controllers.activities;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -25,9 +26,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -37,7 +41,7 @@ import static org.junit.Assert.assertEquals;
 @LargeTest
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainActivityInstrumentedTest {
-    Context appContext= getInstrumentation().getTargetContext();
+    private Context appContext= getInstrumentation().getTargetContext();
     // -------------------------------------------------------------------------------------------
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -57,7 +61,6 @@ public class MainActivityInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-//        appContext = getInstrumentation().getTargetContext();
         assertEquals("com.elbaz.eliran.mynewsapp", appContext.getPackageName());
     }
 
@@ -108,9 +111,12 @@ public class MainActivityInstrumentedTest {
     }
 
     @Test
-    public void navigationDrawer_ClickOnItemToLoadArticles_returnToMainActivity() throws Exception {
-        // open drawer -- > perform click-->close drawer --> go back from activity
+    public void navigationDrawer_ClickOnItemToLoadArticles_returnCorrectActivity() throws Exception {
+        // open drawer -- > perform click--> close drawer
         onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
         onView(withText(R.string.food)).perform(click());
+        // Match the selected category with the relevant result (page title on toolbar)
+        onView(allOf(instanceOf(TextView.class), withParent(withId(R.id.toolbar))))
+                .check(matches(withText(R.string.food)));
     }
 }
