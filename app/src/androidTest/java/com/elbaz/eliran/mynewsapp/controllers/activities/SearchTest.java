@@ -1,7 +1,6 @@
 package com.elbaz.eliran.mynewsapp.controllers.activities;
 
 
-import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -35,17 +34,32 @@ public class SearchTest {
         // Verify that a snackBar Message with correct text appears
         onView(withText(R.string.Your_filter_field_is_empty))
                 .check(matches(isDisplayed()));
-        Espresso.pressBack();
     }
 
     @Test
-    public void searchActivity_runSearchWithoutSelectedCategory_returnErrorMessageFixAndRetry() {
+    public void searchActivity_runSearchWithSelectedCategory_returnResults() {
         // Click on magnifying glass icon
         onView(withId(R.id.menu_activity_main_search)).perform(click());
         // Then select a category and run a search
         onView(withId(R.id.checkbox_politics)).perform(click());
         onView(withId(R.id.searchButton)).perform(click());
-        // Go back
-        Espresso.pressBack();
+        onView(withText("Search Results"))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void searchActivity_runSearchWithEndDateAndAllCategories_ () {
+        onView(withId(R.id.menu_activity_main_search)).perform(click());
+        onView(withId(R.id.search_endDate)).perform(click());
+        onView(withId(android.R.id.button1)).perform(click()); // OK button
+        onView(withId(R.id.checkbox_politics)).perform(click());
+        onView(withId(R.id.checkbox_travel)).perform(click());
+        onView(withId(R.id.checkbox_sports)).perform(click());
+        onView(withId(R.id.checkbox_entrepreneurs)).perform(click());
+        onView(withId(R.id.checkbox_business)).perform(click());
+        onView(withId(R.id.checkbox_arts)).perform(click());
+        onView(withId(R.id.searchButton)).perform(click());
+        onView(withText("Search Results"))
+                .check(matches(isDisplayed()));
     }
 }
