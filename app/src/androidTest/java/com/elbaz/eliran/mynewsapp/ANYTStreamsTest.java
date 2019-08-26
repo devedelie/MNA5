@@ -18,9 +18,7 @@ import org.junit.runners.JUnit4;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
@@ -167,20 +165,4 @@ public class ANYTStreamsTest {
 
         return theDateFormat.format(date);
     }
-
-    // Date modifier to subtract days
-    private static String subtractDays(int days){
-        // get today's date
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-        cal.add(Calendar.DATE, -days);
-        return getTodayDate(cal);
-    }
-    // get today's date
-    public static String getTodayDate(Calendar cal) {
-        return "" + cal.get(Calendar.YEAR) + "0"+
-                (cal.get(Calendar.MONTH) + 1) + cal.get(Calendar.DATE);
-    }
-
 }
