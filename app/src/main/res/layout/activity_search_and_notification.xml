@@ -29,7 +29,6 @@
             android:orientation="vertical">
 
             <EditText
-                android:layout_centerHorizontal="true"
                 android:id="@+id/SearchField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,9 +36,10 @@
                 android:layout_marginBottom="20sp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Search query" />
+                android:hint="@string/search_query_hint"
+                android:inputType="text"/>
+
             <EditText
-                android:layout_centerHorizontal="true"
                 android:id="@+id/NotificationsSearchField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,21 +47,19 @@
                 android:layout_marginBottom="20sp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Notifications query" />
-
+                android:hint="@string/notifications_query_hint"
+                android:inputType="text"/>
 
             <!--Parameters Main Layout-->
             <LinearLayout
                 android:id="@+id/checkboxesMainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/NotificationsSearchField"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
                 <!--Left Layout-->
                 <LinearLayout
-                    android:layout_below="@+id/SearchField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15sp"
@@ -74,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:textColor="@color/primaryText"
-                        android:text="Start Date:"/>
+                        android:text="@string/startDate_hint"/>
 
                     <TextView
                         android:id="@+id/search_startDate"
@@ -106,12 +104,10 @@
                         android:text="@string/category_entrepreneurs"
                         android:checked="false"/>
 
-
                 </LinearLayout>
 
                 <!--Right Layout-->
                 <LinearLayout
-                    android:layout_below="@+id/SearchField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -123,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:textColor="@color/primaryText"
-                        android:text="End Date"/>
+                        android:text="@string/endDate_hint"/>
 
                     <TextView
                         android:id="@+id/search_endDate"
@@ -155,16 +151,13 @@
                         android:text="@string/category_travel"
                         android:checked="false"/>
 
-
                 </LinearLayout>
 
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/checkboxesMainLayout"
-                android:layout_centerHorizontal="true">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/searchButton"
@@ -176,7 +169,7 @@
                     android:background="@color/design_default_color_primary"
                     android:textColor="@color/GeneralText"
                     android:width="250dp"
-                    android:text="Search"
+                    android:text="@string/search_button"
                     android:onClick="searchButtonOnClickAction"/>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -186,7 +179,7 @@
                     android:checked="false"
                     android:layout_below="@+id/searchButton"
                     android:layout_marginTop="50dp"
-                    android:text="Enable notifications (once per day)    "
+                    android:text="@string/notification_text"
                     android:layout_centerHorizontal="true" />
 
                 <Button

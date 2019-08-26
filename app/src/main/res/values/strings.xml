@@ -98,6 +98,12 @@
     <string name="search_actionBar_title">Search</string>
     <string name="notifications_actionBar_title">Notifications</string>
     <string name="switch_off_to_edit"> (Switch off to edit)</string>
+    <string name="search_query_hint">Search query</string>
+    <string name="notifications_query_hint">Notifications query</string>
+    <string name="startDate_hint">Start Date:</string>
+    <string name="endDate_hint">End Date:</string>
+    <string name="search_button">Search</string>
+    <string name="notification_text">Enable notifications (once per day)    </string>
 
     <!--SharedPreferences CheckBoxes file and names-->
     <string name="checkbox_state">checkbox_state</string>
