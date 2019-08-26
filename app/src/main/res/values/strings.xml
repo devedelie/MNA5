@@ -118,16 +118,16 @@
     <!--Below are the Help Texts-->
     <string-array name="dialog_help_text">
         <item>Help - Contact us</item>
-        <item>You can contact the author of this application on email: devedelie@gmail.com</item>
+        <item>For bug report or at any question, please contact the author of this application on GitHub link below:</item>
         <item></item>
-        <item></item>
+        <item>All data in this application is provided and being fetched from New-York Times API. \nFor more information, please visit the official website by clicking the logo below:</item>
     </string-array>
         <!--below are the About texts-->
     <string-array name="dialog_about_text">
         <item>About My-News App</item>
         <item>My-News App is a news desk application based on New-York-Times API. The application was developed as part of Android development course on OpenClassRooms</item>
         <item>The application was developed by: Eliran Elbaz</item>
-        <item>All the content in this application is being fetched from New York Times API</item>
+        <item>All data in this application is provided and being fetched from New-York Times API. \nFor more information, please visit the official website by clicking the logo below:</item>
     </string-array>
 
     <!--WorkManager-->

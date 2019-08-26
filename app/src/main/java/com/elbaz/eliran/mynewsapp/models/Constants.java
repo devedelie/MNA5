@@ -9,4 +9,6 @@ public class Constants {
     public static final String API_KEY = "eUdpsuImhyQRapDx4vkN0NMOJZEYSqYA";
     public static final String BASE_URL = "https://api.nytimes.com/";
     public static final String SEPARATOR = " > ";
+    public static final String DEVELOPERS_LINK = "https://developer.nytimes.com";
+    public static final String GITHUB_PROJECT_LINK = "https://github.com/devedelie/MNA5";
 }

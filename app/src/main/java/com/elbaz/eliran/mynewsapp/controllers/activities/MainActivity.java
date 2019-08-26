@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.adapters.PageAdapter;
+import com.elbaz.eliran.mynewsapp.models.Constants;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -168,12 +171,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             int width = (int)(getResources().getDisplayMetrics().widthPixels*0.97);
             int height = (int)(getResources().getDisplayMetrics().heightPixels*0.97);
             dialog.getWindow().setLayout(width, height);
-
+            ImageView gitLogo = dialog.findViewById(R.id.github_link);
             // Load: Help OR About Array texts
             if (order == 2){
                 dialogTextArray = resources.getStringArray(R.array.dialog_help_text);
             }else if (order == 3){
                 dialogTextArray = resources.getStringArray(R.array.dialog_about_text);
+                gitLogo.setVisibility(View.GONE);
             }
             // Set view elements (get text from Array in strings.xml)
             TextView dialogTitle = dialog.findViewById(R.id.topTitle);
@@ -184,8 +188,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             text2.setText(dialogTextArray[2]);
             TextView text3 = dialog.findViewById(R.id.text_dialog_3);
             text3.setText(dialogTextArray[3]);
-            Button dialogButton = dialog.findViewById(R.id.btn_dialog);
-            dialogButton.setOnClickListener(new View.OnClickListener() {
+            gitLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.GITHUB_PROJECT_LINK) );
+                    startActivity(intent);
+                }
+            });
+            ImageView apiLogo = dialog.findViewById(R.id.image_providedBy_nyt_api);
+            apiLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.DEVELOPERS_LINK) );
+                    startActivity(intent);
+                }
+            });
+            Button dialogCloseButton = dialog.findViewById(R.id.btn_dialog);
+            dialogCloseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
@@ -194,5 +213,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             dialog.show();
         }
     }
+
+
 }
 
