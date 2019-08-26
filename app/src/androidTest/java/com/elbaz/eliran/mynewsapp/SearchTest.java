@@ -27,21 +27,16 @@ public class SearchTest {
 
     @Test
     public void searchActivity_runSearchWithoutSelectedCategory_returnErrorMessage() {
-        // Click on magnifying glass icon
-        onView(withId(R.id.menu_activity_main_search)).perform(click());
-        // Click on Search button while no category is selected
-        onView(withId(R.id.searchButton)).perform(click());
-        // Verify that a snackBar Message with correct text appears
+        onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
+        onView(withId(R.id.searchButton)).perform(click()); // Click on Search button while no category is selected
         onView(withText(R.string.Your_filter_field_is_empty))
-                .check(matches(isDisplayed()));
+                .check(matches(isDisplayed())); // Verify that a snackBar Message with correct text appears
     }
 
     @Test
     public void searchActivity_runSearchWithSelectedCategory_returnResults() {
-        // Click on magnifying glass icon
-        onView(withId(R.id.menu_activity_main_search)).perform(click());
-        // Then select a category and run a search
-        onView(withId(R.id.checkbox_politics)).perform(click());
+        onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
+        onView(withId(R.id.checkbox_politics)).perform(click()); // Then select a category and run a search
         onView(withId(R.id.searchButton)).perform(click());
         onView(withText("Search Results"))
                 .check(matches(isDisplayed()));
