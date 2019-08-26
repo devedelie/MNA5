@@ -34,7 +34,7 @@ import static android.content.ContentValues.TAG;
 public class NYTStreamsTest {
 
     @Test
-    public void isStream_fetchTopStoriesStream_returnSomeData() {
+    public void isStream_fetchTopStoriesStream_returnData() {
         Observable<NYTNews> observableTopStories = NYTStreams.streamFetchTopStories("home");
 
         TestObserver<NYTNews> topStoriesTestObserver = new TestObserver<>();
@@ -54,8 +54,8 @@ public class NYTStreamsTest {
     }
 
     @Test
-    public void isStream_fetchMostPopularLast7Days_ReturnSomeData() {
-        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("30"); // Only the following values are allowed: 1, 7, 30
+    public void isStream_fetchMostPopularLast7Days_ReturnData() {
+        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("7"); // Only the following values are allowed: 1, 7, 30
 
         TestObserver<NYTMostPopular> mostPopularTestObserver = new TestObserver<>();
 
@@ -70,28 +70,6 @@ public class NYTStreamsTest {
             Assert.assertTrue(rms.getTitle() != null && !rms.getTitle().isEmpty());
             Assert.assertTrue(rms.getSection() != null && !rms.getSection().isEmpty());
             Assert.assertTrue(rms.getPublishedDate() != null && !rms.getPublishedDate().isEmpty());
-        }
-    }
-
-    @Test
-    public void isStream_fetchMostPopularLast7Days_ReturnResultsWithinTheLastWeek() throws Exception{
-        Observable<NYTMostPopular> observableMostPopular = NYTStreams.streamFetchMostPopular("7"); // Only the following values are allowed: 1, 7, 30
-
-        TestObserver<NYTMostPopular> mostPopularTestObserver = new TestObserver<>();
-
-        observableMostPopular.subscribeWith(mostPopularTestObserver)
-                .assertNoErrors()
-                .assertNoTimeout()
-                .awaitTerminalEvent();
-
-        NYTMostPopular mostPopular = mostPopularTestObserver.values().get(0);
-        // Assert that all the titles are within the correct period (0-10 days-old max)
-        String dateBefore7Days = subtractDays(10); // the period value '7' returns news within the last 10 days approximately
-        for (ResultMostPopular result: mostPopular.getResults()){
-            String date = convertDate(result.getPublishedDate());
-            Log.d(TAG, "isStream_ReturnResultsWithinTheLastWeek: is bigger? " +dateBefore7Days + " < "+ date);
-            // check if the date is
-            Assert.assertTrue(Integer.parseInt(date) >= Integer.parseInt(dateBefore7Days));
         }
     }
 
@@ -149,10 +127,30 @@ public class NYTStreamsTest {
         Assert.assertEquals("20190801", date);
     }
 
+    @Test
+    public void isStream_fetchSearchResultsForBeginDateAndEndDate_returnArticlesWithCorrectDates() {
+        Observable<NYTSearch> observableSearchResults = NYTStreams.streamFetchSearchResults("20190501", "20190801", "news_desk:(\"Sports\")", "", "newest");
+
+        TestObserver<NYTSearch> searchResultTestObserver = new TestObserver<>();
+
+        observableSearchResults.subscribeWith(searchResultTestObserver)
+                .assertNoErrors()
+                .assertNoTimeout()
+                .awaitTerminalEvent();
+
+        NYTSearch searchResults = searchResultTestObserver.values().get(0);
+        Assert.assertEquals( true, searchResults.getResponse().getDocs().size() > 0);
+
+        for (Doc doc: searchResults.getResponse().getDocs()){
+            String date = convertDate(doc.getPubDate());
+            Assert.assertTrue(Integer.parseInt(date) >= Integer.parseInt("20190501") && Integer.parseInt(date) <= Integer.parseInt("20190801") );
+        }
+    }
+
     //----------------------------------------------------------------------------------------------
     //Helper methods
     //----------------------------------------------------------------------------------------------
-    // Date format converter
+    // Date format converter (yyyyMMdd)
     private String convertDate(String inputDate) {
         DateFormat theDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
