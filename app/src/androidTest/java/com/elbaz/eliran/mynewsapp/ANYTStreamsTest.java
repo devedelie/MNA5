@@ -31,7 +31,7 @@ import static android.content.ContentValues.TAG;
  * Created by Eliran Elbaz on 17-Aug-19.
  */
 @RunWith(JUnit4.class)
-public class NYTStreamsTest {
+public class ANYTStreamsTest {
 
     @Test
     public void isStream_fetchTopStoriesStream_returnData() {
