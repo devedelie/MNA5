@@ -121,6 +121,9 @@
         <item>intent_notification_activity_boolean</item>
     </string-array>
 
+    <!--Dialog box-->
+    <string name="close_btn">Close</string>
+    <string name="dialog_txt">text</string>
     <!--Below are the Help Texts-->
     <string-array name="dialog_help_text">
         <item>Help - Contact us</item>
