@@ -42,7 +42,6 @@ import static org.junit.Assert.assertEquals;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainActivityInstrumentedTest {
     private Context appContext= getInstrumentation().getTargetContext();
-    private static final int ITEM_BELOW_THE_FOLD = 12;
     // -------------------------------------------------------------------------------------------
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -118,12 +117,14 @@ public class MainActivityInstrumentedTest {
     }
 
     @Test
-    public void navigationDrawer_ClickOnItemToLoadArticles_returnCorrectActivity() throws Exception {
-        // open drawer -- > perform click--> close drawer
+    public void navigationDrawer_openAndCloseDrawer() throws Exception {
+        onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
+        onView(withContentDescription(R.string.navigation_drawer_close)).perform(click());
+    }
+
+    @Test
+    public void navigationDrawer_openDrawerAndPerformClick() throws Exception {
         onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
         onView(withText(R.string.food)).perform(click());
-        // Match the selected category with the relevant result (page title on toolbar)
-        onView(allOf(instanceOf(TextView.class), withParent(withId(R.id.toolbar))))
-                .check(matches(withText("Food")));
     }
 }
