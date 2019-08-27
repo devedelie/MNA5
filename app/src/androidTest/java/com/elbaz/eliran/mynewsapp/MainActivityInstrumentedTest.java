@@ -77,10 +77,13 @@ public class MainActivityInstrumentedTest {
         Thread.sleep(2000); // wait for stream results
         onView(withId(R.id.fragment_1_recyclerView)).check(new RecyclerViewItemCountAssertion(true)); // check if true
         Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());       // Swipe left
+        Thread.sleep(2000); // wait for stream results
         onView(withId(R.id.fragment_2_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
         Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());
+        Thread.sleep(2000); // wait for stream results
         onView(withId(R.id.fragment_3_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
         Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());
+        Thread.sleep(2000); // wait for stream results
         onView(withId(R.id.fragment_4_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
     }
 
