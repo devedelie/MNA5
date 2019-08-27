@@ -32,10 +32,10 @@
                 android:id="@+id/SearchField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="20sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="@dimen/search_editText_marginTop"
+                android:layout_marginBottom="@dimen/search_editText_marginBottom"
+                android:layout_marginStart="@dimen/search_editText_marginStart"
+                android:layout_marginEnd="@dimen/search_editText_marginEnd"
                 android:hint="@string/search_query_hint"
                 android:inputType="text"/>
 
@@ -43,10 +43,10 @@
                 android:id="@+id/NotificationsSearchField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="20sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="@dimen/search_editText_marginTop"
+                android:layout_marginBottom="@dimen/search_editText_marginBottom"
+                android:layout_marginStart="@dimen/search_editText_marginStart"
+                android:layout_marginEnd="@dimen/search_editText_marginEnd"
                 android:hint="@string/notifications_query_hint"
                 android:inputType="text"/>
 
@@ -70,7 +70,7 @@
                         android:id="@+id/StartDateText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/startDate_EndDate_text_size"
                         android:textColor="@color/primaryText"
                         android:text="@string/startDate_hint"/>
 
@@ -78,9 +78,9 @@
                         android:id="@+id/search_startDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
-                        android:layout_marginBottom="30dp"
-                        android:textSize="15sp"
+                        android:padding="@dimen/startDate_EndDate_text_padding"
+                        android:layout_marginBottom="@dimen/startDate_EndDate_marginBottom"
+                        android:textSize="@dimen/startDate_EndDate_text_size"
                         android:hint="@string/hint_date"
                         style="@android:style/Widget.Holo.Spinner"
                         android:onClick="searchDatePicker"/>
@@ -117,7 +117,7 @@
                         android:id="@+id/EndDateText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/startDate_EndDate_text_size"
                         android:textColor="@color/primaryText"
                         android:text="@string/endDate_hint"/>
 
@@ -125,10 +125,10 @@
                         android:id="@+id/search_endDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:padding="15dp"
+                        android:textSize="@dimen/startDate_EndDate_text_size"
+                        android:padding="@dimen/startDate_EndDate_text_padding"
                         android:onClick="searchDatePicker"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginBottom="@dimen/startDate_EndDate_marginBottom"
                         android:hint="@string/hint_date"
                         style="@android:style/Widget.Holo.Spinner"/>
 
@@ -164,33 +164,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    android:textSize="20sp"
+                    android:layout_marginTop="@dimen/search_button_marginTop"
+                    android:textSize="@dimen/search_button_text_size"
                     android:background="@color/design_default_color_primary"
                     android:textColor="@color/GeneralText"
-                    android:width="250dp"
+                    android:width="@dimen/search_button_width"
                     android:text="@string/search_button"
                     android:onClick="searchButtonOnClickAction"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/notifications_switchButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="@dimen/notifications_switch_height"
                     android:checked="false"
                     android:layout_below="@+id/searchButton"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="@dimen/notifications_switch_marginTop"
                     android:text="@string/notification_text"
                     android:layout_centerHorizontal="true" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/workManagerTester"
-                    android:layout_below="@+id/notifications_switchButton"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:onClick="check"
-                    android:visibility="gone"/>
 
             </RelativeLayout>
 

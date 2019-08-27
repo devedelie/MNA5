@@ -10,4 +10,7 @@
     <color name="recyclerViewBackground">#F3F3F3</color>
     <color name="icons">#ffff</color>
     <color name="general_white">#ffff</color>
+    <!--Tabs-->
+    <color name="tabs_background_color">#B6C9F1</color>
+    <color name="tabs_text_color">#D4E0F8</color>
 </resources>

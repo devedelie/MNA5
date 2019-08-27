@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="recyclerView_padding">3dp</dimen>
+    <dimen name="search_editText_marginTop">20sp</dimen>
+    <dimen name="search_editText_marginBottom">20sp</dimen>
+    <dimen name="search_editText_marginStart">10dp</dimen>
+    <dimen name="search_editText_marginEnd">10dp</dimen>
+    <dimen name="startDate_EndDate_text_size">15sp</dimen>
+    <dimen name="startDate_EndDate_text_padding">15dp</dimen>
+    <dimen name="startDate_EndDate_marginBottom">30dp</dimen>
+    <dimen name="search_button_text_size">20sp</dimen>
+    <dimen name="search_button_marginTop">50dp</dimen>
+    <dimen name="search_button_width">250dp</dimen>
+    <dimen name="notifications_switch_height">35dp</dimen>
+    <dimen name="notifications_switch_marginTop">50dp</dimen>
+    <dimen name="dialog_title_size">18sp</dimen>
+    <dimen name="dialog_text_size">12sp</dimen>
+    <dimen name="dialog_layout_height">60dp</dimen>
+    <dimen name="dialog_layout_marginTop">20dp</dimen>
+    <dimen name="dialog_layout_marginBottom">20dp</dimen>
+    <dimen name="dialog_layout_marginStart">4dp</dimen>
+    <dimen name="dialog_layout_marginEnd">4dp</dimen>
 
 </resources>
