@@ -27,13 +27,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.elbaz.eliran.mynewsapp.R;
 import com.elbaz.eliran.mynewsapp.utils.NotificationWorker;
 import com.elbaz.eliran.mynewsapp.utils.SnackbarMessagesAndVibrations;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +39,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.ContentValues.TAG;
@@ -394,32 +391,4 @@ public class SearchAndNotificationsActivity extends AppCompatActivity implements
 
         WorkManager.getInstance(this).enqueue(saveRequest);
     }
-
-    /////////////////////////////////////////
-    // Testing ONLY - A method to know if WorkManager has a running scheduled work (by TAG)
-    public void check(View view){
-        boolean x = isWorkScheduled(getString(R.string.WM_periodic_notifications_tag));
-        Log.d(TAG, "Scheduled work, with tag: "+getString(R.string.WM_periodic_notifications_tag) + "is ON? "+ x);
-    }
-    public boolean isWorkScheduled( String tag) {
-        WorkManager instance = WorkManager.getInstance(this);
-        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(tag);
-        try {
-            boolean running = false;
-            List<WorkInfo> workInfoList = statuses.get();
-            for (WorkInfo workInfo : workInfoList) {
-                WorkInfo.State state = workInfo.getState();
-                running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
-            }
-            return running;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    ///////////////////////////////////////////////////////
-    // End of Test
 }
