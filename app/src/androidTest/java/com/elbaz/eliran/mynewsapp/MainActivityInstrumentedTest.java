@@ -87,25 +87,6 @@ public class MainActivityInstrumentedTest {
         onView(withId(R.id.fragment_4_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
     }
 
-    public class RecyclerViewItemCountAssertion implements ViewAssertion {
-        private final boolean expectedCount;
-
-        public RecyclerViewItemCountAssertion(boolean expectedCount) {
-            this.expectedCount = expectedCount;
-        }
-
-        @Override
-        public void check(View view, NoMatchingViewException noViewFoundException) {
-            if (noViewFoundException != null) {
-                throw noViewFoundException;
-            }
-
-            RecyclerView recyclerView = (RecyclerView) view;
-            RecyclerView.Adapter adapter = recyclerView.getAdapter();
-            Assert.assertThat(adapter.getItemCount() > 0 , is(expectedCount));
-        }
-    }
-
     @Test
     public void MainActivity_checkMainViewElementsVisibility_returnMatch() throws Exception {
         onView(withId(R.id.menu_activity_main_search)).check(matches(isCompletelyDisplayed())); // magnifying glass icon
@@ -168,5 +149,27 @@ public class MainActivityInstrumentedTest {
     public void navigationDrawer_openDrawerAndPerformClick() throws Exception {
         onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
         onView(withText(R.string.food)).perform(click());
+    }
+
+    //----------------------------------------------------------------------------------------------
+    //RecyclerView count - Helper method
+    //----------------------------------------------------------------------------------------------
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
+        private final boolean expectedCount;
+
+        public RecyclerViewItemCountAssertion(boolean expectedCount) {
+            this.expectedCount = expectedCount;
+        }
+
+        @Override
+        public void check(View view, NoMatchingViewException noViewFoundException) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
+
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            Assert.assertThat(adapter.getItemCount() > 0 , is(expectedCount));
+        }
     }
 }
