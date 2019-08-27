@@ -1,12 +1,18 @@
 package com.elbaz.eliran.mynewsapp;
 
 
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.NoMatchingViewException;
+import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.elbaz.eliran.mynewsapp.controllers.activities.MainActivity;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +23,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.Is.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -56,5 +63,33 @@ public class SearchTest {
         onView(withId(R.id.searchButton)).perform(click());
         onView(withText("Search Results"))
                 .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void SearchActivity_runSearchWithSelectedCategory_returnTenResults() throws Exception{
+        onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
+        onView(withId(R.id.checkbox_politics)).perform(click()); // Then select a category and run a search
+        onView(withId(R.id.searchButton)).perform(click());
+        Thread.sleep(2000); // wait for stream results
+        onView(withId(R.id.search_results_recyclerView)).check(new RecyclerViewItemCountAssertion(10));
+    }
+
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
+        private final int expectedCount;
+
+        public RecyclerViewItemCountAssertion(int expectedCount) {
+            this.expectedCount = expectedCount;
+        }
+
+        @Override
+        public void check(View view, NoMatchingViewException noViewFoundException) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
+
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            Assert.assertThat(adapter.getItemCount(), is(expectedCount));
+        }
     }
 }
