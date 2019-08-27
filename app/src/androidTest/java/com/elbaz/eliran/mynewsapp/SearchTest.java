@@ -33,6 +33,34 @@ public class SearchTest {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
+    public void SearchActivity_runSearchWithSelectedCategory_returnTenResults() throws Exception{
+        onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
+        onView(withId(R.id.checkbox_politics)).perform(click()); // Then select a category and run a search
+        onView(withId(R.id.searchButton)).perform(click());
+        Thread.sleep(2000); // wait for stream results
+        onView(withId(R.id.search_results_recyclerView)).check(new RecyclerViewItemCountAssertion(10));
+    }
+
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
+        private final int expectedCount;
+
+        public RecyclerViewItemCountAssertion(int expectedCount) {
+            this.expectedCount = expectedCount;
+        }
+
+        @Override
+        public void check(View view, NoMatchingViewException noViewFoundException) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
+
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            Assert.assertThat(adapter.getItemCount(), is(expectedCount));
+        }
+    }
+
+    @Test
     public void searchActivity_runSearchWithoutSelectedCategory_returnErrorMessage() {
         onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
         onView(withId(R.id.searchButton)).perform(click()); // Click on Search button while no category is selected
@@ -63,33 +91,5 @@ public class SearchTest {
         onView(withId(R.id.searchButton)).perform(click());
         onView(withText("Search Results"))
                 .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void SearchActivity_runSearchWithSelectedCategory_returnTenResults() throws Exception{
-        onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
-        onView(withId(R.id.checkbox_politics)).perform(click()); // Then select a category and run a search
-        onView(withId(R.id.searchButton)).perform(click());
-        Thread.sleep(2000); // wait for stream results
-        onView(withId(R.id.search_results_recyclerView)).check(new RecyclerViewItemCountAssertion(10));
-    }
-
-    public class RecyclerViewItemCountAssertion implements ViewAssertion {
-        private final int expectedCount;
-
-        public RecyclerViewItemCountAssertion(int expectedCount) {
-            this.expectedCount = expectedCount;
-        }
-
-        @Override
-        public void check(View view, NoMatchingViewException noViewFoundException) {
-            if (noViewFoundException != null) {
-                throw noViewFoundException;
-            }
-
-            RecyclerView recyclerView = (RecyclerView) view;
-            RecyclerView.Adapter adapter = recyclerView.getAdapter();
-            Assert.assertThat(adapter.getItemCount(), is(expectedCount));
-        }
     }
 }

@@ -1,9 +1,15 @@
 package com.elbaz.eliran.mynewsapp;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.NoMatchingViewException;
+import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -11,6 +17,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.elbaz.eliran.mynewsapp.controllers.activities.MainActivity;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,6 +39,7 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -62,6 +70,37 @@ public class MainActivityInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         assertEquals("com.elbaz.eliran.mynewsapp", appContext.getPackageName());
+    }
+
+    @Test
+    public void MainActivity_checkTabsRecyclerViewSizeIsBiggerThanZero_returnTrue() throws Exception{
+        Thread.sleep(2000); // wait for stream results
+        onView(withId(R.id.fragment_1_recyclerView)).check(new RecyclerViewItemCountAssertion(true)); // check if true
+        Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());       // Swipe left
+        onView(withId(R.id.fragment_2_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
+        Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());
+        onView(withId(R.id.fragment_3_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
+        Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());
+        onView(withId(R.id.fragment_4_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
+    }
+
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
+        private final boolean expectedCount;
+
+        public RecyclerViewItemCountAssertion(boolean expectedCount) {
+            this.expectedCount = expectedCount;
+        }
+
+        @Override
+        public void check(View view, NoMatchingViewException noViewFoundException) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
+
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            Assert.assertThat(adapter.getItemCount() > 0 , is(expectedCount));
+        }
     }
 
     @Test
