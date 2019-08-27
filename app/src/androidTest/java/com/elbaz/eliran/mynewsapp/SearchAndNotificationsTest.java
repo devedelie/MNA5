@@ -58,25 +58,6 @@ public class SearchAndNotificationsTest {
         onView(withId(R.id.search_results_recyclerView)).check(new RecyclerViewItemCountAssertion(10));
     }
 
-    public class RecyclerViewItemCountAssertion implements ViewAssertion {
-        private final int expectedCount;
-
-        public RecyclerViewItemCountAssertion(int expectedCount) {
-            this.expectedCount = expectedCount;
-        }
-
-        @Override
-        public void check(View view, NoMatchingViewException noViewFoundException) {
-            if (noViewFoundException != null) {
-                throw noViewFoundException;
-            }
-
-            RecyclerView recyclerView = (RecyclerView) view;
-            RecyclerView.Adapter adapter = recyclerView.getAdapter();
-            Assert.assertThat(adapter.getItemCount(), is(expectedCount));
-        }
-    }
-
     @Test
     public void searchActivity_runSearchWithoutSelectedCategory_returnErrorMessage() {
         onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
@@ -86,16 +67,7 @@ public class SearchAndNotificationsTest {
     }
 
     @Test
-    public void searchActivity_runSearchWithSelectedCategory_returnResults() {
-        onView(withId(R.id.menu_activity_main_search)).perform(click()); // Click on magnifying glass icon
-        onView(withId(R.id.checkbox_politics)).perform(click()); // Then select a category and run a search
-        onView(withId(R.id.searchButton)).perform(click());
-        onView(withText("Search Results"))
-                .check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void searchActivity_runSearchWithEndDateAndAllCategories_ () {
+    public void searchActivity_runSearchWithEndDateAndAllCategories_returnTenResults () throws Exception {
         onView(withId(R.id.menu_activity_main_search)).perform(click());
         onView(withId(R.id.search_endDate)).perform(click());
         onView(withId(android.R.id.button1)).perform(click()); // OK button
@@ -108,6 +80,8 @@ public class SearchAndNotificationsTest {
         onView(withId(R.id.searchButton)).perform(click());
         onView(withText("Search Results"))
                 .check(matches(isDisplayed()));
+        Thread.sleep(2000); // wait for stream results
+        onView(withId(R.id.search_results_recyclerView)).check(new RecyclerViewItemCountAssertion(10));
     }
 
     @Test
@@ -126,7 +100,7 @@ public class SearchAndNotificationsTest {
     }
 
     //----------------------------------------------------------------------------------------------
-    //Helper methods
+    //WorkManager Helper method
     //----------------------------------------------------------------------------------------------
     public boolean isWorkScheduled( String tag) {
         WorkManager instance = WorkManager.getInstance(appContext);
@@ -148,6 +122,9 @@ public class SearchAndNotificationsTest {
         }
     }
 
+    //----------------------------------------------------------------------------------------------
+    //Notification checkbox verifier - Helper method
+    //----------------------------------------------------------------------------------------------
     public static ViewAction setChecked(final boolean checked) {
         return new ViewAction() {
             @Override
@@ -179,5 +156,27 @@ public class SearchAndNotificationsTest {
         };
     }
 
+    //----------------------------------------------------------------------------------------------
+    //RecyclerView count - Helper method
+    //----------------------------------------------------------------------------------------------
+
+    public class RecyclerViewItemCountAssertion implements ViewAssertion {
+        private final int expectedCount;
+
+        public RecyclerViewItemCountAssertion(int expectedCount) {
+            this.expectedCount = expectedCount;
+        }
+
+        @Override
+        public void check(View view, NoMatchingViewException noViewFoundException) {
+            if (noViewFoundException != null) {
+                throw noViewFoundException;
+            }
+
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            Assert.assertThat(adapter.getItemCount(), is(expectedCount));
+        }
+    }
 
 }
