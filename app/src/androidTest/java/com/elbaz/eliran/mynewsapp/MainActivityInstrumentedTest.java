@@ -88,7 +88,7 @@ public class MainActivityInstrumentedTest {
     }
 
     @Test
-    public void MainActivity_checkMainViewElementsVisibility_returnMatch() throws Exception {
+    public void MainActivity_checkMainViewElementsVisibility_returnMatchesIsCompletelyDisplayed() throws Exception {
         onView(withId(R.id.menu_activity_main_search)).check(matches(isCompletelyDisplayed())); // magnifying glass icon
         onView(withId(R.id.activity_main_root)).check(matches(isCompletelyDisplayed())); // main layout
         onView(withId(R.id.activity_main_drawer_layout)).check(matches(isCompletelyDisplayed())); // drawer layout
