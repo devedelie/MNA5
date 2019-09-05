@@ -32,6 +32,10 @@ android {
         mavenCentral()
         google()
     }
+    android{
+        aaptOptions.cruncherEnabled = false
+        aaptOptions.useNewCruncher = false
+    }
 }
 
 dependencies {
