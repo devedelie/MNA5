@@ -70,21 +70,6 @@ public class MainActivityInstrumentedTest {
         assertEquals("com.elbaz.eliran.mynewsapp", appContext.getPackageName());
     }
 
-//    @Test
-//    public void MainActivity_checkTabsRecyclerViewSizeIsBiggerThanZero_returnTrue() throws Exception{
-//        Thread.sleep(2000); // wait for stream results
-//        onView(withId(R.id.fragment_1_recyclerView)).check(new RecyclerViewItemCountAssertion(true)); // check if true
-//        Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());       // Swipe left
-//        Thread.sleep(2000); // wait for stream results
-//        onView(withId(R.id.fragment_2_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
-//        Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());
-//        Thread.sleep(2000); // wait for stream results
-//        onView(withId(R.id.fragment_3_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
-//        Espresso.onView(ViewMatchers.withId(R.id.activity_main_viewpager)).perform(ViewActions.swipeLeft());
-//        Thread.sleep(2000); // wait for stream results
-//        onView(withId(R.id.fragment_4_recyclerView)).check(new RecyclerViewItemCountAssertion(true));
-//    }
-
     @Test
     public void MainActivity_checkMainViewElementsVisibility_returnMatchesIsCompletelyDisplayed() throws Exception {
         onView(withId(R.id.menu_activity_main_search)).check(matches(isCompletelyDisplayed())); // magnifying glass icon
